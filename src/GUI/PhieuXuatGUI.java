@@ -4,17 +4,33 @@
  */
 package GUI;
 
+import javax.swing.ComboBoxModel;
+import javax.swing.DefaultComboBoxModel;
+
 /**
  *
  * @author ACER
  */
-public class PhieuXuatGUI extends javax.swing.JPanel {
+public class PhieuXuatGUI extends PhieuNhapGUI {
 
     /**
      * Creates new form PhieuXuat
      */
     public PhieuXuatGUI() {
-        initComponents();
+        super();
+        labelNCC.setText("Khách hàng");
+        labelNV.setText("Nhân viên xuất");
+        tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "STT", "Mã phiếu xuất", "Khách hàng", "Nhân viên xuất", "Thời gian", "Tổng tiền (VNĐ)"
+            }));
+        cbbFilter.removeAllItems();
+        cbbFilter.setModel(new DefaultComboBoxModel(new String [] {
+            "Tất cả","Mã phiếu xuất","Khách hàng","Nhân viên xuất"
+        }));
     }
 
     /**
@@ -26,30 +42,19 @@ public class PhieuXuatGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-
-        jLabel1.setText("ĐÂY LÀ PHIẾU XUẤT");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(138, 138, 138)
-                .addComponent(jLabel1)
-                .addContainerGap(153, Short.MAX_VALUE))
+            .addGap(0, 963, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(133, 133, 133)
-                .addComponent(jLabel1)
-                .addContainerGap(151, Short.MAX_VALUE))
+            .addGap(0, 724, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
     // End of variables declaration//GEN-END:variables
 }
