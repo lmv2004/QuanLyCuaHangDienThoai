@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.awt.BorderLayout;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author ACER
@@ -13,8 +16,13 @@ public class MainMenuGUI extends javax.swing.JFrame {
     /**
      * Creates new form MainMenuGUI
      */
+    //my variables
+    PhieuNhapGUI phieuNhap;
+    PhieuXuatGUI phieuXuat;
+    
     public MainMenuGUI() {
         initComponents();
+        viewContent.setLayout(new BorderLayout());
     }
 
     /**
@@ -29,6 +37,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
@@ -47,47 +57,82 @@ public class MainMenuGUI extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("QUẢN LÝ CỬA HÀNG ĐIỆN THOẠI");
 
-        jLabel1.setText("TK & Quyền");
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconUser.png"))); // NOI18N
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        jLabel2.setText("User Name");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+        jLabel3.setText("Vị trí");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(55, 55, 55)
-                .addComponent(jLabel1)
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(16, 16, 16)
-                .addComponent(jLabel1)
-                .addContainerGap(25, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel3))
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
+        jButton1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton1.setText("Bán Hàng");
 
+        jButton2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton2.setText("Sản Phẩm");
 
+        jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton3.setText("Khách Hàng");
 
+        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton4.setText("Phiếu Xuất");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
 
+        jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton5.setText("Khu Vực Kho");
 
+        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton6.setText("Phiếu Nhập");
+        jButton6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton6ActionPerformed(evt);
+            }
+        });
 
+        jButton7.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton7.setText("Tài Khoản");
 
+        jButton8.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton8.setText("Nhà Cung Cấp");
 
+        jButton9.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton9.setText("Nhân Viên");
 
+        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton10.setText("Bảo Hành");
 
+        jButton11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton11.setText("Phân Quyền");
 
+        jButton12.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton12.setText("Đăng Xuất");
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -95,6 +140,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
             }
         });
 
+        jButton13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton13.setText("Thống Kê");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -160,11 +206,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         viewContent.setLayout(viewContentLayout);
         viewContentLayout.setHorizontalGroup(
             viewContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 931, Short.MAX_VALUE)
+            .addGap(0, 963, Short.MAX_VALUE)
         );
         viewContentLayout.setVerticalGroup(
             viewContentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 706, Short.MAX_VALUE)
+            .addGap(0, 724, Short.MAX_VALUE)
         );
 
         getContentPane().add(viewContent, java.awt.BorderLayout.CENTER);
@@ -178,6 +224,22 @@ public class MainMenuGUI extends javax.swing.JFrame {
         this.dispose();
         new LogInGUI().setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+        // TODO add your handling code here:
+        viewContent.removeAll();
+        phieuNhap=new PhieuNhapGUI();
+        viewContent.add(phieuNhap,BorderLayout.CENTER);
+        viewContent.revalidate();
+    }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        viewContent.removeAll();
+        phieuXuat=new PhieuXuatGUI();
+        viewContent.add(phieuXuat,BorderLayout.CENTER);
+        viewContent.revalidate();
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -229,6 +291,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel viewContent;

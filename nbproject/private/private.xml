@@ -4,7 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/Java/QuanLyCuaHangDienThoai/src/GUI/MainMenuGUI.java</file>
-            <file>file:/D:/Java/QuanLyCuaHangDienThoai/src/GUI/LogIn.java</file>
+            <file>file:/D:/Java/QuanLyCuaHangDienThoai/src/GUI/PhieuXuatGUI.java</file>
+            <file>file:/D:/Java/QuanLyCuaHangDienThoai/src/GUI/PhieuNhapGUI.java</file>
+            <file>file:/D:/Java/QuanLyCuaHangDienThoai/src/GUI/LogInGUI.java</file>
         </group>
     </open-files>
 </project-private>
