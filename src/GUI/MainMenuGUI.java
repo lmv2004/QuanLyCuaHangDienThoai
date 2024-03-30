@@ -21,6 +21,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
     PhieuXuatGUI phieuXuat;
     NhanVienGUI nhanVien;
     BanHangGUI banHang;
+    Warranty baoHanh;
+    
     public MainMenuGUI() {
         initComponents();
         viewContent.setLayout(new BorderLayout());
@@ -43,13 +45,13 @@ public class MainMenuGUI extends javax.swing.JFrame {
         BanHangBtn = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        PhieuXuat = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        PhieuNhap = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
         jButton8 = new javax.swing.JButton();
         NhanVienBtn = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        BaoHanh = new javax.swing.JButton();
         jButton11 = new javax.swing.JButton();
         jButton12 = new javax.swing.JButton();
         jButton13 = new javax.swing.JButton();
@@ -104,27 +106,27 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton3.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton3.setText("Khách Hàng");
 
-        jButton4.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton4.setText("Phiếu Xuất");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        PhieuXuat.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        PhieuXuat.setText("Phiếu Xuất");
+        PhieuXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                PhieuXuatActionPerformed(evt);
             }
         });
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton5.setText("Khu Vực Kho");
 
-        jButton6.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton6.setText("Phiếu Nhập");
-        jButton6.addMouseListener(new java.awt.event.MouseAdapter() {
+        PhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        PhieuNhap.setText("Phiếu Nhập");
+        PhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jButton6MouseClicked(evt);
+                PhieuNhapMouseClicked(evt);
             }
         });
-        jButton6.addActionListener(new java.awt.event.ActionListener() {
+        PhieuNhap.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton6ActionPerformed(evt);
+                PhieuNhapActionPerformed(evt);
             }
         });
 
@@ -142,8 +144,13 @@ public class MainMenuGUI extends javax.swing.JFrame {
             }
         });
 
-        jButton10.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        jButton10.setText("Bảo Hành");
+        BaoHanh.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        BaoHanh.setText("Bảo Hành");
+        BaoHanh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BaoHanhActionPerformed(evt);
+            }
+        });
 
         jButton11.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton11.setText("Phân Quyền");
@@ -170,15 +177,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
                     .addComponent(BanHangBtn, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PhieuXuat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton6, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PhieuNhap, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton7, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(NhanVienBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton11, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton13, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(BaoHanh, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton12, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
@@ -194,9 +201,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PhieuNhap, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PhieuXuat, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -208,7 +215,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton13, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton10, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(BaoHanh, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton11, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -241,25 +248,25 @@ public class MainMenuGUI extends javax.swing.JFrame {
         new LogInGUI().setVisible(true);
     }//GEN-LAST:event_jButton12ActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void PhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhieuNhapActionPerformed
         // TODO add your handling code here:
         viewContent.removeAll();
         phieuNhap=new PhieuNhapGUI();
         viewContent.add(phieuNhap,BorderLayout.CENTER);
         viewContent.revalidate();
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_PhieuNhapActionPerformed
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+    private void PhieuXuatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhieuXuatActionPerformed
         // TODO add your handling code here:
         viewContent.removeAll();
         phieuXuat=new PhieuXuatGUI();
         viewContent.add(phieuXuat,BorderLayout.CENTER);
         viewContent.revalidate();
-    }//GEN-LAST:event_jButton4ActionPerformed
+    }//GEN-LAST:event_PhieuXuatActionPerformed
 
-    private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
+    private void PhieuNhapMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PhieuNhapMouseClicked
       
-    }//GEN-LAST:event_jButton6MouseClicked
+    }//GEN-LAST:event_PhieuNhapMouseClicked
 
     private void NhanVienBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_NhanVienBtnActionPerformed
         viewContent.removeAll();
@@ -276,6 +283,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
         viewContent.repaint();
         viewContent.validate();
     }//GEN-LAST:event_BanHangBtnActionPerformed
+
+    private void BaoHanhActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BaoHanhActionPerformed
+        // TODO add your handling code here:
+        viewContent.removeAll();
+        baoHanh= new Warranty();
+        viewContent.add(baoHanh);
+        viewContent.repaint();
+        viewContent.validate();
+    }//GEN-LAST:event_BaoHanhActionPerformed
 
     /**
      * @param args the command line arguments
@@ -314,16 +330,16 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BanHangBtn;
+    private javax.swing.JButton BaoHanh;
     private javax.swing.JButton NhanVienBtn;
-    private javax.swing.JButton jButton10;
+    private javax.swing.JButton PhieuNhap;
+    private javax.swing.JButton PhieuXuat;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JLabel jLabel1;
