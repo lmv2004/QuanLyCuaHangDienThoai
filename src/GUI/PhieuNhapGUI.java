@@ -7,6 +7,7 @@ package GUI;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
 import com.toedter.calendar.*;
+import java.awt.Color;
 
 /**
  *
@@ -31,15 +32,16 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private void initComponents() {
 
         viewContent = new javax.swing.JPanel();
-        jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        Button_Function = new javax.swing.JPanel();
+        Add = new javax.swing.JButton();
+        Update1 = new javax.swing.JButton();
+        Update = new javax.swing.JButton();
+        Detail = new javax.swing.JButton();
+        Import_Excel = new javax.swing.JButton();
+        Export_Excel = new javax.swing.JButton();
         cbbFilter = new javax.swing.JComboBox<>();
         jTextField1 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        Refresh = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         labelNCC = new javax.swing.JLabel();
         jComboBox2 = new javax.swing.JComboBox<>();
@@ -63,62 +65,126 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
         viewContent.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setText("Thêm");
+        Button_Function.setOpaque(false);
+        Button_Function.setPreferredSize(new java.awt.Dimension(963, 50));
 
-        jButton2.setText("Xóa");
+        Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add.png"))); // NOI18N
+        Add.setMnemonic('t');
+        Add.setToolTipText("Thêm");
+        Add.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Add.setIconTextGap(8);
+        Add.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Add.setPreferredSize(new java.awt.Dimension(40, 40));
+        Add.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Button_Function.add(Add);
 
-        jButton3.setText("Sửa");
+        Update1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
+        Update1.setMnemonic('x');
+        Update1.setToolTipText("Xóa");
+        Update1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Update1.setIconTextGap(8);
+        Update1.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Update1.setPreferredSize(new java.awt.Dimension(40, 40));
+        Update1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Button_Function.add(Update1);
 
-        jButton4.setText("Chi tiết");
+        Update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
+        Update.setMnemonic('s');
+        Update.setToolTipText("Sửa");
+        Update.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Update.setIconTextGap(8);
+        Update.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Update.setPreferredSize(new java.awt.Dimension(40, 40));
+        Update.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
+        Button_Function.add(Update);
 
-        jButton5.setText("Xuất Excel");
+        Detail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
+        Detail.setMnemonic('c');
+        Detail.setToolTipText("Chi Tiết");
+        Detail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Detail.setIconTextGap(8);
+        Detail.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Detail.setPreferredSize(new java.awt.Dimension(40, 40));
+        Detail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Detail.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DetailActionPerformed(evt);
+            }
+        });
+        Button_Function.add(Detail);
 
-        cbbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập" }));
+        Import_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/import_excel.png"))); // NOI18N
+        Import_Excel.setMnemonic('i');
+        Import_Excel.setToolTipText("Nhập Excel");
+        Import_Excel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Import_Excel.setIconTextGap(8);
+        Import_Excel.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Import_Excel.setPreferredSize(new java.awt.Dimension(40, 40));
+        Import_Excel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Import_Excel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Import_ExcelActionPerformed(evt);
+            }
+        });
+        Button_Function.add(Import_Excel);
 
-        jTextField1.setText("Nhập nội dung tìm kiếm");
+        Export_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/export_excel.png"))); // NOI18N
+        Export_Excel.setMnemonic('e');
+        Export_Excel.setToolTipText("Xuất Excel");
+        Export_Excel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Export_Excel.setIconTextGap(8);
+        Export_Excel.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Export_Excel.setPreferredSize(new java.awt.Dimension(40, 40));
+        Export_Excel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Export_Excel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Export_ExcelActionPerformed(evt);
+            }
+        });
+        Button_Function.add(Export_Excel);
 
-        jButton6.setText("Làm mới");
+        cbbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập" }));
+        cbbFilter.setPreferredSize(new java.awt.Dimension(120, 25));
+        cbbFilter.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbFilterActionPerformed(evt);
+            }
+        });
+        Button_Function.add(cbbFilter);
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton4)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton5)
-                .addGap(96, 96, 96)
-                .addComponent(cbbFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton6)
-                .addGap(0, 91, Short.MAX_VALUE))
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                        .addComponent(cbbFilter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jButton6))
-                    .addComponent(jButton4, javax.swing.GroupLayout.DEFAULT_SIZE, 52, Short.MAX_VALUE)
-                    .addComponent(jButton3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(15, Short.MAX_VALUE))
-        );
+        jTextField1.setForeground(java.awt.Color.gray);
+        jTextField1.setText("Nhập Nội Dung Tìm Kiếm");
+        jTextField1.setPreferredSize(new java.awt.Dimension(160, 25));
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                jTextField1FocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+        Button_Function.add(jTextField1);
 
-        viewContent.add(jPanel1, java.awt.BorderLayout.PAGE_START);
+        Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh.png"))); // NOI18N
+        Refresh.setToolTipText("Refresh");
+        Refresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        Refresh.setIconTextGap(8);
+        Refresh.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Refresh.setPreferredSize(new java.awt.Dimension(40, 40));
+        Refresh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        Refresh.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RefreshActionPerformed(evt);
+            }
+        });
+        Button_Function.add(Refresh);
+
+        viewContent.add(Button_Function, java.awt.BorderLayout.PAGE_START);
 
         labelNCC.setText("Nhà cung cấp");
 
@@ -207,7 +273,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(265, Short.MAX_VALUE))
+                .addContainerGap(288, Short.MAX_VALUE))
         );
 
         viewContent.add(jPanel2, java.awt.BorderLayout.LINE_START);
@@ -249,7 +315,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 639, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 662, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -286,15 +352,60 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jButton7ActionPerformed(evt);
     }//GEN-LAST:event_jButton8ActionPerformed
 
+    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_UpdateActionPerformed
+
+    private void DetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetailActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_DetailActionPerformed
+
+    private void Import_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Import_ExcelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Import_ExcelActionPerformed
+
+    private void Export_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Export_ExcelActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Export_ExcelActionPerformed
+
+    private void cbbFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbFilterActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbbFilterActionPerformed
+
+    private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
+        // TODO add your handling code here:
+        cbbFilter.setSelectedIndex(0);
+        jTextField1.setText("Nhập Nội Dung Tìm Kiếm");
+        jTextField1.setForeground(Color.GRAY);
+    }//GEN-LAST:event_RefreshActionPerformed
+
+    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
+        // TODO add your handling code here:
+        if(jTextField1.getText().trim().toLowerCase().equals("nhập nội dung tìm kiếm")){
+            jTextField1.setText("");
+            jTextField1.setForeground(Color.BLACK);
+        }
+    }//GEN-LAST:event_jTextField1FocusGained
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+        // TODO add your handling code here:
+        if(jTextField1.getText().trim().equals("") || jTextField1.getText().trim().toLowerCase().equals("nhập nội dung tìm kiếm")){
+            jTextField1.setText("Nhập Nội Dung Tìm Kiếm");
+            jTextField1.setForeground(Color.GRAY);
+        }
+    }//GEN-LAST:event_jTextField1FocusLost
+
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Add;
+    private javax.swing.JPanel Button_Function;
+    private javax.swing.JButton Detail;
+    private javax.swing.JButton Export_Excel;
+    private javax.swing.JButton Import_Excel;
+    private javax.swing.JButton Refresh;
+    private javax.swing.JButton Update;
+    private javax.swing.JButton Update1;
     protected javax.swing.JComboBox<String> cbbFilter;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JComboBox<String> jComboBox2;
@@ -303,7 +414,6 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;

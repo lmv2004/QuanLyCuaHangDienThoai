@@ -261,6 +261,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         viewContent.removeAll();
         phieuXuat=new PhieuXuatGUI();
         viewContent.add(phieuXuat,BorderLayout.CENTER);
+        viewContent.repaint();
         viewContent.revalidate();
     }//GEN-LAST:event_PhieuXuatActionPerformed
 
