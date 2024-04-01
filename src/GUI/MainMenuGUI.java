@@ -6,6 +6,7 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
+import javaapplication2.ThongKe;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
@@ -24,6 +25,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     NhanVienGUI nhanVien;
     Account taiKhoan;
     BanHangGUI banHang;
+    ThongKe thongKe;
     Warranty baoHanh;
     Permission_Manager phanQuyen;
     
@@ -187,6 +189,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         jButton13.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton13.setText("Thống Kê");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -326,6 +333,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
         viewContent.repaint();
         viewContent.validate();
     }//GEN-LAST:event_jButton11ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        viewContent.removeAll();
+        thongKe= new ThongKe();
+        viewContent.add(thongKe);
+        viewContent.repaint();
+        viewContent.validate();
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      * @param args the command line arguments
