@@ -33,6 +33,13 @@ public class MainMenuGUI extends javax.swing.JFrame {
         initComponents();
         ImageIcon logo = new ImageIcon("src/img/logo.jpg");
         setIconImage(logo.getImage());
+        
+        
+        //default
+        banHang= new BanHangGUI();
+        viewContent.add(banHang);
+        viewContent.repaint();
+        viewContent.validate();
     }
 
     /**
@@ -266,8 +273,10 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new LogInGUI().setVisible(true);
+        if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thoát?")==0) {
+            this.dispose();
+            new LogInGUI().setVisible(true);
+        }
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void PhieuNhapActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhieuNhapActionPerformed
