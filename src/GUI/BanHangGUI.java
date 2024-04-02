@@ -18,7 +18,7 @@ public class BanHangGUI extends javax.swing.JPanel {
      */
     public BanHangGUI() {
         initComponents();
-       
+        function.placeHolder(SearchTf, "Tìm kiếm...");
     }
 
     /**
@@ -266,14 +266,6 @@ public class BanHangGUI extends javax.swing.JPanel {
         SearchTf.setForeground(new java.awt.Color(153, 153, 153));
         SearchTf.setText("Tìm kiếm...");
         SearchTf.setBorder(null);
-        SearchTf.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                SearchTfFocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                SearchTfFocusLost(evt);
-            }
-        });
 
         javax.swing.GroupLayout PanelSearchLayout = new javax.swing.GroupLayout(PanelSearch);
         PanelSearch.setLayout(PanelSearchLayout);
@@ -346,20 +338,6 @@ public class BanHangGUI extends javax.swing.JPanel {
         IphoneBtn.setOpaque(false);
         IphoneBtn.setForeground(Color.WHITE);
     }//GEN-LAST:event_SamSungBtnMouseClicked
-
-    private void SearchTfFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchTfFocusGained
-        if(SearchTf.getText().equals("Tìm Kiếm...")){
-           SearchTf.setText("");
-           SearchTf.setForeground(new Color(0,0,0));
-       }
-    }//GEN-LAST:event_SearchTfFocusGained
-
-    private void SearchTfFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchTfFocusLost
-        if(SearchTf.getText().equals("")){
-           SearchTf.setText("Tìm Kiếm...");
-           SearchTf.setForeground(new Color(153,153,153));
-       }
-    }//GEN-LAST:event_SearchTfFocusLost
  
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

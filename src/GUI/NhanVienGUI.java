@@ -29,7 +29,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        PanelNhanVIen = new javax.swing.JPanel();
         PanelControl = new javax.swing.JPanel();
         PanelControlLeft = new javax.swing.JPanel();
         AddBtn = new javax.swing.JButton();
@@ -48,7 +48,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
 
         setPreferredSize(new java.awt.Dimension(1200, 725));
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        PanelNhanVIen.setLayout(new java.awt.BorderLayout());
 
         PanelControl.setBackground(new java.awt.Color(64, 103, 146));
         PanelControl.setOpaque(false);
@@ -216,7 +216,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
 
         PanelControl.add(PanelControlRight, java.awt.BorderLayout.LINE_END);
 
-        jPanel1.add(PanelControl, java.awt.BorderLayout.PAGE_START);
+        PanelNhanVIen.add(PanelControl, java.awt.BorderLayout.PAGE_START);
 
         NhanVienTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -251,17 +251,17 @@ public class NhanVienGUI extends javax.swing.JPanel {
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
         );
 
-        jPanel1.add(PanelTable, java.awt.BorderLayout.CENTER);
+        PanelNhanVIen.add(PanelTable, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelNhanVIen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(PanelNhanVIen, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -299,11 +299,11 @@ public class NhanVienGUI extends javax.swing.JPanel {
     private javax.swing.JPanel PanelControl;
     private javax.swing.JPanel PanelControlLeft;
     private javax.swing.JPanel PanelControlRight;
+    private javax.swing.JPanel PanelNhanVIen;
     private javax.swing.JPanel PanelTable;
     private javax.swing.JButton RefeshBtn;
     private javax.swing.JButton RemoveBtn;
     private javax.swing.JTextField SearchTF;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
 }

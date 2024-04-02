@@ -6,7 +6,6 @@ package GUI;
 
 import java.awt.BorderLayout;
 import java.awt.Image;
-import javaapplication2.ThongKe;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
