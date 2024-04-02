@@ -74,6 +74,7 @@ public class LogInGUI extends javax.swing.JFrame {
         btnLogIn.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         btnLogIn.setForeground(java.awt.Color.white);
         btnLogIn.setText("Đăng nhập");
+        btnLogIn.setFocusPainted(false);
         btnLogIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btnLogInMouseEntered(evt);
@@ -152,7 +153,7 @@ public class LogInGUI extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("FlatFlat Dark".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }

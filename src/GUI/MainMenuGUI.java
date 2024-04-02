@@ -125,6 +125,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         BanHangBtn.setForeground(new java.awt.Color(255, 255, 255));
         BanHangBtn.setText("Bán Hàng");
         BanHangBtn.setBorder(null);
+        BanHangBtn.setFocusPainted(false);
         BanHangBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BanHangBtnActionPerformed(evt);
@@ -137,6 +138,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton2.setForeground(new java.awt.Color(255, 255, 255));
         jButton2.setText("Sản Phẩm");
         jButton2.setBorder(null);
+        jButton2.setFocusPainted(false);
         jPanel1.add(jButton2);
 
         jButton3.setBackground(new java.awt.Color(6, 66, 93));
@@ -144,6 +146,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton3.setForeground(new java.awt.Color(255, 255, 255));
         jButton3.setText("Khách Hàng");
         jButton3.setBorder(null);
+        jButton3.setFocusPainted(false);
         jPanel1.add(jButton3);
 
         PhieuXuat.setBackground(new java.awt.Color(6, 66, 93));
@@ -151,6 +154,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         PhieuXuat.setForeground(new java.awt.Color(255, 255, 255));
         PhieuXuat.setText("Phiếu Xuất");
         PhieuXuat.setBorder(null);
+        PhieuXuat.setFocusPainted(false);
         PhieuXuat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PhieuXuatActionPerformed(evt);
@@ -163,6 +167,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton5.setForeground(new java.awt.Color(255, 255, 255));
         jButton5.setText("Khu Vực Kho");
         jButton5.setBorder(null);
+        jButton5.setFocusPainted(false);
         jPanel1.add(jButton5);
 
         PhieuNhap.setBackground(new java.awt.Color(6, 66, 93));
@@ -170,6 +175,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         PhieuNhap.setForeground(new java.awt.Color(255, 255, 255));
         PhieuNhap.setText("Phiếu Nhập");
         PhieuNhap.setBorder(null);
+        PhieuNhap.setFocusPainted(false);
         PhieuNhap.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 PhieuNhapMouseClicked(evt);
@@ -187,6 +193,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton7.setForeground(new java.awt.Color(255, 255, 255));
         jButton7.setText("Tài Khoản");
         jButton7.setBorder(null);
+        jButton7.setFocusPainted(false);
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton7ActionPerformed(evt);
@@ -199,6 +206,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton8.setForeground(new java.awt.Color(255, 255, 255));
         jButton8.setText("Nhà Cung Cấp");
         jButton8.setBorder(null);
+        jButton8.setFocusPainted(false);
         jPanel1.add(jButton8);
 
         NhanVienBtn.setBackground(new java.awt.Color(6, 66, 93));
@@ -206,6 +214,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         NhanVienBtn.setForeground(new java.awt.Color(255, 255, 255));
         NhanVienBtn.setText("Nhân Viên");
         NhanVienBtn.setBorder(null);
+        NhanVienBtn.setFocusPainted(false);
         NhanVienBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 NhanVienBtnActionPerformed(evt);
@@ -218,6 +227,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         BaoHanh.setForeground(new java.awt.Color(255, 255, 255));
         BaoHanh.setText("Bảo Hành");
         BaoHanh.setBorder(null);
+        BaoHanh.setFocusPainted(false);
         BaoHanh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BaoHanhActionPerformed(evt);
@@ -230,6 +240,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton11.setForeground(new java.awt.Color(255, 255, 255));
         jButton11.setText("Phân Quyền");
         jButton11.setBorder(null);
+        jButton11.setFocusPainted(false);
         jButton11.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton11ActionPerformed(evt);
@@ -242,6 +253,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton13.setForeground(new java.awt.Color(255, 255, 255));
         jButton13.setText("Thống Kê");
         jButton13.setBorder(null);
+        jButton13.setFocusPainted(false);
         jButton13.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton13ActionPerformed(evt);
@@ -254,6 +266,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jButton12.setForeground(new java.awt.Color(255, 51, 51));
         jButton12.setText("Đăng Xuất");
         jButton12.setBorder(null);
+        jButton12.setFocusPainted(false);
         jButton12.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButton12ActionPerformed(evt);
@@ -380,7 +393,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
+                if ("FlatFlat Dark".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
                 }
