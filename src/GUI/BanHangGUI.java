@@ -18,7 +18,7 @@ public class BanHangGUI extends javax.swing.JPanel {
      */
     public BanHangGUI() {
         initComponents();
-       
+        function.placeHolder(SearchTf, "Tìm kiếm...");
     }
 
     /**
@@ -30,7 +30,7 @@ public class BanHangGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        PanelBanHang = new javax.swing.JPanel();
         CartPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
@@ -50,16 +50,19 @@ public class BanHangGUI extends javax.swing.JPanel {
         TecnoBtn = new javax.swing.JLabel();
         XiaomiBtn = new javax.swing.JLabel();
         ViVoBtn = new javax.swing.JLabel();
-        scrDisplaySp = new javax.swing.JScrollPane();
+        PanelSanPham = new javax.swing.JPanel();
+        PanelSearch = new javax.swing.JPanel();
+        SearchTf = new javax.swing.JTextField();
+        jScrollPane2 = new javax.swing.JScrollPane();
         PanelDisplaySp = new javax.swing.JPanel();
 
         setBackground(new java.awt.Color(142, 212, 237));
         setMinimumSize(new java.awt.Dimension(1200, 725));
         setPreferredSize(new java.awt.Dimension(1200, 725));
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setPreferredSize(new java.awt.Dimension(963, 724));
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        PanelBanHang.setBackground(new java.awt.Color(255, 255, 255));
+        PanelBanHang.setPreferredSize(new java.awt.Dimension(963, 724));
+        PanelBanHang.setLayout(new java.awt.BorderLayout());
 
         CartPanel.setPreferredSize(new java.awt.Dimension(230, 702));
 
@@ -125,9 +128,8 @@ public class BanHangGUI extends javax.swing.JPanel {
                 .addContainerGap(67, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(57, 57, 57))
-            .addGroup(CartPanelLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, CartPanelLayout.createSequentialGroup()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                 .addContainerGap())
         );
         CartPanelLayout.setVerticalGroup(
@@ -141,7 +143,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
-        jPanel1.add(CartPanel, java.awt.BorderLayout.LINE_END);
+        PanelBanHang.add(CartPanel, java.awt.BorderLayout.LINE_END);
 
         PanelDanhMucSP.setBackground(new java.awt.Color(255, 255, 255));
         PanelDanhMucSP.setFont(new java.awt.Font("SansSerif", 0, 12)); // NOI18N
@@ -151,10 +153,12 @@ public class BanHangGUI extends javax.swing.JPanel {
         jPanel5.setBackground(new java.awt.Color(51, 51, 255));
         jPanel5.setToolTipText("");
 
-        jLabel3.setBackground(new java.awt.Color(28, 28, 241));
+        jLabel3.setBackground(new java.awt.Color(51, 51, 51));
         jLabel3.setFont(new java.awt.Font("SansSerif", 1, 24)); // NOI18N
+        jLabel3.setForeground(new java.awt.Color(0, 102, 102));
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("Danh Mục");
+        jLabel3.setOpaque(true);
 
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
@@ -170,6 +174,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         PanelDanhMucSP.add(jPanel5, java.awt.BorderLayout.PAGE_START);
 
         DSSP.setBackground(new java.awt.Color(51, 51, 51));
+        DSSP.setLayout(new java.awt.GridLayout(9, 1));
 
         IphoneBtn.setBackground(new java.awt.Color(142, 212, 237));
         IphoneBtn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -185,6 +190,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                 IphoneBtnMouseClicked(evt);
             }
         });
+        DSSP.add(IphoneBtn);
 
         SamSungBtn.setBackground(new java.awt.Color(142, 212, 237));
         SamSungBtn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -199,6 +205,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                 SamSungBtnMouseClicked(evt);
             }
         });
+        DSSP.add(SamSungBtn);
 
         NokiaBtn.setBackground(new java.awt.Color(142, 212, 237));
         NokiaBtn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -208,6 +215,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         NokiaBtn.setMaximumSize(new java.awt.Dimension(62, 41));
         NokiaBtn.setMinimumSize(new java.awt.Dimension(62, 41));
         NokiaBtn.setPreferredSize(new java.awt.Dimension(62, 41));
+        DSSP.add(NokiaBtn);
 
         OppoBtn.setBackground(new java.awt.Color(142, 212, 237));
         OppoBtn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -217,6 +225,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         OppoBtn.setMaximumSize(new java.awt.Dimension(46, 41));
         OppoBtn.setMinimumSize(new java.awt.Dimension(46, 41));
         OppoBtn.setPreferredSize(new java.awt.Dimension(46, 41));
+        DSSP.add(OppoBtn);
 
         TecnoBtn.setBackground(new java.awt.Color(142, 212, 237));
         TecnoBtn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -226,6 +235,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         TecnoBtn.setMaximumSize(new java.awt.Dimension(62, 41));
         TecnoBtn.setMinimumSize(new java.awt.Dimension(62, 41));
         TecnoBtn.setPreferredSize(new java.awt.Dimension(62, 41));
+        DSSP.add(TecnoBtn);
 
         XiaomiBtn.setBackground(new java.awt.Color(142, 212, 237));
         XiaomiBtn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -235,6 +245,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         XiaomiBtn.setMaximumSize(new java.awt.Dimension(62, 41));
         XiaomiBtn.setMinimumSize(new java.awt.Dimension(62, 41));
         XiaomiBtn.setPreferredSize(new java.awt.Dimension(62, 41));
+        DSSP.add(XiaomiBtn);
 
         ViVoBtn.setBackground(new java.awt.Color(142, 212, 237));
         ViVoBtn.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
@@ -244,59 +255,47 @@ public class BanHangGUI extends javax.swing.JPanel {
         ViVoBtn.setMaximumSize(new java.awt.Dimension(62, 41));
         ViVoBtn.setMinimumSize(new java.awt.Dimension(62, 41));
         ViVoBtn.setPreferredSize(new java.awt.Dimension(62, 41));
-
-        javax.swing.GroupLayout DSSPLayout = new javax.swing.GroupLayout(DSSP);
-        DSSP.setLayout(DSSPLayout);
-        DSSPLayout.setHorizontalGroup(
-            DSSPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(IphoneBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(SamSungBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(NokiaBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(XiaomiBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-            .addComponent(TecnoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, 170, Short.MAX_VALUE)
-            .addComponent(ViVoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(OppoBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-        );
-        DSSPLayout.setVerticalGroup(
-            DSSPLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(DSSPLayout.createSequentialGroup()
-                .addGap(10, 10, 10)
-                .addComponent(IphoneBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(SamSungBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(OppoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(ViVoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(NokiaBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(XiaomiBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(TecnoBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(345, Short.MAX_VALUE))
-        );
+        DSSP.add(ViVoBtn);
 
         PanelDanhMucSP.add(DSSP, java.awt.BorderLayout.CENTER);
 
-        jPanel1.add(PanelDanhMucSP, java.awt.BorderLayout.LINE_START);
+        PanelBanHang.add(PanelDanhMucSP, java.awt.BorderLayout.LINE_START);
 
-        PanelDisplaySp.setBackground(new java.awt.Color(255, 255, 255));
+        PanelSanPham.setLayout(new java.awt.BorderLayout());
+
+        SearchTf.setForeground(new java.awt.Color(153, 153, 153));
+        SearchTf.setText("Tìm kiếm...");
+        SearchTf.setBorder(null);
+
+        javax.swing.GroupLayout PanelSearchLayout = new javax.swing.GroupLayout(PanelSearch);
+        PanelSearch.setLayout(PanelSearchLayout);
+        PanelSearchLayout.setHorizontalGroup(
+            PanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(SearchTf, javax.swing.GroupLayout.DEFAULT_SIZE, 800, Short.MAX_VALUE)
+        );
+        PanelSearchLayout.setVerticalGroup(
+            PanelSearchLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(SearchTf, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 28, Short.MAX_VALUE)
+        );
+
+        PanelSanPham.add(PanelSearch, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout PanelDisplaySpLayout = new javax.swing.GroupLayout(PanelDisplaySp);
         PanelDisplaySp.setLayout(PanelDisplaySpLayout);
         PanelDisplaySpLayout.setHorizontalGroup(
             PanelDisplaySpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 788, Short.MAX_VALUE)
+            .addGap(0, 798, Short.MAX_VALUE)
         );
         PanelDisplaySpLayout.setVerticalGroup(
             PanelDisplaySpLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 796, Short.MAX_VALUE)
+            .addGap(0, 695, Short.MAX_VALUE)
         );
 
-        scrDisplaySp.setViewportView(PanelDisplaySp);
+        jScrollPane2.setViewportView(PanelDisplaySp);
 
-        jPanel1.add(scrDisplaySp, java.awt.BorderLayout.CENTER);
+        PanelSanPham.add(jScrollPane2, java.awt.BorderLayout.CENTER);
+
+        PanelBanHang.add(PanelSanPham, java.awt.BorderLayout.CENTER);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -304,14 +303,14 @@ public class BanHangGUI extends javax.swing.JPanel {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelBanHang, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -347,9 +346,13 @@ public class BanHangGUI extends javax.swing.JPanel {
     private javax.swing.JLabel IphoneBtn;
     private javax.swing.JLabel NokiaBtn;
     private javax.swing.JLabel OppoBtn;
+    private javax.swing.JPanel PanelBanHang;
     private javax.swing.JPanel PanelDanhMucSP;
     private javax.swing.JPanel PanelDisplaySp;
+    private javax.swing.JPanel PanelSanPham;
+    private javax.swing.JPanel PanelSearch;
     private javax.swing.JLabel SamSungBtn;
+    private javax.swing.JTextField SearchTf;
     private javax.swing.JLabel TecnoBtn;
     private javax.swing.JButton ThanhToanBtn;
     private javax.swing.JLabel TongTientxt;
@@ -358,11 +361,10 @@ public class BanHangGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane scrDisplaySp;
+    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }
