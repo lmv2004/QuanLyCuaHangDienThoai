@@ -29,22 +29,23 @@ public class Permission_Manager extends javax.swing.JPanel {
         Button_Function = new javax.swing.JPanel();
         Add = new javax.swing.JButton();
         Update = new javax.swing.JButton();
+        Delete = new javax.swing.JButton();
         Detail = new javax.swing.JButton();
         Export_Excel = new javax.swing.JButton();
-        jTextField1 = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        Filter = new javax.swing.JComboBox<>();
+        Search = new javax.swing.JTextField();
         Refresh = new javax.swing.JButton();
-        Delete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
-        List_Customer = new javax.swing.JTable();
+        List_Permission = new javax.swing.JTable();
+
+        setPreferredSize(new java.awt.Dimension(1200, 725));
 
         Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add.png"))); // NOI18N
-        Add.setText("Add");
-        Add.setToolTipText("");
+        Add.setToolTipText("Add");
         Add.setHorizontalTextPosition(javax.swing.SwingConstants.RIGHT);
         Add.setIconTextGap(8);
         Add.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Add.setPreferredSize(new java.awt.Dimension(100, 40));
+        Add.setPreferredSize(new java.awt.Dimension(70, 50));
         Add.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddActionPerformed(evt);
@@ -52,21 +53,32 @@ public class Permission_Manager extends javax.swing.JPanel {
         });
 
         Update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
-        Update.setText("Update");
+        Update.setToolTipText("Update");
         Update.setIconTextGap(8);
         Update.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Update.setPreferredSize(new java.awt.Dimension(100, 40));
+        Update.setPreferredSize(new java.awt.Dimension(70, 50));
         Update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateActionPerformed(evt);
             }
         });
 
+        Delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
+        Delete.setToolTipText("Delete");
+        Delete.setIconTextGap(8);
+        Delete.setMargin(new java.awt.Insets(2, 5, 2, 5));
+        Delete.setPreferredSize(new java.awt.Dimension(70, 50));
+        Delete.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                DeleteActionPerformed(evt);
+            }
+        });
+
         Detail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
-        Detail.setText("Detail");
+        Detail.setToolTipText("Detail");
         Detail.setIconTextGap(8);
         Detail.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Detail.setPreferredSize(new java.awt.Dimension(100, 40));
+        Detail.setPreferredSize(new java.awt.Dimension(70, 50));
         Detail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 DetailActionPerformed(evt);
@@ -74,51 +86,40 @@ public class Permission_Manager extends javax.swing.JPanel {
         });
 
         Export_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/export_excel.png"))); // NOI18N
-        Export_Excel.setText("Export");
+        Export_Excel.setToolTipText("Export");
         Export_Excel.setIconTextGap(8);
         Export_Excel.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Export_Excel.setPreferredSize(new java.awt.Dimension(100, 40));
+        Export_Excel.setPreferredSize(new java.awt.Dimension(70, 50));
         Export_Excel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 Export_ExcelActionPerformed(evt);
             }
         });
 
-        jTextField1.setText("Nhập Nội Dung Tìm Kiếm");
-        jTextField1.setPreferredSize(new java.awt.Dimension(100, 25));
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        Filter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả", "Nhóm Quyền", "Mã Nhân Viên", "Nhóm Quyền", "Trạng Thái" }));
+        Filter.setPreferredSize(new java.awt.Dimension(100, 30));
+        Filter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                FilterActionPerformed(evt);
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả", "Nhóm Quyền", "Mã Nhân Viên", "Nhóm Quyền", "Trạng Thái" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(70, 25));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        Search.setText("Nhập Nội Dung Tìm Kiếm");
+        Search.setPreferredSize(new java.awt.Dimension(100, 30));
+        Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                SearchActionPerformed(evt);
             }
         });
 
         Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh.png"))); // NOI18N
-        Refresh.setText("Refresh");
+        Refresh.setToolTipText("Refresh");
         Refresh.setIconTextGap(8);
         Refresh.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Refresh.setPreferredSize(new java.awt.Dimension(100, 40));
+        Refresh.setPreferredSize(new java.awt.Dimension(70, 50));
         Refresh.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RefreshActionPerformed(evt);
-            }
-        });
-
-        Delete.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
-        Delete.setText("Delete");
-        Delete.setIconTextGap(8);
-        Delete.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Delete.setPreferredSize(new java.awt.Dimension(100, 40));
-        Delete.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DeleteActionPerformed(evt);
             }
         });
 
@@ -137,33 +138,37 @@ public class Permission_Manager extends javax.swing.JPanel {
                 .addComponent(Detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(Export_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 277, Short.MAX_VALUE)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 81, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
         Button_FunctionLayout.setVerticalGroup(
             Button_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, Button_FunctionLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(Button_FunctionLayout.createSequentialGroup()
                 .addGroup(Button_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(Button_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(Button_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(Export_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(Button_FunctionLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(Button_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(Refresh, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Export_Excel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(Button_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                .addComponent(Add, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Delete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(Detail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(Button_FunctionLayout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addGroup(Button_FunctionLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Filter, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(Search, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
         );
 
-        List_Customer.setModel(new javax.swing.table.DefaultTableModel(
+        List_Permission.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null},
                 {null, null},
@@ -180,27 +185,26 @@ public class Permission_Manager extends javax.swing.JPanel {
                 "Mã Nhóm Quyền", "Tên Đăng Nhập"
             }
         ));
-        List_Customer.setRequestFocusEnabled(false);
-        List_Customer.setShowGrid(true);
-        jScrollPane1.setViewportView(List_Customer);
+        List_Permission.setRequestFocusEnabled(false);
+        List_Permission.setShowGrid(true);
+        jScrollPane1.setViewportView(List_Permission);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(1, 1, 1)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1200, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
                 .addComponent(Button_Function, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
+            .addGroup(layout.createSequentialGroup()
                 .addComponent(Button_Function, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 503, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -220,13 +224,13 @@ public class Permission_Manager extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_Export_ExcelActionPerformed
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_SearchActionPerformed
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void FilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_FilterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_FilterActionPerformed
 
     private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
         // TODO add your handling code here:
@@ -243,11 +247,11 @@ public class Permission_Manager extends javax.swing.JPanel {
     private javax.swing.JButton Delete;
     private javax.swing.JButton Detail;
     private javax.swing.JButton Export_Excel;
-    private javax.swing.JTable List_Customer;
+    private javax.swing.JComboBox<String> Filter;
+    private javax.swing.JTable List_Permission;
     private javax.swing.JButton Refresh;
+    private javax.swing.JTextField Search;
     private javax.swing.JButton Update;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField jTextField1;
     // End of variables declaration//GEN-END:variables
 }
