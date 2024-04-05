@@ -5,6 +5,10 @@
 package GUI;
 
 import java.awt.Color;
+import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import javax.swing.JButton;
+import javax.swing.UIManager;
 
 /**
  *
@@ -34,4 +38,26 @@ public class function {
         });
     }
     
+    
+    public static void HoverBtn(javax.swing.JButton btn, ArrayList<JButton> buttonList) {
+        btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            @Override
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                if(btn.getBackground()==Color.CYAN) return;
+                btn.setBackground(new java.awt.Color(6, 86, 112));
+            }
+            @Override
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                if(btn.getBackground()==Color.CYAN) return;
+                btn.setBackground(new java.awt.Color(6, 66, 93));
+            }
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                for(JButton button : buttonList) {
+                    button.setBackground(new java.awt.Color(6, 66, 93));
+                }
+                btn.setBackground(Color.CYAN);
+            }
+        });
+    }
 }
