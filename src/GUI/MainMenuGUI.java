@@ -28,7 +28,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     ThongKe thongKe;
     Warranty baoHanh;
     Permission_Manager phanQuyen;
-    
+    KhuVucKho1 khuVucKho;
     public MainMenuGUI() {
         initComponents();
         ImageIcon logo = new ImageIcon("src/img/logo.jpg");
@@ -75,11 +75,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconUser.png"))); // NOI18N
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("User Name");
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Vị trí");
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -130,6 +128,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         jButton5.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jButton5.setText("Khu Vực Kho");
+        jButton5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton5ActionPerformed(evt);
+            }
+        });
 
         PhieuNhap.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         PhieuNhap.setText("Phiếu Nhập");
@@ -342,6 +345,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
         viewContent.repaint();
         viewContent.validate();
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+        // TODO add your handling code here:
+        viewContent.removeAll();
+        khuVucKho = new KhuVucKho1();
+        viewContent.add(khuVucKho);
+        viewContent.repaint();
+        viewContent.validate();
+    }//GEN-LAST:event_jButton5ActionPerformed
 
     /**
      * @param args the command line arguments
