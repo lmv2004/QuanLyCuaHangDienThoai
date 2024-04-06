@@ -20,6 +20,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
      */
     public PhieuNhapGUI() {
         initComponents();
+        function.placeHolder(tfSearch, "Nhập Nội Dung Tìm Kiếm");
     }
 
     /**
@@ -40,7 +41,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         Import_Excel = new javax.swing.JButton();
         Export_Excel = new javax.swing.JButton();
         cbbFilter = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
+        tfSearch = new javax.swing.JTextField();
         Refresh = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         labelNCC = new javax.swing.JLabel();
@@ -164,18 +165,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         });
         Button_Function.add(cbbFilter);
 
-        jTextField1.setForeground(java.awt.Color.gray);
-        jTextField1.setText("Nhập Nội Dung Tìm Kiếm");
-        jTextField1.setPreferredSize(new java.awt.Dimension(160, 25));
-        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
-            public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField1FocusGained(evt);
-            }
-            public void focusLost(java.awt.event.FocusEvent evt) {
-                jTextField1FocusLost(evt);
-            }
-        });
-        Button_Function.add(jTextField1);
+        tfSearch.setPreferredSize(new java.awt.Dimension(160, 25));
+        Button_Function.add(tfSearch);
 
         Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh.png"))); // NOI18N
         Refresh.setToolTipText("Refresh");
@@ -396,25 +387,9 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
         // TODO add your handling code here:
         cbbFilter.setSelectedIndex(0);
-        jTextField1.setText("Nhập Nội Dung Tìm Kiếm");
-        jTextField1.setForeground(Color.GRAY);
+        tfSearch.setText("Nhập Nội Dung Tìm Kiếm");
+        tfSearch.setForeground(Color.GRAY);
     }//GEN-LAST:event_RefreshActionPerformed
-
-    private void jTextField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusGained
-        // TODO add your handling code here:
-        if(jTextField1.getText().trim().toLowerCase().equals("nhập nội dung tìm kiếm")){
-            jTextField1.setText("");
-            jTextField1.setForeground(Color.BLACK);
-        }
-    }//GEN-LAST:event_jTextField1FocusGained
-
-    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
-        // TODO add your handling code here:
-        if(jTextField1.getText().trim().equals("") || jTextField1.getText().trim().toLowerCase().equals("nhập nội dung tìm kiếm")){
-            jTextField1.setText("Nhập Nội Dung Tìm Kiếm");
-            jTextField1.setForeground(Color.GRAY);
-        }
-    }//GEN-LAST:event_jTextField1FocusLost
 
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -440,7 +415,6 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JSlider jSlider2;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JTextField jTextField2;
     private javax.swing.JTextField jTextField3;
     private javax.swing.JTextField jTextField4;
@@ -448,6 +422,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     protected javax.swing.JLabel labelNCC;
     protected javax.swing.JLabel labelNV;
     protected javax.swing.JTable tblDSPN;
+    private javax.swing.JTextField tfSearch;
     private javax.swing.JPanel viewContent;
     // End of variables declaration//GEN-END:variables
 }
