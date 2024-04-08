@@ -36,7 +36,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     ClientView KhachHang;
     SupplierView NCC;
     ProductView SanPham;
-    
+    area khuVucKho;
     ArrayList<JButton> buttonList;
     
     public MainMenuGUI() {
@@ -231,6 +231,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         KVKhoBtn.setText("Khu Vực Kho");
         KVKhoBtn.setBorder(null);
         KVKhoBtn.setFocusPainted(false);
+        KVKhoBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                KVKhoBtnActionPerformed(evt);
+            }
+        });
         ChucNangPnl.add(KVKhoBtn);
 
         PhieuNhapBtn.setBackground(new java.awt.Color(6, 66, 93));
@@ -454,6 +459,14 @@ public class MainMenuGUI extends javax.swing.JFrame {
         NoiDungPnl.repaint();
         NoiDungPnl.validate();
     }//GEN-LAST:event_SanPhamBtnActionPerformed
+
+    private void KVKhoBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_KVKhoBtnActionPerformed
+        NoiDungPnl.removeAll();
+        khuVucKho = new area();
+        NoiDungPnl.add(khuVucKho);
+        NoiDungPnl.repaint();
+        NoiDungPnl.validate();
+    }//GEN-LAST:event_KVKhoBtnActionPerformed
 
     /**
      * @param args the command line arguments
