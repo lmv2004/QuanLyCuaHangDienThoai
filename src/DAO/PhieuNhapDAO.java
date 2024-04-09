@@ -4,24 +4,43 @@
  */
 package DAO;
 
+import DTO.PhieuNhapDTO;
+import java.util.ArrayList;
+
 /**
  *
  * @author ACER
  */
-public class PhieuNhapDAO implements DAO_Interface{
+public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO>{
+
 
     @Override
-    public void them() {
-        
-    }
-
-    @Override
-    public void xoa() {
+    public ArrayList selectByCondition(String condition) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
     @Override
-    public void sua() {
+    public int insert(PhieuNhapDTO t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int update(PhieuNhapDTO t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public int delete(PhieuNhapDTO t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public PhieuNhapDTO selectById(PhieuNhapDTO t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
+    @Override
+    public ArrayList<PhieuNhapDTO> selecAll() {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
     

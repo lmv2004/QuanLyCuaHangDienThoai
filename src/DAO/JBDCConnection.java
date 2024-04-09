@@ -21,6 +21,17 @@ public class JBDCConnection {
         }
         return null;
     }
+    
+  public static void closeConection(Connection c) {
+		try {
+			if(c != null) {
+				c.close();
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+  
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
         Connection cn = getJDBCConnection();
         if(cn!=null) {
