@@ -189,7 +189,7 @@ public class Warranty extends javax.swing.JPanel {
                 {null, null, null, null, null, null}
             },
             new String [] {
-                "Mã Sản Phẩm", "Tên Khách Hàng", "Loại Bảo Hành", "Email", "Trạng Thái", "Ngày Bảo Hành"
+                "Mã Sản Phẩm", "Mã Bảo Hành", "Tên Khách Hàng", "Yêu Cầu Bảo Hành", "Trạng Thái Bảo Hành", "Ngày Bảo Hành"
             }
         ));
         List_Warranty.setRequestFocusEnabled(false);
