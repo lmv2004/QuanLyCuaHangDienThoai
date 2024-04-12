@@ -1,3 +1,4 @@
+
 -- phpMyAdmin SQL Dump
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
@@ -149,7 +150,7 @@ CREATE TABLE `ctquyen` (
 
 --
 -- Dumping data for table `ctquyen`
---pma__bookmarkpma__central_columnspma__bookmarkmysqlpma__export_templatesctkiemkephieukiemkectkiemke
+/*pma__bookmarkpma__central_columnspma__bookmarkmysqlpma__export_templatesctkiemkephieukiemkectkiemke*/
 
 INSERT INTO `ctquyen` (`manhomquyen`, `machucnang`, `hanhdong`) VALUES
 (1, 'khachhang', 'create'),
@@ -1511,7 +1512,7 @@ ALTER TABLE `phieuxuat`
 
 --
 -- Constraints for table `taikhoan`
---
+/*quanlicuahangdt*/
 ALTER TABLE `taikhoan`
   ADD CONSTRAINT `FK_taikhoan_nhanvien` FOREIGN KEY (`manv`) REFERENCES `nhanvien` (`manv`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   ADD CONSTRAINT `FK_taikhoan_nhomquyen` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`) ON DELETE NO ACTION ON UPDATE NO ACTION;
@@ -1523,4 +1524,4 @@ COMMIT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-person	khuvuckhoctkiemke
+
