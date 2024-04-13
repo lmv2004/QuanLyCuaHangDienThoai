@@ -21,21 +21,18 @@ import java.sql.ResultSet;
  */
 public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
 
-    @Override
+   @Override
     public int insert(KhuVucKhoDTO t) {
         int ketqua = 0;
         try {
             // bước 1 kết nối
             Connection con = JDBCConnection.getJDBCConnection();
             // bước 2,3 tạo đối tượng , tạo câu lệnh thực thi
-            String sql = "Insert into khuvuckho(makhuvuc, tenkhuvuc, ghichu, trangthai )" +
-                    "Values(? , ? , ?)";
-            
+            String sql = "INSERT INTO `khuvuckho`(`makhuvuc`, `tenkhuvuc`,`ghichu`,`trangthai`) VALUES (?,?,?,1)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, t.getMaKhuVuc());
             pst.setString(2, t.getTenKhuVuc());
             pst.setString(3, t.getGhiChu());
-            pst.setInt(4, t.getTrangThai());
             
             
             ketqua = pst.executeUpdate(sql);
@@ -60,21 +57,14 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             
             
             // bước 2 tạo đối tượng statement
-            String sql = "Update khuvuckho "
-                    + " set "
-                    + ",tenkhuvuc=? "
-                    + ",ghichu=? "
-                    + ",trangthai=?"
-                    + "Where makhuvuc =?"
-                    ;
+            String sql = "UPDATE `khuvuckho` SET `tenkhuvuc`=?,`ghichu`=? WHERE `makhuvuc`=?";
             
             PreparedStatement pst = con.prepareStatement(sql);
             
             
             pst.setString(1, t.getTenKhuVuc());
             pst.setString(2, t.getGhiChu());
-            pst.setInt(3 , t.getTrangThai());
-            pst.setInt(4, t.getMaKhuVuc());
+            pst.setInt(3, t.getMaKhuVuc());
             // bước 3 tạo câu lệnh sql
             ketqua = pst.executeUpdate(sql);
             
@@ -211,5 +201,4 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
     public ArrayList<KhuVucKhoDTO> selectByCondition(String condition) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
-    
 }
