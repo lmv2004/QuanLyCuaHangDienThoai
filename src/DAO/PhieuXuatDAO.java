@@ -12,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author ACER
  */
-public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
+public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
 
     @Override
     public ArrayList selectByCondition(String condition) {
