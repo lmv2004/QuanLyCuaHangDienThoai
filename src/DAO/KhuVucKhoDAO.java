@@ -4,7 +4,7 @@
  */
 package DAO;
 
-import static DAO.JBDCConnection.getJDBCConnection;
+import static DAO.JDBCConnection.getJDBCConnection;
 import DTO.KhuVucKhoDTO;
 import com.mysql.cj.jdbc.JdbcConnection;
 import java.sql.Connection;
@@ -26,7 +26,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
         int ketqua = 0;
         try {
             // bước 1 kết nối
-            Connection con = JBDCConnection.getJDBCConnection();
+            Connection con = JDBCConnection.getJDBCConnection();
             // bước 2,3 tạo đối tượng , tạo câu lệnh thực thi
             String sql = "Insert into khuvuckho(makhuvuc, tenkhuvuc, ghichu, trangthai )" +
                     "Values(? , ? , ?)";
@@ -43,7 +43,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             System.out.println("bạn đã thực thi");
             System.out.println("có " +ketqua +" dòng được cập nhật");
             // bước 5:
-            JBDCConnection.closeConection(con);
+            JDBCConnection.closeConection(con);
         } catch (SQLException ex) {
             ex.printStackTrace();
         }
@@ -56,7 +56,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
         try {
  
             // bước 1 tạo kết nối
-            Connection con = JBDCConnection.getJDBCConnection();
+            Connection con = JDBCConnection.getJDBCConnection();
             
             
             // bước 2 tạo đối tượng statement
@@ -81,7 +81,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             // bước 4 
             
             // bước 5 đóng chương trình
-            JBDCConnection.closeConection(con);
+            JDBCConnection.closeConection(con);
             
             
         } catch (SQLException ex) {
@@ -97,7 +97,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             
             
             // bước 1 tạo kết nối
-           Connection con = JBDCConnection.getJDBCConnection();
+           Connection con = JDBCConnection.getJDBCConnection();
             
             // tạo đối tượng statement
             
@@ -116,7 +116,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
                 System.out.println("có " +ketqua +" dòng được cập nhật");
             // bước 5 đóng kết nối
             
-            JBDCConnection.closeConection(con);
+            JDBCConnection.closeConection(con);
             
             
         } catch (SQLException ex) {
@@ -132,7 +132,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             
             
             // bước 1 tạo kết nối
-            Connection con = JBDCConnection.getJDBCConnection();
+            Connection con = JDBCConnection.getJDBCConnection();
             
             // bước 2
             
@@ -157,7 +157,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
                 ketqua.add(khuvuckho);
             }
             // bước 5:
-            JBDCConnection.closeConection(con);
+            JDBCConnection.closeConection(con);
             
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -170,7 +170,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
         KhuVucKhoDTO ketqua = null;
 		try {
 			// bước 1 tạo connection
-			Connection con = JBDCConnection.getJDBCConnection();
+			Connection con = JDBCConnection.getJDBCConnection();
 			
 			
 			// bước 2: tạo đối tượng Statement
@@ -198,7 +198,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
 			
 			}			
 			// bước 5:
-			JBDCConnection.closeConection(con);
+			JDBCConnection.closeConection(con);
 			
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block

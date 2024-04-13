@@ -1,18 +1,13 @@
 
-import GUI.LogInGUI;
-import GUI.MainMenuGUI;
+import java.sql.Timestamp;
 
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
-
-/**
- *
- * @author Vuong
- */
 public class test {
     public static void main(String[] args) {
-        new LogInGUI().setVisible(true);
+        DTO.PhieuNhapDTO pn = new DTO.PhieuNhapDTO(1, 110, 1,new Timestamp(System.currentTimeMillis()), 10000);
+        DAO.PhieuNhapDAO pnd= new DAO.PhieuNhapDAO();
+       // pnd.insert(pn);
+        System.out.println(pnd.selectById(110).toString());
+        //System.out.println(new Timestamp(System.currentTimeMillis()));
+        
     }
 }

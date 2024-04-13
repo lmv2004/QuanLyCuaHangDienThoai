@@ -2,9 +2,9 @@ package DAO;
 
 import java.sql.*;
 
-public class JBDCConnection {
+public class JDBCConnection {
     
-    private final static String url = "jdbc:mysql://localhost:3306/QuanLyCuaHangDienThoai";
+    private final static String url = "jdbc:mysql://localhost:3306/qlchdienthoai";
     private final static String user = "root";
     private final static String password = "vuongledz123";
     

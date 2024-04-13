@@ -4,56 +4,66 @@
  */
 package DTO;
 
+import java.util.Date;
+import java.sql.Timestamp;
+
 /**
  *
  * @author ACER
  */
 public class PhieuDTO {
-    private String MaPhieu;
-    private String NhanVien;
-    private String ThoiGian;
-    private int TongTien;
+    private int MaPhieu;
+    private int MNV;
+    private Timestamp ThoiGian;
+    private long TongTien;
 
     public PhieuDTO() {
     }
 
-    public PhieuDTO(String MaPhieu, String NhanVien, String ThoiGian, int TongTien) {
+    public PhieuDTO(int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
         this.MaPhieu = MaPhieu;
-        this.NhanVien = NhanVien;
+        this.MNV = MNV;
         this.ThoiGian = ThoiGian;
         this.TongTien = TongTien;
     }
 
-    public String getMaPhieu() {
+    public int getMaPhieu() {
         return MaPhieu;
     }
 
-    public void setMaPhieu(String MaPhieu) {
+    public void setMaPhieu(int MaPhieu) {
         this.MaPhieu = MaPhieu;
     }
 
-    public String getNhanVien() {
-        return NhanVien;
+    public int getMNV() {
+        return MNV;
     }
 
-    public void setNhanVien(String NhanVien) {
-        this.NhanVien = NhanVien;
+    public void setMNV(int MNV) {
+        this.MNV = MNV;
     }
 
-    public String getThoiGian() {
+    public Timestamp getThoiGian() {
         return ThoiGian;
     }
 
-    public void setThoiGian(String ThoiGian) {
+    public void setThoiGian(Timestamp ThoiGian) {
         this.ThoiGian = ThoiGian;
     }
 
-    public int getTongTien() {
+    public long getTongTien() {
         return TongTien;
     }
 
-    public void setTongTien(int TongTien) {
+    public void setTongTien(long TongTien) {
         this.TongTien = TongTien;
     }
+
+    @Override
+    public String toString() {
+        return "PhieuDTO{" + "MaPhieu=" + MaPhieu + ", MNV=" + MNV + ", ThoiGian=" + ThoiGian + ", TongTien=" + TongTien + '}';
+    }
+
+    
     
 }

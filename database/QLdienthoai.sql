@@ -892,7 +892,7 @@ CREATE TABLE `phieubaohanh` (
   `maphieubaohanh` int(11) NOT NULL,
   `maimei` varchar(255) NOT NULL,
   `lydo` varchar(50) NOT NULL,
-  `thoigian` datetime NOT NULL DEFAULT curdate(),
+  `thoigian` datetime NOT NULL DEFAULT (curdate()),
   `thoigiantra` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -906,7 +906,7 @@ CREATE TABLE `phieudoi` (
   `maphieudoi` tinyint(4) NOT NULL DEFAULT 0,
   `maimei` varchar(255) NOT NULL,
   `lydo` varchar(255) NOT NULL,
-  `thoigian` date DEFAULT curdate(),
+  `thoigian` date DEFAULT (curdate()),
   `nguoitao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -918,7 +918,7 @@ CREATE TABLE `phieudoi` (
 
 CREATE TABLE `phieukiemke` (
   `maphieu` int(11) NOT NULL,
-  `thoigian` date NOT NULL DEFAULT curdate(),
+  `thoigian` date NOT NULL DEFAULT (curdate()),
   `nguoitaophieukiemke` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -973,7 +973,7 @@ CREATE TABLE `phieutra` (
   `maphieutra` int(11) NOT NULL,
   `maimei` varchar(255) NOT NULL,
   `lydo` varchar(255) NOT NULL,
-  `thoigian` date DEFAULT curdate(),
+  `thoigian` date DEFAULT (curdate()),
   `nguoitao` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 

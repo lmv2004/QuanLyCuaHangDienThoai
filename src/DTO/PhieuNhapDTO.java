@@ -4,31 +4,36 @@
  */
 package DTO;
 
+import java.util.Date;
+import java.sql.Timestamp;
+
 /**
  *
  * @author ACER
  */
 public class PhieuNhapDTO extends PhieuDTO{
-    private String NCC;
+    private int NCC;
 
     public PhieuNhapDTO() {
     }
 
-    public PhieuNhapDTO(String NCC) {
+    public PhieuNhapDTO(int NCC) {
         this.NCC = NCC;
     }
 
-    public PhieuNhapDTO(String NCC, String MaPhieu, String NhanVien, String ThoiGian, int TongTien) {
-        super(MaPhieu, NhanVien, ThoiGian, TongTien);
+    public PhieuNhapDTO(int NCC, int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
+        super(MaPhieu, MNV, ThoiGian, TongTien);
         this.NCC = NCC;
     }
 
-    public String getNCC() {
+    public int getNCC() {
         return NCC;
     }
 
-    public void setNCC(String NCC) {
+    public void setNCC(int NCC) {
         this.NCC = NCC;
     }
+
+    
     
 }

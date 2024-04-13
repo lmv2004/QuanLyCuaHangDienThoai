@@ -4,30 +4,30 @@
  */
 package DTO;
 
-/**
- *
- * @author ACER
- */
+import java.sql.Timestamp;
+
 public class PhieuXuatDTO extends PhieuDTO{
-    private String KhachHang;
+    private int MKH;
 
     public PhieuXuatDTO() {
     }
 
-    public PhieuXuatDTO(String KhachHang) {
-        this.KhachHang = KhachHang;
+    public PhieuXuatDTO(int MKH) {
+        this.MKH = MKH;
     }
 
-    public PhieuXuatDTO(String KhachHang, String MaPhieu, String NhanVien, String ThoiGian, int TongTien) {
-        super(MaPhieu, NhanVien, ThoiGian, TongTien);
-        this.KhachHang = KhachHang;
+    public PhieuXuatDTO(int MKH, int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
+        super(MaPhieu, MNV, ThoiGian, TongTien);
+        this.MKH = MKH;
     }
 
-    public String getKhachHang() {
-        return KhachHang;
+    public int getMKH() {
+        return MKH;
     }
 
-    public void setKhachHang(String KhachHang) {
-        this.KhachHang = KhachHang;
+    public void setMKH(int MKH) {
+        this.MKH = MKH;
     }
+
+    
 }
