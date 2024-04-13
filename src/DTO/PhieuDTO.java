@@ -16,15 +16,17 @@ public class PhieuDTO {
     private int MNV;
     private Timestamp ThoiGian;
     private long TongTien;
+    private int trangthai=1;
 
     public PhieuDTO() {
     }
 
-    public PhieuDTO(int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
+    public PhieuDTO(int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien, int trangthai) {
         this.MaPhieu = MaPhieu;
         this.MNV = MNV;
         this.ThoiGian = ThoiGian;
         this.TongTien = TongTien;
+        this.trangthai=trangthai;
     }
 
     public int getMaPhieu() {
@@ -59,11 +61,17 @@ public class PhieuDTO {
         this.TongTien = TongTien;
     }
 
-    @Override
-    public String toString() {
-        return "PhieuDTO{" + "MaPhieu=" + MaPhieu + ", MNV=" + MNV + ", ThoiGian=" + ThoiGian + ", TongTien=" + TongTien + '}';
+    public int getTrangthai() {
+        return trangthai;
     }
 
-    
+    public void setTrangthai(int trangthai) {
+        this.trangthai = trangthai;
+    }
+
+    @Override
+    public String toString() {
+        return "\nMaPhieu=" + MaPhieu + ", MNV=" + MNV + ", ThoiGian=" + ThoiGian + ", TongTien=" + TongTien + ", trangthai=" + trangthai;
+    }
     
 }

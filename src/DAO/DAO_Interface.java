@@ -7,7 +7,7 @@ public interface DAO_Interface<T,ID> {
 	
     public int update(T t);
 	
-    public int delete(T t);
+    public int delete(ID id);
 	
     public ArrayList<T> selecAll();
 	

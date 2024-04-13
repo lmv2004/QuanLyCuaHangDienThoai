@@ -16,8 +16,8 @@ public class PhieuXuatDTO extends PhieuDTO{
         this.MKH = MKH;
     }
 
-    public PhieuXuatDTO(int MKH, int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
-        super(MaPhieu, MNV, ThoiGian, TongTien);
+    public PhieuXuatDTO(int MKH, int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien, int trangthai) {
+        super(MaPhieu, MNV, ThoiGian, TongTien, trangthai);
         this.MKH = MKH;
     }
 
@@ -27,6 +27,11 @@ public class PhieuXuatDTO extends PhieuDTO{
 
     public void setMKH(int MKH) {
         this.MKH = MKH;
+    }
+
+    @Override
+    public String toString() {
+        return super.toString() + ", MKH=" + MKH;
     }
 
     
