@@ -6,7 +6,9 @@ package GUI;
 
 import DTO.AccountDTO;
 import java.awt.Color;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -19,6 +21,14 @@ public class LogInGUI extends javax.swing.JFrame {
      */
     public LogInGUI() {
         initComponents();
+        ImageIcon logo = new ImageIcon("src/img/logo.jpg");
+        
+        setIconImage(logo.getImage());
+        function.placeHolder(tk, "Tên tài khoản");
+        function.placeHolder(mk, "Mật khẩu");
+        this.getContentPane().requestFocusInWindow();
+        show.setVisible(false);
+        hide.setVisible(true);
     }
 
     /**
@@ -30,71 +40,48 @@ public class LogInGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        jPanel2 = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         tk = new javax.swing.JTextField();
+        hide = new javax.swing.JLabel();
+        show = new javax.swing.JLabel();
         mk = new javax.swing.JPasswordField();
-        jLabel4 = new javax.swing.JLabel();
-        btnLogIn = new javax.swing.JButton();
         lbForgetPassword = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        btnLogIn = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập vào hệ thống");
-        getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        setBackground(new java.awt.Color(5, 7, 15));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel1.setForeground(java.awt.Color.white);
-        jLabel1.setText("Tên đăng nhập");
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 110, 220, 80));
+        jPanel2.setBackground(new java.awt.Color(5, 7, 15));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        jLabel3.setForeground(java.awt.Color.white);
-        jLabel3.setText("Mật khẩu");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 140, 90));
+        jPanel1.setOpaque(false);
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        tk.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tkActionPerformed(evt);
+        jPanel1.add(tk, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 350, 50));
+
+        hide.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eyeHide.png"))); // NOI18N
+        hide.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                hideMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                hideMouseReleased(evt);
             }
         });
-        tk.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                tkKeyTyped(evt);
-            }
-        });
-        getContentPane().add(tk, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 360, 50));
+        jPanel1.add(hide, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 30));
+
+        show.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eyeShow.png"))); // NOI18N
+        jPanel1.add(show, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 70, -1, 30));
 
         mk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        getContentPane().add(mk, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 360, 50));
+        mk.setFocusTraversalPolicyProvider(true);
+        jPanel1.add(mk, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 60, 350, 50));
 
-        jLabel4.setBackground(new java.awt.Color(0, 0, 0));
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel4.setText("ĐĂNG NHẬP");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 700, 70));
-
-        btnLogIn.setBackground(new java.awt.Color(51, 255, 255));
-        btnLogIn.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
-        btnLogIn.setForeground(java.awt.Color.white);
-        btnLogIn.setText("Đăng nhập");
-        btnLogIn.setFocusPainted(false);
-        btnLogIn.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btnLogInMouseEntered(evt);
-            }
-        });
-        btnLogIn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLogInActionPerformed(evt);
-            }
-        });
-        getContentPane().add(btnLogIn, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 340, 200, 80));
-
-        lbForgetPassword.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        lbForgetPassword.setForeground(java.awt.Color.white);
+        lbForgetPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        lbForgetPassword.setForeground(new java.awt.Color(237, 238, 247));
         lbForgetPassword.setText("Quên mật khẩu");
         lbForgetPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -107,19 +94,74 @@ public class LogInGUI extends javax.swing.JFrame {
                 lbForgetPasswordMouseExited(evt);
             }
         });
-        getContentPane().add(lbForgetPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 270, 140, 30));
 
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/backGroundLogIn.jpg"))); // NOI18N
-        jLabel2.setText("Mật khẩu");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 700, 470));
+        btnLogIn.setBackground(new java.awt.Color(60, 78, 170));
+        btnLogIn.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
+        btnLogIn.setForeground(new java.awt.Color(237, 238, 247));
+        btnLogIn.setText("Đăng nhập");
+        btnLogIn.setFocusPainted(false);
+        btnLogIn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnLogInMouseEntered(evt);
+            }
+        });
+        btnLogIn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLogInActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setBackground(new java.awt.Color(5, 7, 15));
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/profile.png"))); // NOI18N
+        jLabel1.setOpaque(true);
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(91, 91, 91)
+                .addComponent(btnLogIn)
+                .addContainerGap(79, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(lbForgetPassword)))
+                .addContainerGap())
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(lbForgetPassword)
+                .addGap(18, 18, 18)
+                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addContainerGap())
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
 
         pack();
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tkKeyTyped
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tkKeyTyped
 
     private void lbForgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseClicked
         // TODO add your handling code here:
@@ -128,12 +170,12 @@ public class LogInGUI extends javax.swing.JFrame {
 
     private void lbForgetPasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseEntered
         // TODO add your handling code here:
-        lbForgetPassword.setForeground(Color.red);
+        lbForgetPassword.setForeground(new java.awt.Color(40, 58, 149));
     }//GEN-LAST:event_lbForgetPasswordMouseEntered
 
     private void lbForgetPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseExited
         // TODO add your handling code here:
-        lbForgetPassword.setForeground(Color.white);
+        lbForgetPassword.setForeground(new java.awt.Color(237, 238, 247));
     }//GEN-LAST:event_lbForgetPasswordMouseExited
 
     private void btnLogInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogInMouseEntered
@@ -152,11 +194,18 @@ public class LogInGUI extends javax.swing.JFrame {
         BUS.LogInBUS.LogIn(this,tk.getText(), mk.getPassword());
     }//GEN-LAST:event_btnLogInActionPerformed
 
-    private void tkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tkActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tkActionPerformed
+    private void hideMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideMousePressed
+        show.setVisible(true);
+        hide.setVisible(false);
+        mk.setEchoChar((char)0);
+    }//GEN-LAST:event_hideMousePressed
 
-    int i=0;
+    private void hideMouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_hideMouseReleased
+        show.setVisible(false);
+        hide.setVisible(true);
+        mk.setEchoChar('\u2022');
+    }//GEN-LAST:event_hideMouseReleased
+
     /**
      * @param args the command line arguments
      */
@@ -197,12 +246,13 @@ public class LogInGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;
+    private javax.swing.JLabel hide;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbForgetPassword;
     private javax.swing.JPasswordField mk;
+    private javax.swing.JLabel show;
     private javax.swing.JTextField tk;
     // End of variables declaration//GEN-END:variables
 }
