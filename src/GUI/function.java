@@ -8,6 +8,8 @@ import java.awt.Color;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 /**
@@ -59,5 +61,14 @@ public class function {
                 btn.setBackground(Color.CYAN);
             }
         });
+    }
+    
+    public static boolean TextFieldIsEmpty(JTextField tf, String alert) {
+        if(tf.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa nhập "+alert);
+            tf.requestFocus();
+            return true;
+        }
+        return false;
     }
 }

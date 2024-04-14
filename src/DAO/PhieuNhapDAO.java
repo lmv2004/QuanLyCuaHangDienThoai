@@ -8,15 +8,29 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-/**
- *
- * @author ACER
- */
 public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
-
     @Override
     public ArrayList selectByCondition(String condition) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<PhieuNhapDTO> ketqua = new ArrayList<PhieuNhapDTO>();
+        try {
+            Connection con = JDBCConnection.getJDBCConnection();
+            String sql = "SELECT * FROM phieunhap WHERE "+ condition;
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaPhieu = rs.getInt("maphieunhap");
+                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                int NCC = rs.getInt("manhacungcap");
+                int MNV = rs.getInt("nguoitao");
+                long TongTien = rs.getLong("tongtien");
+                int trangthai = rs.getInt("trangthai");
+                ketqua.add(new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien,trangthai));
+            }
+            JDBCConnection.closeConection(con);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ketqua;
     }
 
     @Override

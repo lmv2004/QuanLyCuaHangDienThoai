@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import DTO.AccountDTO;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -31,8 +32,8 @@ public class LogInGUI extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        tk = new javax.swing.JTextField();
+        mk = new javax.swing.JPasswordField();
         jLabel4 = new javax.swing.JLabel();
         btnLogIn = new javax.swing.JButton();
         lbForgetPassword = new javax.swing.JLabel();
@@ -52,16 +53,21 @@ public class LogInGUI extends javax.swing.JFrame {
         jLabel3.setText("Mật khẩu");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 200, 140, 90));
 
-        jTextField1.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyTyped(java.awt.event.KeyEvent evt) {
-                jTextField1KeyTyped(evt);
+        tk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        tk.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tkActionPerformed(evt);
             }
         });
-        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 360, 50));
+        tk.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                tkKeyTyped(evt);
+            }
+        });
+        getContentPane().add(tk, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 130, 360, 50));
 
-        jPasswordField1.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
-        getContentPane().add(jPasswordField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 360, 50));
+        mk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        getContentPane().add(mk, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 220, 360, 50));
 
         jLabel4.setBackground(new java.awt.Color(0, 0, 0));
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -111,9 +117,9 @@ public class LogInGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1KeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyTyped
+    private void tkKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tkKeyTyped
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1KeyTyped
+    }//GEN-LAST:event_tkKeyTyped
 
     private void lbForgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseClicked
         // TODO add your handling code here:
@@ -137,9 +143,18 @@ public class LogInGUI extends javax.swing.JFrame {
 
     private void btnLogInActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLogInActionPerformed
         // TODO add your handling code here:
-        this.dispose();
-        new MainMenuGUI().setVisible(true);
+        if(function.TextFieldIsEmpty(tk, "tài khoản")) {
+            return;
+        }
+        if(function.TextFieldIsEmpty(mk, "mật khẩu")) {
+            return;
+        }
+        BUS.LogInBUS.LogIn(this,tk.getText(), mk.getPassword());
     }//GEN-LAST:event_btnLogInActionPerformed
+
+    private void tkActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tkActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_tkActionPerformed
 
     int i=0;
     /**
@@ -186,8 +201,8 @@ public class LogInGUI extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JPasswordField jPasswordField1;
-    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbForgetPassword;
+    private javax.swing.JPasswordField mk;
+    private javax.swing.JTextField tk;
     // End of variables declaration//GEN-END:variables
 }
