@@ -7,6 +7,7 @@ package BUS;
 import DTO.AccountDTO;
 import GUI.MainMenuGUI;
 import java.util.ArrayList;
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -20,11 +21,14 @@ public class LogInBUS {
         ArrayList<AccountDTO> accList = new DAO.AccountDAO().selecAll();
         for(AccountDTO acc : accList) {
             if(acc.equals(myAcc)) {
+                ImageIcon success = new ImageIcon("src/img/passwordSuccess.png");
+                JOptionPane.showMessageDialog(null, "Chào mừng "+tk, "Đăng nhập thành công", JOptionPane.ERROR_MESSAGE, success);
                 jf.dispose();
                 new MainMenuGUI().setVisible(true);
                 return;
             }
         }
-        JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
+        ImageIcon error = new ImageIcon("src/img/passwordError.png");
+        JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng", "Đăng nhập không thành công", JOptionPane.ERROR_MESSAGE, error);
     }
 }
