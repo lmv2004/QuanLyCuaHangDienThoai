@@ -16,15 +16,21 @@ import javax.swing.JOptionPane;
  * @author ACER
  */
 public class LogInBUS {
-    public static void LogIn(JFrame jf,String tk, char[] mk) {
+    public static void LogIn(JFrame jf, boolean rememberMe,String tk, char[] mk) {
         DTO.AccountDTO myAcc = new AccountDTO(tk, mk);
         ArrayList<AccountDTO> accList = new DAO.AccountDAO().selecAll();
         for(AccountDTO acc : accList) {
             if(acc.equals(myAcc)) {
                 ImageIcon success = new ImageIcon("src/img/passwordSuccess.png");
                 JOptionPane.showMessageDialog(null, "Chào mừng "+tk, "Đăng nhập thành công", JOptionPane.ERROR_MESSAGE, success);
+                if(rememberMe) {
+                    RegisterFile.FileReadWrite.writeFile("\\D:\\Java\\QuanLyCuaHangDienThoai\\src\\RegisterFile\\RememberMe.txt", myAcc.toString());
+                }
+                else {
+                    RegisterFile.FileReadWrite.writeFile("\\D:\\Java\\QuanLyCuaHangDienThoai\\src\\RegisterFile\\RememberMe.txt", "");
+                }
                 jf.dispose();
-                new MainMenuGUI().setVisible(true);
+                new MainMenuGUI(myAcc).setVisible(true);
                 return;
             }
         }

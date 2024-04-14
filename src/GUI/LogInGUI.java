@@ -26,6 +26,15 @@ public class LogInGUI extends javax.swing.JFrame {
         
         function.placeHolder(tk, "Tên tài khoản");
         function.placeHolder(mk, "Mật khẩu");
+        try {
+            String [] tkmk = RegisterFile.FileReadWrite.readFile("\\D:\\Java\\QuanLyCuaHangDienThoai\\src\\RegisterFile\\RememberMe.txt").split("\n");
+            tk.setText(tkmk[0]);
+            mk.setText(tkmk[1]);
+            tk.setForeground(Color.BLACK);
+            mk.setForeground(Color.BLACK);
+        } catch (Exception e) {
+            System.out.println("no remember");
+        }
         this.getContentPane().requestFocusInWindow();
     }
 
@@ -45,6 +54,7 @@ public class LogInGUI extends javax.swing.JFrame {
         lbForgetPassword = new javax.swing.JLabel();
         btnLogIn = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        cbRemember = new javax.swing.JCheckBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập vào hệ thống");
@@ -109,6 +119,20 @@ public class LogInGUI extends javax.swing.JFrame {
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/profile.png"))); // NOI18N
         jLabel1.setOpaque(true);
 
+        cbRemember.setForeground(new java.awt.Color(237, 238, 247));
+        cbRemember.setSelected(true);
+        cbRemember.setText("Ghi nhớ đăng nhập");
+        cbRemember.setContentAreaFilled(false);
+        cbRemember.setFocusPainted(false);
+        cbRemember.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                cbRememberMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                cbRememberMouseExited(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -131,9 +155,11 @@ public class LogInGUI extends javax.swing.JFrame {
                             .addComponent(tk)
                             .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(0, 0, Short.MAX_VALUE)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(lbForgetPassword)
-                                    .addComponent(eyeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                .addComponent(eyeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 53, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(cbRemember)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(lbForgetPassword)))))
                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -148,13 +174,13 @@ public class LogInGUI extends javax.swing.JFrame {
                     .addComponent(mk, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(eyeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(lbForgetPassword)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lbForgetPassword)
+                    .addComponent(cbRemember))
                 .addGap(18, 18, 18)
-                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 66, Short.MAX_VALUE)
+                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
-        eyeBtn.getAccessibleContext().setAccessibleParent(mk);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -199,7 +225,7 @@ public class LogInGUI extends javax.swing.JFrame {
         if(function.TextFieldIsEmpty(mk, "mật khẩu")) {
             return;
         }
-        BUS.LogInBUS.LogIn(this,tk.getText(), mk.getPassword());
+        BUS.LogInBUS.LogIn(this,cbRemember.isSelected(),tk.getText(), mk.getPassword());
     }//GEN-LAST:event_btnLogInActionPerformed
 
     private void eyeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyeBtnActionPerformed
@@ -213,6 +239,16 @@ public class LogInGUI extends javax.swing.JFrame {
             mk.setEchoChar('\u2022');
         }
     }//GEN-LAST:event_eyeBtnActionPerformed
+
+    private void cbRememberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRememberMouseEntered
+        // TODO add your handling code here:
+        cbRemember.setForeground(new java.awt.Color(40, 58, 149));
+    }//GEN-LAST:event_cbRememberMouseEntered
+
+    private void cbRememberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRememberMouseExited
+        // TODO add your handling code here:
+        cbRemember.setForeground(new java.awt.Color(237, 238, 247));
+    }//GEN-LAST:event_cbRememberMouseExited
 
     /**
      * @param args the command line arguments
@@ -254,6 +290,7 @@ public class LogInGUI extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;
+    private javax.swing.JCheckBox cbRemember;
     private javax.swing.JToggleButton eyeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;

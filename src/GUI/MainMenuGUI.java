@@ -7,9 +7,7 @@ package GUI;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Image;
 import java.util.ArrayList;
-import java.util.function.Supplier;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -39,10 +37,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
     area khuVucKho;
     ArrayList<JButton> buttonList;
     
-    public MainMenuGUI() {
+    public MainMenuGUI(DTO.AccountDTO myAcc) {
         initComponents();
         ImageIcon logo = new ImageIcon("src/img/logo.jpg");
         setIconImage(logo.getImage());
+        
         
         //lấy tất cả button chức năng
         buttonList = getAllButtons(ChucNangPnl);
@@ -56,6 +55,10 @@ public class MainMenuGUI extends javax.swing.JFrame {
         NoiDungPnl.repaint();
         NoiDungPnl.validate();
         BanHangBtn.setBackground(Color.CYAN);
+        
+        //đỏ dữ liệu
+        lblName.setText(myAcc.getTaiKhoan().toUpperCase());
+        lblVitri.setText("ADMIN");
     }
 
     /**
@@ -69,8 +72,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         DashBoard = new javax.swing.JPanel();
         TaiKhoanPnl = new javax.swing.JPanel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
+        lblVitri = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         ChucNangPnl = new javax.swing.JPanel();
         BanHangBtn = new javax.swing.JButton();
@@ -99,13 +102,14 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         TaiKhoanPnl.setBackground(new java.awt.Color(64, 103, 146));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("User Name");
+        lblName.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setText("User Name");
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Vị trí");
+        lblVitri.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+        lblVitri.setForeground(new java.awt.Color(255, 255, 255));
+        lblVitri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblVitri.setText("Vị trí");
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconUser.png"))); // NOI18N
 
@@ -117,16 +121,16 @@ public class MainMenuGUI extends javax.swing.JFrame {
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addGroup(TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(lblVitri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(0, 0, 0))
         );
         TaiKhoanPnlLayout.setVerticalGroup(
             TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TaiKhoanPnlLayout.createSequentialGroup()
-                .addComponent(jLabel2)
+                .addComponent(lblName)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(lblVitri, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 1, Short.MAX_VALUE))
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
@@ -468,41 +472,6 @@ public class MainMenuGUI extends javax.swing.JFrame {
         NoiDungPnl.validate();
     }//GEN-LAST:event_KVKhoBtnActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("FlatFlat Dark".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(MainMenuGUI.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new MainMenuGUI().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BanHangBtn;
     private javax.swing.JButton BaoHanhBtn;
@@ -522,7 +491,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private javax.swing.JPanel TaiKhoanPnl;
     private javax.swing.JButton ThongKeBtn;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel lblName;
+    private javax.swing.JLabel lblVitri;
     // End of variables declaration//GEN-END:variables
 }

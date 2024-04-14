@@ -62,6 +62,9 @@ public class AccountDTO {
         }
         return Arrays.equals(this.MatKhau, other.MatKhau);
     }
-    
-    
+
+    @Override
+    public String toString() {
+        return TaiKhoan + '\n' + String.copyValueOf(MatKhau);
+    }
 }

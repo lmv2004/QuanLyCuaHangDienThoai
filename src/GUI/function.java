@@ -43,22 +43,25 @@ public class function {
     
     public static void HoverBtn(javax.swing.JButton btn, ArrayList<JButton> buttonList) {
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
+            Color ChooseColor = new Color(60,78,170);
+            Color HoverColor = new Color(98,114,196);
+            Color DefaultColor = new Color(36,49,117);
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                if(btn.getBackground()==Color.CYAN) return;
-                btn.setBackground(new java.awt.Color(6, 86, 112));
+                if(btn.getBackground()==ChooseColor) return;
+                btn.setBackground(HoverColor);
             }
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                if(btn.getBackground()==Color.CYAN) return;
-                btn.setBackground(new java.awt.Color(6, 66, 93));
+                if(btn.getBackground()==ChooseColor) return;
+                btn.setBackground(DefaultColor);
             }
             @Override
             public void mouseClicked(MouseEvent e) {
                 for(JButton button : buttonList) {
-                    button.setBackground(new java.awt.Color(6, 66, 93));
+                    button.setBackground(DefaultColor);
                 }
-                btn.setBackground(Color.CYAN);
+                btn.setBackground(ChooseColor);
             }
         });
     }
