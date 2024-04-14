@@ -4,6 +4,9 @@
  */
 package DTO;
 
+import java.util.Arrays;
+import java.util.Objects;
+
 /**
  *
  * @author ACER
@@ -34,6 +37,30 @@ public class AccountDTO {
 
     public void setMatKhau(char[] MatKhau) {
         this.MatKhau = MatKhau;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AccountDTO other = (AccountDTO) obj;
+        if (!Objects.equals(this.TaiKhoan, other.TaiKhoan)) {
+            return false;
+        }
+        return Arrays.equals(this.MatKhau, other.MatKhau);
     }
     
     

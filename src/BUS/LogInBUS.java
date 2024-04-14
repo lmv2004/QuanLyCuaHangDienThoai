@@ -6,6 +6,7 @@ package BUS;
 
 import DTO.AccountDTO;
 import GUI.MainMenuGUI;
+import java.util.ArrayList;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
@@ -15,13 +16,15 @@ import javax.swing.JOptionPane;
  */
 public class LogInBUS {
     public static void LogIn(JFrame jf,String tk, char[] mk) {
-        DTO.AccountDTO acc = new AccountDTO(tk, mk);
-        if(DAO.LogInDAO.check(acc)) {
-            jf.dispose();
-            new MainMenuGUI().setVisible(true);
+        DTO.AccountDTO myAcc = new AccountDTO(tk, mk);
+        ArrayList<AccountDTO> accList = new DAO.AccountDAO().selecAll();
+        for(AccountDTO acc : accList) {
+            if(acc.equals(myAcc)) {
+                jf.dispose();
+                new MainMenuGUI().setVisible(true);
+                return;
+            }
         }
-        else {
-            JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
-        }
+        JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng");
     }
 }
