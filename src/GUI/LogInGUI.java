@@ -4,11 +4,9 @@
  */
 package GUI;
 
-import DTO.AccountDTO;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
 
 /**
  *
@@ -27,7 +25,7 @@ public class LogInGUI extends javax.swing.JFrame {
         function.placeHolder(tk, "Tên tài khoản");
         function.placeHolder(mk, "Mật khẩu");
         try {
-            String [] tkmk = RegisterFile.FileReadWrite.readFile("\\D:\\Java\\QuanLyCuaHangDienThoai\\src\\RegisterFile\\RememberMe.txt").split("\n");
+            String [] tkmk = RegisterFile.FileReadWrite.readFile("src\\RegisterFile\\RememberMe.txt").split("\n");
             tk.setText(tkmk[0]);
             mk.setText(tkmk[1]);
             tk.setForeground(Color.BLACK);

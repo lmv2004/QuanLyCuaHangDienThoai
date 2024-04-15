@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BUS;
 
 import DTO.AccountDTO;
@@ -11,10 +7,6 @@ import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
-/**
- *
- * @author ACER
- */
 public class LogInBUS {
     public static void LogIn(JFrame jf, boolean rememberMe,String tk, char[] mk) {
         DTO.AccountDTO myAcc = new AccountDTO(tk, mk);
@@ -24,10 +16,10 @@ public class LogInBUS {
                 ImageIcon success = new ImageIcon("src/img/passwordSuccess.png");
                 JOptionPane.showMessageDialog(null, "Chào mừng "+tk, "Đăng nhập thành công", JOptionPane.ERROR_MESSAGE, success);
                 if(rememberMe) {
-                    RegisterFile.FileReadWrite.writeFile("\\D:\\Java\\QuanLyCuaHangDienThoai\\src\\RegisterFile\\RememberMe.txt", myAcc.toString());
+                    RegisterFile.FileReadWrite.writeFile("src\\RegisterFile\\RememberMe.txt", myAcc.toString());
                 }
                 else {
-                    RegisterFile.FileReadWrite.writeFile("\\D:\\Java\\QuanLyCuaHangDienThoai\\src\\RegisterFile\\RememberMe.txt", "");
+                    RegisterFile.FileReadWrite.writeFile("src\\RegisterFile\\RememberMe.txt", "");
                 }
                 jf.dispose();
                 new MainMenuGUI(myAcc).setVisible(true);
