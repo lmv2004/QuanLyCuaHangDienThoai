@@ -16,28 +16,25 @@
 
 
 -- Dumping database structure for qlchdienthoai
-DROP DATABASE IF EXISTS `qlchdienthoai`;
-CREATE DATABASE IF NOT EXISTS `qlchdienthoai` /*!40100 DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci */ /*!80016 DEFAULT ENCRYPTION='N' */;
+CREATE DATABASE IF NOT EXISTS `qlchdienthoai`;
 USE `qlchdienthoai`;
 
 -- Dumping structure for table qlchdienthoai.baohanh
-DROP TABLE IF EXISTS `baohanh`;
 CREATE TABLE IF NOT EXISTS `baohanh` (
   `masanpam` int NOT NULL,
   `mabaohanh` int NOT NULL,
-  `tenkhachhang` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `yeucaubaohanh` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tenkhachhang` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `yeucaubaohanh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` tinyint(1) DEFAULT NULL,
   `ngaybaohanh` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table qlchdienthoai.baohanh: ~0 rows (approximately)
+-- Dumping data for table qlchdienthoai.baohanh: ~1 rows (approximately)
 DELETE FROM `baohanh`;
 INSERT INTO `baohanh` (`masanpam`, `mabaohanh`, `tenkhachhang`, `yeucaubaohanh`, `trangthai`, `ngaybaohanh`) VALUES
 	(1, 1, 'Lê Minh Vương', 'loa rè', 1, '2024-04-13');
 
 -- Dumping structure for table qlchdienthoai.ctphieunhap
-DROP TABLE IF EXISTS `ctphieunhap`;
 CREATE TABLE IF NOT EXISTS `ctphieunhap` (
   `maphieunhap` int NOT NULL,
   `maphienbansp` int NOT NULL DEFAULT '0',
@@ -85,7 +82,6 @@ INSERT INTO `ctphieunhap` (`maphieunhap`, `maphienbansp`, `soluong`, `dongia`, `
 	(23, 17, 2, 8000000, 0);
 
 -- Dumping structure for table qlchdienthoai.ctphieuxuat
-DROP TABLE IF EXISTS `ctphieuxuat`;
 CREATE TABLE IF NOT EXISTS `ctphieuxuat` (
   `maphieuxuat` int NOT NULL,
   `maphienbansp` int NOT NULL DEFAULT '0',
@@ -128,11 +124,10 @@ INSERT INTO `ctphieuxuat` (`maphieuxuat`, `maphienbansp`, `soluong`, `dongia`) V
 	(25, 17, 2, 7800000);
 
 -- Dumping structure for table qlchdienthoai.ctquyen
-DROP TABLE IF EXISTS `ctquyen`;
 CREATE TABLE IF NOT EXISTS `ctquyen` (
   `manhomquyen` int NOT NULL,
-  `machucnang` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `hanhdong` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `machucnang` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `hanhdong` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   PRIMARY KEY (`manhomquyen`,`machucnang`,`hanhdong`) USING BTREE,
   CONSTRAINT `FK__nhomquyen` FOREIGN KEY (`manhomquyen`) REFERENCES `nhomquyen` (`manhomquyen`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -232,9 +227,8 @@ INSERT INTO `ctquyen` (`manhomquyen`, `machucnang`, `hanhdong`) VALUES
 	(10, 'nhanvien', 'view');
 
 -- Dumping structure for table qlchdienthoai.ctsanpham
-DROP TABLE IF EXISTS `ctsanpham`;
 CREATE TABLE IF NOT EXISTS `ctsanpham` (
-  `maimei` varchar(255) COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'AUTO_INCREMENT' COMMENT 'Mã imei của sản phẩm',
+  `maimei` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT 'AUTO_INCREMENT' COMMENT 'Mã imei của sản phẩm',
   `maphienbansp` int NOT NULL,
   `maphieunhap` int NOT NULL,
   `maphieuxuat` int DEFAULT NULL,
@@ -502,10 +496,9 @@ INSERT INTO `ctsanpham` (`maimei`, `maphienbansp`, `maphieunhap`, `maphieuxuat`,
 	('968080239661041', 2, 11, 13, 0);
 
 -- Dumping structure for table qlchdienthoai.danhmucchucnang
-DROP TABLE IF EXISTS `danhmucchucnang`;
 CREATE TABLE IF NOT EXISTS `danhmucchucnang` (
-  `machucnang` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `tenchucnang` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `machucnang` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `tenchucnang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` int NOT NULL,
   PRIMARY KEY (`machucnang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -526,7 +519,6 @@ INSERT INTO `danhmucchucnang` (`machucnang`, `tenchucnang`, `trangthai`) VALUES
 	('xuathang', 'Quản lý xuất hàng', 0);
 
 -- Dumping structure for table qlchdienthoai.dungluongram
-DROP TABLE IF EXISTS `dungluongram`;
 CREATE TABLE IF NOT EXISTS `dungluongram` (
   `madlram` int NOT NULL AUTO_INCREMENT,
   `kichthuocram` int DEFAULT NULL,
@@ -545,7 +537,6 @@ INSERT INTO `dungluongram` (`madlram`, `kichthuocram`, `trangthai`) VALUES
 	(6, 12, 1);
 
 -- Dumping structure for table qlchdienthoai.dungluongrom
-DROP TABLE IF EXISTS `dungluongrom`;
 CREATE TABLE IF NOT EXISTS `dungluongrom` (
   `madlrom` int NOT NULL AUTO_INCREMENT,
   `kichthuocrom` int DEFAULT NULL,
@@ -564,27 +555,25 @@ INSERT INTO `dungluongrom` (`madlrom`, `kichthuocrom`, `trangthai`) VALUES
 	(6, 1024, 1);
 
 -- Dumping structure for table qlchdienthoai.hedieuhanh
-DROP TABLE IF EXISTS `hedieuhanh`;
 CREATE TABLE IF NOT EXISTS `hedieuhanh` (
   `mahedieuhanh` int NOT NULL AUTO_INCREMENT,
-  `tenhedieuhanh` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tenhedieuhanh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`mahedieuhanh`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table qlchdienthoai.hedieuhanh: ~3 rows (approximately)
+-- Dumping data for table qlchdienthoai.hedieuhanh: ~2 rows (approximately)
 DELETE FROM `hedieuhanh`;
 INSERT INTO `hedieuhanh` (`mahedieuhanh`, `tenhedieuhanh`, `trangthai`) VALUES
 	(1, 'Android', 1),
 	(2, 'IOS', 1);
 
 -- Dumping structure for table qlchdienthoai.khachhang
-DROP TABLE IF EXISTS `khachhang`;
 CREATE TABLE IF NOT EXISTS `khachhang` (
   `makh` int NOT NULL AUTO_INCREMENT,
-  `tenkhachhang` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `diachi` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `sdt` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tenkhachhang` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `diachi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `sdt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` int NOT NULL,
   `ngaythamgia` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`makh`)
@@ -613,11 +602,10 @@ INSERT INTO `khachhang` (`makh`, `tenkhachhang`, `diachi`, `sdt`, `trangthai`, `
 	(42, 'Hoàng Văn Nam', ' 567 Phố Huế, Quận Hai Bà Trưng, Hà Nội', '0912345678', 1, '2024-03-30 09:52:29');
 
 -- Dumping structure for table qlchdienthoai.khuvuckho
-DROP TABLE IF EXISTS `khuvuckho`;
 CREATE TABLE IF NOT EXISTS `khuvuckho` (
   `makhuvuc` int NOT NULL AUTO_INCREMENT,
-  `tenkhuvuc` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `ghichu` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tenkhuvuc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `ghichu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` int NOT NULL,
   PRIMARY KEY (`makhuvuc`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -632,10 +620,9 @@ INSERT INTO `khuvuckho` (`makhuvuc`, `tenkhuvuc`, `ghichu`, `trangthai`) VALUES
 	(5, 'Khu vực E', 'Oppo', 1);
 
 -- Dumping structure for table qlchdienthoai.mausac
-DROP TABLE IF EXISTS `mausac`;
 CREATE TABLE IF NOT EXISTS `mausac` (
   `mamau` int NOT NULL AUTO_INCREMENT,
-  `tenmau` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
+  `tenmau` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '0',
   `trangthai` tinyint DEFAULT '1',
   PRIMARY KEY (`mamau`),
   UNIQUE KEY `tenmau` (`tenmau`)
@@ -659,13 +646,12 @@ INSERT INTO `mausac` (`mamau`, `tenmau`, `trangthai`) VALUES
 	(13, 'Trắng', 1);
 
 -- Dumping structure for table qlchdienthoai.nhacungcap
-DROP TABLE IF EXISTS `nhacungcap`;
 CREATE TABLE IF NOT EXISTS `nhacungcap` (
   `manhacungcap` int NOT NULL AUTO_INCREMENT,
-  `tennhacungcap` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `diachi` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `sdt` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tennhacungcap` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `diachi` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `sdt` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` int NOT NULL DEFAULT '1',
   PRIMARY KEY (`manhacungcap`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -682,14 +668,13 @@ INSERT INTO `nhacungcap` (`manhacungcap`, `tennhacungcap`, `diachi`, `email`, `s
 	(7, 'Công ty Oppo Việt Nam', '27 Đ. Nguyễn Trung Trực, Phường Bến Thành, Quận 1, Thành phố Hồ Chí Minh', 'oppovietnam@oppo.vn', '0456345234', 1);
 
 -- Dumping structure for table qlchdienthoai.nhanvien
-DROP TABLE IF EXISTS `nhanvien`;
 CREATE TABLE IF NOT EXISTS `nhanvien` (
   `manv` int NOT NULL AUTO_INCREMENT,
-  `hoten` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `hoten` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `gioitinh` int NOT NULL,
   `ngaysinh` date NOT NULL,
-  `sdt` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `sdt` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` int NOT NULL,
   PRIMARY KEY (`manv`)
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -704,10 +689,9 @@ INSERT INTO `nhanvien` (`manv`, `hoten`, `gioitinh`, `ngaysinh`, `sdt`, `email`,
 	(5, 'Nguyễn Huy Hoàng\r\n', 1, '2004-05-06', '0123456789', 'hieu@gmail.com', 1);
 
 -- Dumping structure for table qlchdienthoai.nhomquyen
-DROP TABLE IF EXISTS `nhomquyen`;
 CREATE TABLE IF NOT EXISTS `nhomquyen` (
   `manhomquyen` int NOT NULL AUTO_INCREMENT,
-  `tennhomquyen` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tennhomquyen` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` int NOT NULL,
   PRIMARY KEY (`manhomquyen`)
 ) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -727,7 +711,6 @@ INSERT INTO `nhomquyen` (`manhomquyen`, `tennhomquyen`, `trangthai`) VALUES
 	(10, 'abc', 1);
 
 -- Dumping structure for table qlchdienthoai.phienbansanpham
-DROP TABLE IF EXISTS `phienbansanpham`;
 CREATE TABLE IF NOT EXISTS `phienbansanpham` (
   `maphienbansp` int NOT NULL AUTO_INCREMENT,
   `masp` int DEFAULT NULL,
@@ -812,11 +795,10 @@ INSERT INTO `phienbansanpham` (`maphienbansp`, `masp`, `rom`, `ram`, `mausac`, `
 	(125, 17, 1, 1, 1, 2500000, 3000000, 5, 1);
 
 -- Dumping structure for table qlchdienthoai.phieubaohanh
-DROP TABLE IF EXISTS `phieubaohanh`;
 CREATE TABLE IF NOT EXISTS `phieubaohanh` (
   `maphieubaohanh` int NOT NULL AUTO_INCREMENT,
-  `maimei` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
-  `lydo` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `maimei` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
+  `lydo` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `thoigian` datetime NOT NULL DEFAULT (curdate()),
   `thoigiantra` datetime DEFAULT NULL,
   PRIMARY KEY (`maphieubaohanh`)
@@ -826,7 +808,6 @@ CREATE TABLE IF NOT EXISTS `phieubaohanh` (
 DELETE FROM `phieubaohanh`;
 
 -- Dumping structure for table qlchdienthoai.phieunhap
-DROP TABLE IF EXISTS `phieunhap`;
 CREATE TABLE IF NOT EXISTS `phieunhap` (
   `maphieunhap` int NOT NULL AUTO_INCREMENT,
   `thoigian` datetime DEFAULT CURRENT_TIMESTAMP,
@@ -866,7 +847,6 @@ INSERT INTO `phieunhap` (`maphieunhap`, `thoigian`, `manhacungcap`, `nguoitao`, 
 	(23, '2023-05-10 08:25:11', 1, 1, 16000000, 1);
 
 -- Dumping structure for table qlchdienthoai.phieuxuat
-DROP TABLE IF EXISTS `phieuxuat`;
 CREATE TABLE IF NOT EXISTS `phieuxuat` (
   `maphieuxuat` int NOT NULL AUTO_INCREMENT,
   `thoigian` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -910,19 +890,18 @@ INSERT INTO `phieuxuat` (`maphieuxuat`, `thoigian`, `tongtien`, `nguoitaophieuxu
 	(25, '2023-05-10 08:28:18', 15600000, 1, 3, 1);
 
 -- Dumping structure for table qlchdienthoai.sanpham
-DROP TABLE IF EXISTS `sanpham`;
 CREATE TABLE IF NOT EXISTS `sanpham` (
   `masp` int NOT NULL AUTO_INCREMENT,
-  `tensp` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `hinhanh` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `tensp` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `hinhanh` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `xuatxu` int DEFAULT NULL,
-  `chipxuly` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `chipxuly` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `dungluongpin` int DEFAULT NULL,
   `kichthuocman` double DEFAULT NULL,
   `hedieuhanh` int DEFAULT NULL,
   `phienbanhdh` int DEFAULT NULL,
-  `camerasau` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
-  `cameratruoc` varchar(255) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `camerasau` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `cameratruoc` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   `thoigianbaohanh` int DEFAULT NULL,
   `thuonghieu` int DEFAULT NULL,
   `khuvuckho` int DEFAULT NULL,
@@ -952,14 +931,13 @@ INSERT INTO `sanpham` (`masp`, `tensp`, `hinhanh`, `xuatxu`, `chipxuly`, `dunglu
 	(17, 'Samsung Galaxy A53 5G S', '74319198933.jpg', 1, 'chip a', 5000, 5.6, 1, 12, 'msdf', 'dsfgfdg', 24, 1, 1, 5, 0);
 
 -- Dumping structure for table qlchdienthoai.taikhoan
-DROP TABLE IF EXISTS `taikhoan`;
 CREATE TABLE IF NOT EXISTS `taikhoan` (
   `manv` int NOT NULL,
-  `matkhau` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `matkhau` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `manhomquyen` int NOT NULL,
-  `tendangnhap` varchar(50) COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
+  `tendangnhap` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '',
   `trangthai` int NOT NULL,
-  `otp` varchar(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `otp` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`manv`),
   UNIQUE KEY `tendangnhap` (`tendangnhap`),
   KEY `FK_taikhoan_nhomquyen` (`manhomquyen`),
@@ -970,22 +948,21 @@ CREATE TABLE IF NOT EXISTS `taikhoan` (
 -- Dumping data for table qlchdienthoai.taikhoan: ~5 rows (approximately)
 DELETE FROM `taikhoan`;
 INSERT INTO `taikhoan` (`manv`, `matkhau`, `manhomquyen`, `tendangnhap`, `trangthai`, `otp`) VALUES
-	(1, '$2a$12$6GSkiQ05XjTRvCW9MB6MNuf7hOJEbbeQx11Eb8oELil1OrCq6uBXm', 1, 'admin', 1, 'null'),
-	(2, '$2a$12$SAlAhcsudMzNEouyBaoHnOKR23ixdH0ZkcoyXUJ5gS/NFt.b4oqw6', 1, 'vuongvovan', 1, '451418'),
-	(3, '$2a$12$SAlAhcsudMzNEouyBaoHnOKR23ixdH0ZkcoyXUJ5gS/NFt.b4oqw6', 10, 'tvuong', 1, NULL),
-	(4, '$2a$12$SAlAhcsudMzNEouyBaoHnOKR23ixdH0ZkcoyXUJ5gS/NFt.b4oqw6', 2, 'dany', 0, NULL),
-	(5, '$2a$12$SAlAhcsudMzNEouyBaoHnOKR23ixdH0ZkcoyXUJ5gS/NFt.b4oqw6', 3, 'hoang', 0, NULL);
+	(1, 'admin', 1, 'admin', 1, 'null'),
+	(2, 'vuoNg123', 1, 'vuongvovan', 1, '451418'),
+	(3, 'tvuong123', 10, 'tvuong', 1, NULL),
+	(4, 'dany123', 2, 'dany', 0, NULL),
+	(5, 'hoang123', 3, 'hoang', 0, NULL);
 
 -- Dumping structure for table qlchdienthoai.thuonghieu
-DROP TABLE IF EXISTS `thuonghieu`;
 CREATE TABLE IF NOT EXISTS `thuonghieu` (
   `mathuonghieu` int NOT NULL AUTO_INCREMENT,
-  `tenthuonghieu` varchar(255) COLLATE utf8mb4_general_ci NOT NULL,
+  `tenthuonghieu` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` tinyint(1) NOT NULL DEFAULT '1',
   PRIMARY KEY (`mathuonghieu`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Dumping data for table qlchdienthoai.thuonghieu: ~9 rows (approximately)
+-- Dumping data for table qlchdienthoai.thuonghieu: ~8 rows (approximately)
 DELETE FROM `thuonghieu`;
 INSERT INTO `thuonghieu` (`mathuonghieu`, `tenthuonghieu`, `trangthai`) VALUES
 	(1, 'Iphone', 1),
@@ -998,10 +975,9 @@ INSERT INTO `thuonghieu` (`mathuonghieu`, `tenthuonghieu`, `trangthai`) VALUES
 	(14, 'Oppo', 1);
 
 -- Dumping structure for table qlchdienthoai.xuatxu
-DROP TABLE IF EXISTS `xuatxu`;
 CREATE TABLE IF NOT EXISTS `xuatxu` (
   `maxuatxu` int NOT NULL AUTO_INCREMENT,
-  `tenxuatxu` varchar(50) COLLATE utf8mb4_general_ci NOT NULL,
+  `tenxuatxu` varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL,
   `trangthai` tinyint(1) DEFAULT '1',
   PRIMARY KEY (`maxuatxu`) USING BTREE
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
