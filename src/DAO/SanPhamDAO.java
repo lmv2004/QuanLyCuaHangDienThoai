@@ -48,7 +48,7 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
 
             Connection conn = JDBCConnection.getJDBCConnection();
             String sql = "UPDATE sanpham"
-                    + " SET tensp=? ,hinhanh=? ,xuatxu=? ,chipxuly=? ,dungluongpin=? ,kichthuocman=? ,hedieuhanh=? ,phienbanhdh=? ,camerasau=? ,cameratruoc=? ,thoigianbaohanh=? ,thuonghieu=? ,khuvuckho=? ,soluongton=? ,trangthai=1"
+                    + " SET tensp=? ,hinhanh=? ,xuatxu=? ,chipxuly=? ,dungluongpin=? ,kichthuocman=? ,hedieuhanh=? ,phienbanhdh=? ,camerasau=? ,cameratruoc=? ,thoigianbaohanh=? ,thuonghieu=? ,khuvuckho=? ,trangthai=1"
                     + " WHERE masp=?";
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setString(1, t.getTensp());
@@ -64,8 +64,8 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
             psm.setInt(11, t.getThoigianbaohanh());
             psm.setInt(12, t.getThuonghieu());
             psm.setInt(13, t.getKhuvuckho());
-            psm.setInt(14, t.getSoluongton());
-            psm.setInt(15, t.getMasp());
+           
+            psm.setInt(14, t.getMasp());
             ketqua = psm.executeUpdate();
             JDBCConnection.closeConection(conn);
         } catch (Exception e) {
@@ -127,14 +127,14 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         return ketqua;
     }
 
-    @Override
-    public SanPhamDTO selectById(SanPhamDTO t) {
+  
+    public SanPhamDTO selectById(int t) {
         SanPhamDTO ketqua=null;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
             String sql = "SELECT * FROM sampham WHERE masp=?";
             PreparedStatement psm = conn.prepareStatement(sql);
-            psm.setInt(1, t.getMasp());
+            psm.setInt(1, t);
             ResultSet rs=psm.executeQuery();
             while(rs.next()){
                  int masp = rs.getInt("masp");
@@ -192,6 +192,11 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
             e.printStackTrace();
         }
         return ketqua;
+    }
+
+    @Override
+    public SanPhamDTO selectById(SanPhamDTO t) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }
