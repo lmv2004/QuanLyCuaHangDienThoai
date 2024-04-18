@@ -63,6 +63,7 @@ public class LogInGUI extends javax.swing.JFrame {
 
         eyeBtn.setBackground(new java.awt.Color(255, 255, 255));
         eyeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eyeHide.png"))); // NOI18N
+        eyeBtn.setToolTipText("Show/Hide");
         eyeBtn.setBorder(null);
         eyeBtn.setBorderPainted(false);
         eyeBtn.setFocusPainted(false);
@@ -74,6 +75,7 @@ public class LogInGUI extends javax.swing.JFrame {
         });
 
         tk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
+        tk.setToolTipText("");
         tk.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
         mk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
@@ -99,7 +101,9 @@ public class LogInGUI extends javax.swing.JFrame {
         btnLogIn.setBackground(new java.awt.Color(60, 78, 170));
         btnLogIn.setFont(new java.awt.Font("Segoe UI", 1, 30)); // NOI18N
         btnLogIn.setForeground(new java.awt.Color(237, 238, 247));
+        btnLogIn.setMnemonic('d');
         btnLogIn.setText("Đăng nhập");
+        btnLogIn.setDisplayedMnemonicIndex(0);
         btnLogIn.setFocusPainted(false);
         btnLogIn.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -118,9 +122,11 @@ public class LogInGUI extends javax.swing.JFrame {
         jLabel1.setOpaque(true);
 
         cbRemember.setForeground(new java.awt.Color(237, 238, 247));
+        cbRemember.setMnemonic('g');
         cbRemember.setSelected(true);
         cbRemember.setText("Ghi nhớ đăng nhập");
         cbRemember.setContentAreaFilled(false);
+        cbRemember.setDisplayedMnemonicIndex(0);
         cbRemember.setFocusPainted(false);
         cbRemember.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseEntered(java.awt.event.MouseEvent evt) {

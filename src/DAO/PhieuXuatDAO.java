@@ -1,6 +1,6 @@
 package DAO;
 
-import DTO.PhieuNhapDTO;
+import DTO.PhieuXuatDTO;
 import java.sql.Connection;
 import java.sql.Timestamp;
 import java.sql.PreparedStatement;
@@ -12,25 +12,42 @@ import java.util.ArrayList;
  *
  * @author ACER
  */
-public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
-
+public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
     @Override
     public ArrayList selectByCondition(String condition) {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        ArrayList<PhieuXuatDTO> ketqua = new ArrayList<PhieuXuatDTO>();
+        try {
+            Connection con = JDBCConnection.getJDBCConnection();
+            String sql = "SELECT * FROM phieuxuat WHERE trangthai=1 and"+ condition;
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaPhieu = rs.getInt("maphieuxuat");
+                int MaKH = rs.getInt("makh");
+                int MNV = rs.getInt("manv");
+                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                long TongTien = rs.getLong("tongtien");
+                ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));
+            }
+            JDBCConnection.closeConection(con);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ketqua;
     }
 
     @Override
-    public int insert(PhieuNhapDTO t) {
+    public int insert(PhieuXuatDTO t) {
         int ketqua = 0;
         try {
             Connection con = JDBCConnection.getJDBCConnection();
             
-            String sql = "INSERT INTO phieunhap VALUES(? , ? , ? , ? , ? , 1);";
+            String sql = "INSERT INTO phieuxuat VALUES(? , ? , ? , ? , ? , 1);";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, t.getMaPhieu());
-            pst.setTimestamp(2, t.getThoiGian());
-            pst.setInt(3, t.getNCC());
-            pst.setInt(4, t.getMNV());
+            pst.setInt(2, t.getMKH());
+            pst.setInt(3, t.getMNV());
+            pst.setTimestamp(4, t.getThoiGian());
             pst.setLong(5, t.getTongTien());
             System.out.println(pst.toString());
             ketqua = pst.executeUpdate();
@@ -44,7 +61,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
     }
 
     @Override
-    public int update(PhieuNhapDTO t) {
+    public int update(PhieuXuatDTO t) {
         int ketqua = 0;
         try {
 
@@ -52,14 +69,14 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
             Connection con = JDBCConnection.getJDBCConnection();
 
             // bước 2 tạo đối tượng statement
-            String sql = "Update phieunhap"
-                    + " Set thoigian=? ,manhacungcap=? ,nguoitao=? ,tongtien=? ,trangthai=1"
-                    + " Where maphieunhap =?";
+            String sql = "Update phieuxuat"
+                    + " SET makh=?, manv=?, thoigian=?, tongtien=? ,trangthai=1"
+                    + " Where maphieuxuat =?";
             PreparedStatement pst = con.prepareStatement(sql);
             
-            pst.setTimestamp(1, t.getThoiGian());
-            pst.setInt(2, t.getNCC());
-            pst.setInt(3, t.getMNV());
+            pst.setInt(1, t.getMKH());
+            pst.setInt(2, t.getMNV());
+            pst.setTimestamp(3, t.getThoiGian());
             pst.setLong(4, t.getTongTien());
             pst.setInt(5, t.getMaPhieu());
             ketqua = pst.executeUpdate();
@@ -72,11 +89,11 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
     }
 
     @Override
-    public int delete(PhieuNhapDTO t) {
+    public int delete(PhieuXuatDTO t) {
         int ketqua = 0;
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = String.format("DELETE FROM phieunhap WHERE maphieunhap=%s", t.getMaPhieu());
+            String sql = String.format("UPDATE phieuxuat SET trangthai=0 WHERE maphieuxuat=%s", t.getMaPhieu());
             PreparedStatement pst = con.prepareStatement(sql);
             ketqua = pst.executeUpdate();
             System.out.println("success! Affected rows: "+ketqua);
@@ -88,21 +105,20 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
     }
 
     @Override
-    public PhieuNhapDTO selectById(PhieuNhapDTO t) {
-        PhieuNhapDTO ketqua = null;
+    public PhieuXuatDTO selectById(PhieuXuatDTO t) {
+        PhieuXuatDTO ketqua = null;
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = String.format("SELECT * FROM phieunhap WHERE maphieunhap=%s and trangthai=1", t.getMaPhieu());
+            String sql = String.format("SELECT * FROM phieuxuat WHERE maphieuxuat=%s and trangthai=1", t.getMaPhieu());
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                int MaPhieu = rs.getInt("maphieunhap");
+                int MaPhieu = rs.getInt("maphieuxuat");
+                int MaKH = rs.getInt("makh");
+                int MNV = rs.getInt("manv");
                 Timestamp ThoiGian = rs.getTimestamp("thoigian");
-                int NCC = rs.getInt("manhacungcap");
-                int MNV = rs.getInt("nguoitao");
                 long TongTien = rs.getLong("tongtien");
-                int trangthai = rs.getInt("trangthai");
-                ketqua = new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien, trangthai);
+                ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
             }
             JDBCConnection.closeConection(con);
         } catch (SQLException ex) {
@@ -112,21 +128,20 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
     }
 
     @Override
-    public ArrayList<PhieuNhapDTO> selecAll() {
-        ArrayList<PhieuNhapDTO> ketqua = new ArrayList<PhieuNhapDTO>();
+    public ArrayList<PhieuXuatDTO> selecAll() {
+        ArrayList<PhieuXuatDTO> ketqua = new ArrayList<PhieuXuatDTO>();
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM phieunhap";
+            String sql = "SELECT * FROM phieuxuat";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
-                int MaPhieu = rs.getInt("maphieunhap");
+                int MaPhieu = rs.getInt("maphieuxuat");
+                int MaKH = rs.getInt("makh");
+                int MNV = rs.getInt("manv");
                 Timestamp ThoiGian = rs.getTimestamp("thoigian");
-                int NCC = rs.getInt("manhacungcap");
-                int MNV = rs.getInt("nguoitao");
                 long TongTien = rs.getLong("tongtien");
-                int trangthai = rs.getInt("trangthai");
-                ketqua.add(new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien,trangthai));
+                ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));
             }
             JDBCConnection.closeConection(con);
         } catch (SQLException ex) {
@@ -136,5 +151,25 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuNhapDTO> {
     }
 
     
-
+    public PhieuXuatDTO selectById(int ID) {
+        PhieuXuatDTO ketqua = null;
+        try {
+            Connection con = JDBCConnection.getJDBCConnection();
+            String sql = String.format("SELECT * FROM phieuxuat WHERE maphieuxuat=%s and trangthai=1", ID);
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaPhieu = rs.getInt("maphieuxuat");
+                int MaKH = rs.getInt("makh");
+                int MNV = rs.getInt("manv");
+                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                long TongTien = rs.getLong("tongtien");
+                ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
+            }
+            JDBCConnection.closeConection(con);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ketqua;
+    }
 }

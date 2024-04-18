@@ -21,12 +21,11 @@ public class PhieuDTO {
     public PhieuDTO() {
     }
 
-    public PhieuDTO(int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien, int trangthai) {
+    public PhieuDTO(int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
         this.MaPhieu = MaPhieu;
         this.MNV = MNV;
         this.ThoiGian = ThoiGian;
         this.TongTien = TongTien;
-        this.trangthai=trangthai;
     }
 
     public int getMaPhieu() {
@@ -68,10 +67,9 @@ public class PhieuDTO {
     public void setTrangthai(int trangthai) {
         this.trangthai = trangthai;
     }
-
     @Override
     public String toString() {
-        return "\nMaPhieu=" + MaPhieu + ", MNV=" + MNV + ", ThoiGian=" + ThoiGian + ", TongTien=" + TongTien + ", trangthai=" + trangthai;
+        return "\nMaPhieu=" + MaPhieu + ", MNV=" + MNV + ", ThoiGian=" + ThoiGian + ", TongTien=" + TongTien;
     }
     
 }

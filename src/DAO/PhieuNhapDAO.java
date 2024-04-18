@@ -14,7 +14,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
         ArrayList<PhieuNhapDTO> ketqua = new ArrayList<PhieuNhapDTO>();
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM phieunhap WHERE "+ condition;
+            String sql = "SELECT * FROM phieunhap WHERE trangthai=1 and"+ condition;
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -23,8 +23,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
                 int NCC = rs.getInt("manhacungcap");
                 int MNV = rs.getInt("nguoitao");
                 long TongTien = rs.getLong("tongtien");
-                int trangthai = rs.getInt("trangthai");
-                ketqua.add(new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien,trangthai));
+                ketqua.add(new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien));
             }
             JDBCConnection.closeConection(con);
         } catch (SQLException ex) {
@@ -61,11 +60,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
     public int update(PhieuNhapDTO t) {
         int ketqua = 0;
         try {
-
-            // bước 1 tạo kết nối
             Connection con = JDBCConnection.getJDBCConnection();
-
-            // bước 2 tạo đối tượng statement
             String sql = "Update phieunhap"
                     + " Set thoigian=? ,manhacungcap=? ,nguoitao=? ,tongtien=? ,trangthai=1"
                     + " Where maphieunhap =?";
@@ -90,7 +85,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
         int ketqua = 0;
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = String.format("DELETE FROM phieunhap WHERE maphieunhap=%s", t.getMaPhieu());
+            String sql = String.format("UPDATE phieunhap SET trangthai=0 WHERE maphieunhap=%s", t.getMaPhieu());
             PreparedStatement pst = con.prepareStatement(sql);
             ketqua = pst.executeUpdate();
             System.out.println("success! Affected rows: "+ketqua);
@@ -115,8 +110,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
                 int NCC = rs.getInt("manhacungcap");
                 int MNV = rs.getInt("nguoitao");
                 long TongTien = rs.getLong("tongtien");
-                int trangthai = rs.getInt("trangthai");
-                ketqua = new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien, trangthai);
+                ketqua = new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien);
             }
             JDBCConnection.closeConection(con);
         } catch (SQLException ex) {
@@ -130,7 +124,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
         ArrayList<PhieuNhapDTO> ketqua = new ArrayList<PhieuNhapDTO>();
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM phieunhap";
+            String sql = "SELECT * FROM phieunhap WHERE trangthai=1";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
@@ -139,8 +133,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
                 int NCC = rs.getInt("manhacungcap");
                 int MNV = rs.getInt("nguoitao");
                 long TongTien = rs.getLong("tongtien");
-                int trangthai = rs.getInt("trangthai");
-                ketqua.add(new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien,trangthai));
+                ketqua.add(new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien));
             }
             JDBCConnection.closeConection(con);
         } catch (SQLException ex) {

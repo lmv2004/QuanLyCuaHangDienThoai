@@ -105,6 +105,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         viewContent.setPreferredSize(new java.awt.Dimension(1200, 725));
         viewContent.setLayout(new java.awt.BorderLayout());
 
+        Button_Function.setOpaque(false);
         Button_Function.setPreferredSize(new java.awt.Dimension(963, 50));
 
         Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add.png"))); // NOI18N
@@ -216,6 +217,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         viewContent.add(Button_Function, java.awt.BorderLayout.PAGE_START);
 
         jPanel2.setMinimumSize(new java.awt.Dimension(140, 524));
+        jPanel2.setOpaque(false);
         jPanel2.setPreferredSize(new java.awt.Dimension(140, 675));
         jPanel2.setLayout(new java.awt.GridLayout(20, 1));
 
@@ -255,6 +257,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
         viewContent.add(jPanel2, java.awt.BorderLayout.LINE_START);
 
+        jPanel3.setOpaque(false);
+
         tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -278,6 +282,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                 return canEdit [columnIndex];
             }
         });
+        tblDSPN.setOpaque(false);
         tblDSPN.setShowGrid(true);
         jScrollPane1.setViewportView(tblDSPN);
 
