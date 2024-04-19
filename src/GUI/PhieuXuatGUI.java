@@ -18,19 +18,19 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
      */
     public PhieuXuatGUI() {
         super();
-        labelNCC.setText("Khách hàng");
-        labelNV.setText("Nhân viên xuất");
-        tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "STT", "Mã phiếu xuất", "Khách hàng", "Nhân viên xuất", "Thời gian", "Tổng tiền (VNĐ)"
-            }));
-        cbbFilter.removeAllItems();
-        cbbFilter.setModel(new DefaultComboBoxModel(new String [] {
-            "Tất cả","Mã phiếu xuất","Khách hàng","Nhân viên xuất"
-        }));
+//        labelNCC.setText("Khách hàng");
+//        labelNV.setText("Nhân viên xuất");
+//        tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
+//            new Object [][] {
+//
+//            },
+//            new String [] {
+//                "STT", "Mã phiếu xuất", "Khách hàng", "Nhân viên xuất", "Thời gian", "Tổng tiền (VNĐ)"
+//            }));
+//        cbbFilter.removeAllItems();
+//        cbbFilter.setModel(new DefaultComboBoxModel(new String [] {
+//            "Tất cả","Mã phiếu xuất","Khách hàng","Nhân viên xuất"
+//        }));
     }
 
     /**

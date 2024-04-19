@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
@@ -56,6 +57,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
         NoiDungPnl.repaint();
         NoiDungPnl.validate();
         BanHangBtn.setBackground(new Color(36, 49, 117));
+        BanHangBtn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        function.setBtnBefore(BanHangBtn);
         
         //đỏ dữ liệu
         lblName.setText(myAcc.getTaiKhoan().toUpperCase());
@@ -94,8 +97,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("QUẢN LÝ CỬA HÀNG ĐIỆN THOẠI");
-        setMinimumSize(new java.awt.Dimension(1000, 560));
+        setMinimumSize(new java.awt.Dimension(1500, 770));
 
+        DashBoard.setBackground(new java.awt.Color(5, 7, 15));
         DashBoard.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         DashBoard.setAlignmentX(0.0F);
         DashBoard.setAlignmentY(0.0F);
@@ -105,25 +109,27 @@ public class MainMenuGUI extends javax.swing.JFrame {
         lblName.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
         lblName.setForeground(new java.awt.Color(255, 255, 255));
         lblName.setText("User Name");
+        lblName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         lblVitri.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
         lblVitri.setForeground(new java.awt.Color(255, 255, 255));
         lblVitri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVitri.setText("Vị trí");
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/iconUser.png"))); // NOI18N
+        jLabel1.setIcon(new FlatSVGIcon("img/avatar.svg",55,55));
+        jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        jLabel1.setPreferredSize(new java.awt.Dimension(0, 0));
 
         javax.swing.GroupLayout TaiKhoanPnlLayout = new javax.swing.GroupLayout(TaiKhoanPnl);
         TaiKhoanPnl.setLayout(TaiKhoanPnlLayout);
         TaiKhoanPnlLayout.setHorizontalGroup(
             TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TaiKhoanPnlLayout.createSequentialGroup()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 56, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lblVitri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
         );
         TaiKhoanPnlLayout.setVerticalGroup(
             TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -131,10 +137,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
                 .addComponent(lblName)
                 .addGap(0, 0, 0)
                 .addComponent(lblVitri, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 1, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
+        ChucNangPnl.setBackground(new java.awt.Color(5, 7, 15));
         ChucNangPnl.setOpaque(false);
         ChucNangPnl.setLayout(new java.awt.GridLayout(13, 10));
 
@@ -325,8 +332,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         DangXuatBtn.setBackground(new java.awt.Color(5, 7, 15));
         DangXuatBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        DangXuatBtn.setForeground(new java.awt.Color(255, 51, 51));
-        DangXuatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-logout-40.png"))); // NOI18N
+        DangXuatBtn.setForeground(java.awt.Color.red);
         DangXuatBtn.setText("Đăng Xuất");
         DangXuatBtn.setBorder(null);
         DangXuatBtn.setFocusPainted(false);
@@ -354,7 +360,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addGroup(DashBoardLayout.createSequentialGroup()
                 .addComponent(TaiKhoanPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 620, Short.MAX_VALUE)
+                .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
                 .addGap(1, 1, 1))
         );
 
@@ -369,6 +375,10 @@ public class MainMenuGUI extends javax.swing.JFrame {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getBanHangBtn() {
+        return BanHangBtn;
+    }
+    
     public static ArrayList<JButton> getAllButtons(JPanel panel) {
         ArrayList<JButton> buttonList = new ArrayList<>();
         Component[] components = panel.getComponents();

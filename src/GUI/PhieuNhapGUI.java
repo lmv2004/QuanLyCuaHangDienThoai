@@ -20,7 +20,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
      */
     public PhieuNhapGUI() {
         initComponents();
-        function.placeHolder(tfSearch, "Nhập Nội Dung Tìm Kiếm");
+        toolBar.add(new toolBar(), java.awt.BorderLayout.CENTER);
     }
 
     /**
@@ -32,24 +32,16 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPopupMenu1 = new javax.swing.JPopupMenu();
-        add = new javax.swing.JMenuItem();
+        rowConfig = new javax.swing.JPopupMenu();
         edit = new javax.swing.JMenuItem();
         remove = new javax.swing.JMenuItem();
-        jMenuItem4 = new javax.swing.JMenuItem();
-        jMenuItem5 = new javax.swing.JMenuItem();
-        jMenuItem6 = new javax.swing.JMenuItem();
+        details = new javax.swing.JMenuItem();
         viewContent = new javax.swing.JPanel();
-        Button_Function = new javax.swing.JPanel();
-        Add = new javax.swing.JButton();
-        Update1 = new javax.swing.JButton();
-        Update = new javax.swing.JButton();
-        Detail = new javax.swing.JButton();
-        Import_Excel = new javax.swing.JButton();
-        Export_Excel = new javax.swing.JButton();
-        cbbFilter = new javax.swing.JComboBox<>();
-        tfSearch = new javax.swing.JTextField();
-        Refresh = new javax.swing.JButton();
+        toolBar = new javax.swing.JPanel();
+        jPanel3 = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblDSPN = new javax.swing.JTable();
+        jPanel4 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         labelNCC = new javax.swing.JLabel();
@@ -66,37 +58,20 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jSlider2 = new javax.swing.JSlider();
-        jPanel3 = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        tblDSPN = new javax.swing.JTable();
 
-        add.setText("jMenuItem1");
-        jPopupMenu1.add(add);
+        edit.setText("Sửa");
+        rowConfig.add(edit);
 
-        edit.setText("jMenuItem1");
-        jPopupMenu1.add(edit);
-
-        remove.setText("jMenuItem1");
+        remove.setText("Xóa");
         remove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 removeActionPerformed(evt);
             }
         });
-        jPopupMenu1.add(remove);
+        rowConfig.add(remove);
 
-        jMenuItem4.setText("jMenuItem1");
-        jMenuItem4.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jMenuItem4ActionPerformed(evt);
-            }
-        });
-        jPopupMenu1.add(jMenuItem4);
-
-        jMenuItem5.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem5);
-
-        jMenuItem6.setText("jMenuItem1");
-        jPopupMenu1.add(jMenuItem6);
+        details.setText("Details");
+        rowConfig.add(details);
 
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1200, 725));
@@ -105,116 +80,60 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         viewContent.setPreferredSize(new java.awt.Dimension(1200, 725));
         viewContent.setLayout(new java.awt.BorderLayout());
 
-        Button_Function.setOpaque(false);
-        Button_Function.setPreferredSize(new java.awt.Dimension(963, 50));
+        toolBar.setOpaque(false);
+        toolBar.setPreferredSize(new java.awt.Dimension(963, 84));
+        toolBar.setLayout(new java.awt.BorderLayout());
+        viewContent.add(toolBar, java.awt.BorderLayout.PAGE_START);
 
-        Add.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add.png"))); // NOI18N
-        Add.setMnemonic('t');
-        Add.setToolTipText("Thêm");
-        Add.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Add.setIconTextGap(8);
-        Add.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Add.setPreferredSize(new java.awt.Dimension(40, 40));
-        Add.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Button_Function.add(Add);
+        jPanel3.setOpaque(false);
 
-        Update1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
-        Update1.setMnemonic('x');
-        Update1.setToolTipText("Xóa");
-        Update1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Update1.setIconTextGap(8);
-        Update1.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Update1.setPreferredSize(new java.awt.Dimension(40, 40));
-        Update1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Button_Function.add(Update1);
+        tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "STT", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền (VNĐ)"
+            }
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class
+            };
+            boolean[] canEdit = new boolean [] {
+                false, false, false, false, false, false
+            };
 
-        Update.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
-        Update.setMnemonic('s');
-        Update.setToolTipText("Sửa");
-        Update.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Update.setIconTextGap(8);
-        Update.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Update.setPreferredSize(new java.awt.Dimension(40, 40));
-        Update.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateActionPerformed(evt);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
+            }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
             }
         });
-        Button_Function.add(Update);
+        tblDSPN.setComponentPopupMenu(rowConfig);
+        tblDSPN.setOpaque(false);
+        tblDSPN.setShowGrid(true);
+        jScrollPane1.setViewportView(tblDSPN);
 
-        Detail.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/detail.png"))); // NOI18N
-        Detail.setMnemonic('c');
-        Detail.setToolTipText("Chi Tiết");
-        Detail.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Detail.setIconTextGap(8);
-        Detail.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Detail.setPreferredSize(new java.awt.Dimension(40, 40));
-        Detail.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Detail.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                DetailActionPerformed(evt);
-            }
-        });
-        Button_Function.add(Detail);
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
+        );
 
-        Import_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/import_excel.png"))); // NOI18N
-        Import_Excel.setMnemonic('i');
-        Import_Excel.setToolTipText("Nhập Excel");
-        Import_Excel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Import_Excel.setIconTextGap(8);
-        Import_Excel.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Import_Excel.setPreferredSize(new java.awt.Dimension(40, 40));
-        Import_Excel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Import_Excel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Import_ExcelActionPerformed(evt);
-            }
-        });
-        Button_Function.add(Import_Excel);
-
-        Export_Excel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/export_excel.png"))); // NOI18N
-        Export_Excel.setMnemonic('e');
-        Export_Excel.setToolTipText("Xuất Excel");
-        Export_Excel.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Export_Excel.setIconTextGap(8);
-        Export_Excel.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Export_Excel.setPreferredSize(new java.awt.Dimension(40, 40));
-        Export_Excel.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Export_Excel.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Export_ExcelActionPerformed(evt);
-            }
-        });
-        Button_Function.add(Export_Excel);
-
-        cbbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất Cả", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập" }));
-        cbbFilter.setPreferredSize(new java.awt.Dimension(120, 25));
-        cbbFilter.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbbFilterActionPerformed(evt);
-            }
-        });
-        Button_Function.add(cbbFilter);
-
-        tfSearch.setPreferredSize(new java.awt.Dimension(160, 25));
-        Button_Function.add(tfSearch);
-
-        Refresh.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh.png"))); // NOI18N
-        Refresh.setToolTipText("Refresh");
-        Refresh.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        Refresh.setIconTextGap(8);
-        Refresh.setMargin(new java.awt.Insets(2, 5, 2, 5));
-        Refresh.setPreferredSize(new java.awt.Dimension(40, 40));
-        Refresh.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
-        Refresh.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RefreshActionPerformed(evt);
-            }
-        });
-        Button_Function.add(Refresh);
-
-        viewContent.add(Button_Function, java.awt.BorderLayout.PAGE_START);
+        viewContent.add(jPanel3, java.awt.BorderLayout.CENTER);
 
         jPanel2.setMinimumSize(new java.awt.Dimension(140, 524));
         jPanel2.setOpaque(false);
@@ -223,7 +142,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Tìm kiếm nâng cao");
+        jLabel1.setText("Bộ lọc");
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jPanel2.add(jLabel1);
 
@@ -255,61 +174,30 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jPanel2.add(jTextField5);
         jPanel2.add(jSlider2);
 
-        viewContent.add(jPanel2, java.awt.BorderLayout.LINE_START);
-
-        jPanel3.setOpaque(false);
-
-        tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "STT", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền (VNĐ)"
-            }
-        ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class
-            };
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false
-            };
-
-            public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
-            }
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        tblDSPN.setOpaque(false);
-        tblDSPN.setShowGrid(true);
-        jScrollPane1.setViewportView(tblDSPN);
-
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1405, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
+        jPanel4.setLayout(jPanel4Layout);
+        jPanel4Layout.setHorizontalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 675, Short.MAX_VALUE)
-                .addGap(0, 0, 0))
+        jPanel4Layout.setVerticalGroup(
+            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        viewContent.add(jPanel3, java.awt.BorderLayout.CENTER);
+        viewContent.add(jPanel4, java.awt.BorderLayout.LINE_END);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1545, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                 .addComponent(viewContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -321,53 +209,13 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_UpdateActionPerformed
-
-    private void DetailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DetailActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_DetailActionPerformed
-
-    private void Import_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Import_ExcelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Import_ExcelActionPerformed
-
-    private void Export_ExcelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Export_ExcelActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Export_ExcelActionPerformed
-
-    private void cbbFilterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbFilterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbbFilterActionPerformed
-
-    private void RefreshActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RefreshActionPerformed
-        // TODO add your handling code here:
-        cbbFilter.setSelectedIndex(0);
-        tfSearch.setText("Nhập Nội Dung Tìm Kiếm");
-        tfSearch.setForeground(Color.GRAY);
-    }//GEN-LAST:event_RefreshActionPerformed
-
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_removeActionPerformed
 
-    private void jMenuItem4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem4ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jMenuItem4ActionPerformed
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Add;
-    private javax.swing.JPanel Button_Function;
-    private javax.swing.JButton Detail;
-    private javax.swing.JButton Export_Excel;
-    private javax.swing.JButton Import_Excel;
-    private javax.swing.JButton Refresh;
-    private javax.swing.JButton Update;
-    private javax.swing.JButton Update1;
-    private javax.swing.JMenuItem add;
-    protected javax.swing.JComboBox<String> cbbFilter;
+    private javax.swing.JMenuItem details;
     private javax.swing.JMenuItem edit;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
@@ -378,12 +226,9 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JMenuItem jMenuItem4;
-    private javax.swing.JMenuItem jMenuItem5;
-    private javax.swing.JMenuItem jMenuItem6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPopupMenu jPopupMenu1;
+    private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSlider jSlider1;
     private javax.swing.JSlider jSlider2;
@@ -392,8 +237,9 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     protected javax.swing.JLabel labelNCC;
     protected javax.swing.JLabel labelNV;
     private javax.swing.JMenuItem remove;
+    private javax.swing.JPopupMenu rowConfig;
     protected javax.swing.JTable tblDSPN;
-    private javax.swing.JTextField tfSearch;
+    private javax.swing.JPanel toolBar;
     private javax.swing.JPanel viewContent;
     // End of variables declaration//GEN-END:variables
 }
