@@ -2,6 +2,7 @@ package BUS;
 
 import DTO.AccountDTO;
 import GUI.MainMenuGUI;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.util.ArrayList;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -13,8 +14,7 @@ public class LogInBUS {
         ArrayList<AccountDTO> accList = new DAO.AccountDAO().selecAll();
         for(AccountDTO acc : accList) {
             if(acc.equals(myAcc)) {
-                ImageIcon success = new ImageIcon("src/img/passwordSuccess.png");
-                JOptionPane.showMessageDialog(null, "Chào mừng "+tk, "Đăng nhập thành công", JOptionPane.ERROR_MESSAGE, success);
+                JOptionPane.showMessageDialog(null, "Chào mừng "+tk, "Đăng nhập thành công", JOptionPane.ERROR_MESSAGE, new FlatSVGIcon("img/correct.svg",80,90));
                 if(rememberMe) {
                     RegisterFile.FileReadWrite.writeFile("src\\RegisterFile\\RememberMe.txt", myAcc.toString());
                 }
@@ -26,7 +26,6 @@ public class LogInBUS {
                 return;
             }
         }
-        ImageIcon error = new ImageIcon("src/img/passwordError.png");
-        JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng", "Đăng nhập không thành công", JOptionPane.ERROR_MESSAGE, error);
+        JOptionPane.showMessageDialog(null, "Tài khoản hoặc mật khẩu không đúng", "Đăng nhập không thành công", JOptionPane.ERROR_MESSAGE, new FlatSVGIcon("img/incorrect.svg",80,90));
     }
 }

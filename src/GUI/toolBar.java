@@ -52,6 +52,7 @@ public class toolBar extends javax.swing.JPanel {
 
         addBtn.setBackground(new java.awt.Color(255, 255, 255));
         addBtn.setIcon(new FlatSVGIcon("img/add.svg",59,59));
+        addBtn.setToolTipText("Thêm");
         addBtn.setBorder(null);
         addBtn.setBorderPainted(false);
         addBtn.setContentAreaFilled(false);
@@ -134,6 +135,7 @@ public class toolBar extends javax.swing.JPanel {
 
         findBtn.setBackground(new java.awt.Color(255, 255, 255));
         findBtn.setIcon(new FlatSVGIcon("img/search.svg",40,40));
+        findBtn.setToolTipText("Tìm kiếm");
         findBtn.setBorder(null);
         findBtn.setBorderPainted(false);
         findBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);

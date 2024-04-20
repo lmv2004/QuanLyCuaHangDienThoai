@@ -6,6 +6,7 @@ package GUI;
 
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.formdev.flatlaf.FlatLaf;
+import com.formdev.flatlaf.extras.FlatSVGIcon;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Color;
 import javax.swing.ImageIcon;
@@ -49,7 +50,6 @@ public class LogInGUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        eyeBtn = new javax.swing.JToggleButton();
         jPanel2 = new javax.swing.JPanel();
         tk = new javax.swing.JTextField();
         mk = new javax.swing.JPasswordField();
@@ -58,38 +58,27 @@ public class LogInGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         cbRemember = new javax.swing.JCheckBox();
 
-        eyeBtn.setBackground(new java.awt.Color(255, 255, 255));
-        eyeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eyeHide.png"))); // NOI18N
-        eyeBtn.setToolTipText("Show/Hide");
-        eyeBtn.setBorder(null);
-        eyeBtn.setBorderPainted(false);
-        eyeBtn.setFocusPainted(false);
-        eyeBtn.setOpaque(true);
-        eyeBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                eyeBtnActionPerformed(evt);
-            }
-        });
-
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Đăng nhập vào hệ thống");
         setBackground(new java.awt.Color(5, 7, 15));
         setResizable(false);
 
-        jPanel2.setBackground(new java.awt.Color(5, 7, 15));
+        jPanel2.setBackground(new java.awt.Color(255, 255, 255));
         jPanel2.setToolTipText("");
 
+        tk.setBackground(new java.awt.Color(204, 204, 204));
         tk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         tk.setToolTipText("");
         tk.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        mk.setBackground(new java.awt.Color(204, 204, 204));
         mk.setFont(new java.awt.Font("Segoe UI", 0, 30)); // NOI18N
         mk.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
         mk.setFocusCycleRoot(true);
         mk.setFocusTraversalPolicyProvider(true);
 
         lbForgetPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        lbForgetPassword.setForeground(new java.awt.Color(237, 238, 247));
+        lbForgetPassword.setForeground(new java.awt.Color(5, 7, 15));
         lbForgetPassword.setText("Quên mật khẩu");
         lbForgetPassword.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -121,12 +110,12 @@ public class LogInGUI extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setBackground(new java.awt.Color(5, 7, 15));
+        jLabel1.setBackground(new java.awt.Color(255, 255, 255));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/profile.png"))); // NOI18N
+        jLabel1.setIcon(new FlatSVGIcon("img/avatar.svg",128,128));
         jLabel1.setOpaque(true);
 
-        cbRemember.setForeground(new java.awt.Color(237, 238, 247));
+        cbRemember.setForeground(new java.awt.Color(5, 7, 15));
         cbRemember.setMnemonic('g');
         cbRemember.setSelected(true);
         cbRemember.setText("Ghi nhớ đăng nhập");
@@ -211,7 +200,7 @@ public class LogInGUI extends javax.swing.JFrame {
 
     private void lbForgetPasswordMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseExited
         // TODO add your handling code here:
-        lbForgetPassword.setForeground(new java.awt.Color(237, 238, 247));
+        lbForgetPassword.setForeground(new java.awt.Color(5,7,15));
     }//GEN-LAST:event_lbForgetPasswordMouseExited
 
     private void btnLogInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogInMouseEntered
@@ -230,18 +219,6 @@ public class LogInGUI extends javax.swing.JFrame {
         BUS.LogInBUS.LogIn(this,cbRemember.isSelected(),tk.getText(), mk.getPassword());
     }//GEN-LAST:event_btnLogInActionPerformed
 
-    private void eyeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_eyeBtnActionPerformed
-        // TODO add your handling code here:
-        if(eyeBtn.isSelected()) {
-            eyeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eyeShow.png")));
-            mk.setEchoChar((char)0);
-        }
-        else {
-            eyeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/eyeHide.png")));
-            mk.setEchoChar('\u2022');
-        }
-    }//GEN-LAST:event_eyeBtnActionPerformed
-
     private void cbRememberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRememberMouseEntered
         // TODO add your handling code here:
         cbRemember.setForeground(new java.awt.Color(40, 58, 149));
@@ -249,7 +226,7 @@ public class LogInGUI extends javax.swing.JFrame {
 
     private void cbRememberMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRememberMouseExited
         // TODO add your handling code here:
-        cbRemember.setForeground(new java.awt.Color(237, 238, 247));
+        cbRemember.setForeground(new java.awt.Color(5,7,15));
     }//GEN-LAST:event_cbRememberMouseExited
 
     /**
@@ -301,7 +278,6 @@ public class LogInGUI extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;
     private javax.swing.JCheckBox cbRemember;
-    private javax.swing.JToggleButton eyeBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JLabel lbForgetPassword;

@@ -48,7 +48,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         //lấy tất cả button chức năng
         buttonList = getAllButtons(ChucNangPnl);
         for(JButton btn : buttonList) {
-            function.HoverBtn(btn, new Color(30, 30, 30), new Color(5, 7, 15), new Color(60, 78, 170));
+            function.HoverBtn(btn, new Color(235,235,235), new Color(255,255,255), new Color(60, 78, 170));
         }
         
         //default
@@ -57,7 +57,6 @@ public class MainMenuGUI extends javax.swing.JFrame {
         NoiDungPnl.repaint();
         NoiDungPnl.validate();
         BanHangBtn.setBackground(new Color(36, 49, 117));
-        BanHangBtn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         function.setBtnBefore(BanHangBtn);
         
         //đỏ dữ liệu
@@ -99,16 +98,16 @@ public class MainMenuGUI extends javax.swing.JFrame {
         setTitle("QUẢN LÝ CỬA HÀNG ĐIỆN THOẠI");
         setMinimumSize(new java.awt.Dimension(1500, 770));
 
-        DashBoard.setBackground(new java.awt.Color(5, 7, 15));
+        DashBoard.setBackground(new java.awt.Color(255, 255, 255));
         DashBoard.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         DashBoard.setAlignmentX(0.0F);
         DashBoard.setAlignmentY(0.0F);
-        DashBoard.setPreferredSize(new java.awt.Dimension(210, 725));
+        DashBoard.setPreferredSize(new java.awt.Dimension(230, 725));
 
-        TaiKhoanPnl.setBackground(new java.awt.Color(153, 102, 255));
+        TaiKhoanPnl.setBackground(new java.awt.Color(51, 204, 255));
 
         lblVitri.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        lblVitri.setForeground(new java.awt.Color(255, 255, 255));
+        lblVitri.setForeground(new java.awt.Color(5, 7, 15));
         lblVitri.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblVitri.setText("Vị trí");
 
@@ -116,7 +115,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         lblName.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
-        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setForeground(new java.awt.Color(5, 7, 15));
         lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblName.setText("USER");
 
@@ -127,10 +126,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addGroup(TaiKhoanPnlLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addGroup(TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-                    .addComponent(lblVitri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGroup(TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblVitri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         TaiKhoanPnlLayout.setVerticalGroup(
             TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -142,15 +140,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        ChucNangPnl.setBackground(new java.awt.Color(5, 7, 15));
+        ChucNangPnl.setBackground(new java.awt.Color(255, 255, 255));
         ChucNangPnl.setOpaque(false);
         ChucNangPnl.setLayout(new java.awt.GridLayout(13, 10));
 
-        BanHangBtn.setBackground(new java.awt.Color(5, 7, 15));
-        BanHangBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BanHangBtn.setForeground(new java.awt.Color(255, 255, 255));
-        BanHangBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-add-shopping-cart-40.png"))); // NOI18N
-        BanHangBtn.setText("Bán Hàng");
+        BanHangBtn.setBackground(new java.awt.Color(255, 255, 255));
+        BanHangBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BanHangBtn.setForeground(new java.awt.Color(5, 7, 15));
+        BanHangBtn.setIcon(new FlatSVGIcon("img/cart.svg",40,40));
+        BanHangBtn.setText("BÁN HÀNG");
         BanHangBtn.setBorder(null);
         BanHangBtn.setFocusPainted(false);
         BanHangBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -161,11 +159,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(BanHangBtn);
 
-        SanPhamBtn.setBackground(new java.awt.Color(5, 7, 15));
-        SanPhamBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        SanPhamBtn.setForeground(new java.awt.Color(255, 255, 255));
-        SanPhamBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-mobile-phone-40.png"))); // NOI18N
-        SanPhamBtn.setText("Sản Phẩm");
+        SanPhamBtn.setBackground(new java.awt.Color(255, 255, 255));
+        SanPhamBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        SanPhamBtn.setForeground(new java.awt.Color(5, 7, 15));
+        SanPhamBtn.setIcon(new FlatSVGIcon("img/product.svg",40,40));
+        SanPhamBtn.setText("SẢN PHẨM");
         SanPhamBtn.setBorder(null);
         SanPhamBtn.setFocusPainted(false);
         SanPhamBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -176,11 +174,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(SanPhamBtn);
 
-        NhanVienBtn.setBackground(new java.awt.Color(5, 7, 15));
-        NhanVienBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        NhanVienBtn.setForeground(new java.awt.Color(255, 255, 255));
-        NhanVienBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-employee-40.png"))); // NOI18N
-        NhanVienBtn.setText("Nhân Viên");
+        NhanVienBtn.setBackground(new java.awt.Color(255, 255, 255));
+        NhanVienBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        NhanVienBtn.setForeground(new java.awt.Color(5, 7, 15));
+        NhanVienBtn.setIcon(new FlatSVGIcon("img/staff.svg",40,40));
+        NhanVienBtn.setText("NHÂN VIÊN");
         NhanVienBtn.setBorder(null);
         NhanVienBtn.setFocusPainted(false);
         NhanVienBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -191,11 +189,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(NhanVienBtn);
 
-        KhachHangBtn.setBackground(new java.awt.Color(5, 7, 15));
-        KhachHangBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        KhachHangBtn.setForeground(new java.awt.Color(255, 255, 255));
-        KhachHangBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-customer-40.png"))); // NOI18N
-        KhachHangBtn.setText("Khách Hàng");
+        KhachHangBtn.setBackground(new java.awt.Color(255, 255, 255));
+        KhachHangBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        KhachHangBtn.setForeground(new java.awt.Color(5, 7, 15));
+        KhachHangBtn.setIcon(new FlatSVGIcon("img/customer.svg",40,40));
+        KhachHangBtn.setText("KHÁCH HÀNG");
         KhachHangBtn.setBorder(null);
         KhachHangBtn.setFocusPainted(false);
         KhachHangBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -206,11 +204,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(KhachHangBtn);
 
-        BaoHanhBtn.setBackground(new java.awt.Color(5, 7, 15));
-        BaoHanhBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        BaoHanhBtn.setForeground(new java.awt.Color(255, 255, 255));
-        BaoHanhBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-warranty-40.png"))); // NOI18N
-        BaoHanhBtn.setText("Bảo Hành");
+        BaoHanhBtn.setBackground(new java.awt.Color(255, 255, 255));
+        BaoHanhBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BaoHanhBtn.setForeground(new java.awt.Color(5, 7, 15));
+        BaoHanhBtn.setIcon(new FlatSVGIcon("img/warranty.svg",40,40));
+        BaoHanhBtn.setText("BẢO HÀNH");
         BaoHanhBtn.setBorder(null);
         BaoHanhBtn.setFocusPainted(false);
         BaoHanhBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -221,11 +219,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(BaoHanhBtn);
 
-        NCCBtn.setBackground(new java.awt.Color(5, 7, 15));
-        NCCBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        NCCBtn.setForeground(new java.awt.Color(255, 255, 255));
-        NCCBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-supplier-40.png"))); // NOI18N
-        NCCBtn.setText("Nhà Cung Cấp");
+        NCCBtn.setBackground(new java.awt.Color(255, 255, 255));
+        NCCBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        NCCBtn.setForeground(new java.awt.Color(5, 7, 15));
+        NCCBtn.setIcon(new FlatSVGIcon("img/suppiler.svg",40,40));
+        NCCBtn.setText("NHÀ CUNG CẤP");
         NCCBtn.setBorder(null);
         NCCBtn.setFocusPainted(false);
         NCCBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -236,11 +234,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(NCCBtn);
 
-        ThongKeBtn.setBackground(new java.awt.Color(5, 7, 15));
-        ThongKeBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        ThongKeBtn.setForeground(new java.awt.Color(255, 255, 255));
-        ThongKeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-chart-40.png"))); // NOI18N
-        ThongKeBtn.setText("Thống Kê");
+        ThongKeBtn.setBackground(new java.awt.Color(255, 255, 255));
+        ThongKeBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        ThongKeBtn.setForeground(new java.awt.Color(5, 7, 15));
+        ThongKeBtn.setIcon(new FlatSVGIcon("img/chart.svg",40,40));
+        ThongKeBtn.setText("THỐNG KÊ");
         ThongKeBtn.setBorder(null);
         ThongKeBtn.setFocusPainted(false);
         ThongKeBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -251,11 +249,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(ThongKeBtn);
 
-        KVKhoBtn.setBackground(new java.awt.Color(5, 7, 15));
-        KVKhoBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        KVKhoBtn.setForeground(new java.awt.Color(255, 255, 255));
-        KVKhoBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-area-40.png"))); // NOI18N
-        KVKhoBtn.setText("Khu Vực Kho");
+        KVKhoBtn.setBackground(new java.awt.Color(255, 255, 255));
+        KVKhoBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        KVKhoBtn.setForeground(new java.awt.Color(5, 7, 15));
+        KVKhoBtn.setIcon(new FlatSVGIcon("img/area.svg",40,40));
+        KVKhoBtn.setText("KHU VỰC KHO");
         KVKhoBtn.setBorder(null);
         KVKhoBtn.setFocusPainted(false);
         KVKhoBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -266,11 +264,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(KVKhoBtn);
 
-        PhieuNhapBtn.setBackground(new java.awt.Color(5, 7, 15));
-        PhieuNhapBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        PhieuNhapBtn.setForeground(new java.awt.Color(255, 255, 255));
-        PhieuNhapBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-receipt-40.png"))); // NOI18N
-        PhieuNhapBtn.setText("Phiếu Nhập");
+        PhieuNhapBtn.setBackground(new java.awt.Color(255, 255, 255));
+        PhieuNhapBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PhieuNhapBtn.setForeground(new java.awt.Color(5, 7, 15));
+        PhieuNhapBtn.setIcon(new FlatSVGIcon("img/import.svg",40,40));
+        PhieuNhapBtn.setText("PHIẾU NHẬP");
         PhieuNhapBtn.setBorder(null);
         PhieuNhapBtn.setFocusPainted(false);
         PhieuNhapBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -286,11 +284,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(PhieuNhapBtn);
 
-        PhieuXuatBtn.setBackground(new java.awt.Color(5, 7, 15));
-        PhieuXuatBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        PhieuXuatBtn.setForeground(new java.awt.Color(255, 255, 255));
-        PhieuXuatBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-bill-40.png"))); // NOI18N
-        PhieuXuatBtn.setText("Phiếu Xuất");
+        PhieuXuatBtn.setBackground(new java.awt.Color(255, 255, 255));
+        PhieuXuatBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PhieuXuatBtn.setForeground(new java.awt.Color(5, 7, 15));
+        PhieuXuatBtn.setIcon(new FlatSVGIcon("img/export.svg",40,40));
+        PhieuXuatBtn.setText("PHIẾU XUẤT");
         PhieuXuatBtn.setBorder(null);
         PhieuXuatBtn.setFocusPainted(false);
         PhieuXuatBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -301,11 +299,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(PhieuXuatBtn);
 
-        PhanQuyenBtn.setBackground(new java.awt.Color(5, 7, 15));
-        PhanQuyenBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        PhanQuyenBtn.setForeground(new java.awt.Color(255, 255, 255));
-        PhanQuyenBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-decentralized-40.png"))); // NOI18N
-        PhanQuyenBtn.setText("Phân Quyền");
+        PhanQuyenBtn.setBackground(new java.awt.Color(255, 255, 255));
+        PhanQuyenBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PhanQuyenBtn.setForeground(new java.awt.Color(5, 7, 15));
+        PhanQuyenBtn.setIcon(new FlatSVGIcon("img/decentral.svg",40,40));
+        PhanQuyenBtn.setText("PHÂN QUYỀN");
         PhanQuyenBtn.setBorder(null);
         PhanQuyenBtn.setFocusPainted(false);
         PhanQuyenBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -316,11 +314,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(PhanQuyenBtn);
 
-        TaiKhoanBtn.setBackground(new java.awt.Color(5, 7, 15));
-        TaiKhoanBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        TaiKhoanBtn.setForeground(new java.awt.Color(255, 255, 255));
-        TaiKhoanBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/icons8-account-40.png"))); // NOI18N
-        TaiKhoanBtn.setText("Tài Khoản");
+        TaiKhoanBtn.setBackground(new java.awt.Color(255, 255, 255));
+        TaiKhoanBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        TaiKhoanBtn.setForeground(new java.awt.Color(5, 7, 15));
+        TaiKhoanBtn.setIcon(new FlatSVGIcon("img/account.svg",40,40));
+        TaiKhoanBtn.setText("TÀI KHOẢN");
         TaiKhoanBtn.setBorder(null);
         TaiKhoanBtn.setFocusPainted(false);
         TaiKhoanBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -331,10 +329,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
         });
         ChucNangPnl.add(TaiKhoanBtn);
 
-        DangXuatBtn.setBackground(new java.awt.Color(5, 7, 15));
-        DangXuatBtn.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        DangXuatBtn.setForeground(java.awt.Color.red);
-        DangXuatBtn.setText("Đăng Xuất");
+        DangXuatBtn.setBackground(new java.awt.Color(255, 255, 255));
+        DangXuatBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        DangXuatBtn.setForeground(new java.awt.Color(5, 7, 15));
+        DangXuatBtn.setIcon(new FlatSVGIcon("img/logout.svg",40,40));
+        DangXuatBtn.setText("ĐĂNG XUẤT");
         DangXuatBtn.setBorder(null);
         DangXuatBtn.setFocusPainted(false);
         DangXuatBtn.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -352,10 +351,8 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addGroup(DashBoardLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(DashBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(DashBoardLayout.createSequentialGroup()
-                        .addComponent(TaiKhoanPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))))
+                    .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 226, Short.MAX_VALUE)
+                    .addComponent(TaiKhoanPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
         );
         DashBoardLayout.setVerticalGroup(
             DashBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -394,7 +391,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     }
     
     private void DangXuatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtnActionPerformed
-        if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thoát?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION, 0, null)==0) {
+        if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn ĐĂNG XUẤT?", "ĐĂNG XUẤT", JOptionPane.YES_NO_OPTION, 0, new FlatSVGIcon("img/logout.svg", 50, 50))==0) {
             this.dispose();
             new LogInGUI().setVisible(true);
         }

@@ -65,7 +65,9 @@ public class function {
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn.setBackground(HoverColor);
+                if (btn != btnBefore) {
+                    btn.setBackground(HoverColor);
+                }
             }
 
             @Override
@@ -79,9 +81,7 @@ public class function {
             public void mouseClicked(MouseEvent e) {
                 if (btnBefore != null) {
                     btnBefore.setBackground(DefaultColor);
-                    btnBefore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
                 }
-                btn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                 btn.setBackground(ChooseColor);
                 setBtnBefore(btn);
             }
