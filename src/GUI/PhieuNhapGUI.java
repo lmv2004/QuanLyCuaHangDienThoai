@@ -4,11 +4,6 @@
  */
 package GUI;
 
-import javax.swing.JDialog;
-import javax.swing.JLabel;
-import com.toedter.calendar.*;
-import java.awt.Color;
-
 /**
  *
  * @author ACER

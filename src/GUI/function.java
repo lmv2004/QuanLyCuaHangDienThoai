@@ -1,19 +1,6 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package GUI;
-
-import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import javax.imageio.ImageIO;
-import javax.swing.Icon;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -23,6 +10,8 @@ import javax.swing.JTextField;
  * @author ACER
  */
 public class function {
+    
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 
     //thiết lập placeHolder cho text field với nội dung là content
     public static void placeHolder(JTextField jTextField, String content) {
@@ -46,18 +35,12 @@ public class function {
             }
         });
     }
-
+//-------------------------------------------------------------------------------------------------------------------------------------------------
     
-    //biến dùng để hover các button
-    static Color ChooseColor = new Color(60, 78, 170);
-    static Color HoverColor = new Color(30, 30, 30);
-    static Color DefaultColor = new Color(5, 7, 15);
-    static JButton btnBefore = null;
-    //thiết lập button trước
-    public static void setBtnBefore(JButton btn) {
-        btnBefore=btn;
-    }
-    public static void HoverBtn(JButton btn, ArrayList<JButton> buttonList) {
+    
+    
+    //thiết lập hover khi di chuột vào với 3 tham số là JButton, HoverColor, DefaultColor
+    public static void HoverBtn(JButton btn, Color HoverColor, Color DefaultColor) {
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
@@ -66,53 +49,47 @@ public class function {
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                if(btn!=btnBefore) {
-                    btn.setBackground(DefaultColor);
-                }
-            }
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                btnClicked(btnBefore, btn);
-                btnBefore=btn;
+                btn.setBackground(DefaultColor);
             }
         });
     }
 
-    public static void btnClicked(JButton btnBefore, JButton btnClicked) {
-        if(btnBefore!=null) {
-            btnBefore.setBackground(DefaultColor);
-            btnBefore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        }
-        btnClicked.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        btnClicked.setBackground(ChooseColor);
+    
+    
+    static JButton btnBefore = null; // lưu button đã chọn trước đó
+    public static void setBtnBefore(JButton btn) {
+        btnBefore = btn; //thiết lập button trước
     }
-    
-    
-    
-    
-    
-    //biến dùng để hover các button
-    static Color HoverColor2 = new Color(225,225,225);
-    static Color DefaultColor2 = new Color(255,255,255);
-    public static void HoverToolBar(JButton btn, ArrayList<JButton> buttonList) {
+    //overloading thêm một tham số ChooseColor giúp đổi màu sau khi chọn JButton
+    public static void HoverBtn(JButton btn, Color HoverColor, Color DefaultColor, Color ChooseColor) {
         btn.addMouseListener(new java.awt.event.MouseAdapter() {
             @Override
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                btn.setBackground(HoverColor2);
+                btn.setBackground(HoverColor);
             }
 
             @Override
             public void mouseExited(java.awt.event.MouseEvent evt) {
-                btn.setBackground(DefaultColor2);
+                if (btn != btnBefore) {
+                    btn.setBackground(DefaultColor);
+                }
+            }
+
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                if (btnBefore != null) {
+                    btnBefore.setBackground(DefaultColor);
+                    btnBefore.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
+                }
+                btn.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+                btn.setBackground(ChooseColor);
+                setBtnBefore(btn);
             }
         });
     }
-    
-    
-    
-    
-    
+//-------------------------------------------------------------------------------------------------------------------------------------------------
 
+    //kiểm tra JTextField có phải rỗng, nếu rỗng sẽ hiện thông báo nội dung "arlert" và trả về true
     public static boolean TextFieldIsEmpty(JTextField tf, String alert) {
         if (tf.getText().isEmpty()) {
             JOptionPane.showMessageDialog(null, "Bạn chưa nhập " + alert);
@@ -122,31 +99,10 @@ public class function {
         return false;
     }
 
-    public static Icon load(String linkImage, int k, int m) {/*linkImage là tên icon, k kích thước chiều rộng mình muốn,m chiều dài và hàm này trả về giá trị là 1 icon.*/
-        try {
-            BufferedImage image = ImageIO.read(new File(linkImage));//đọc ảnh dùng BufferedImage
-
-            int x = k;
-            int y = m;
-            int ix = image.getWidth();
-            int iy = image.getHeight();
-            int dx = 0, dy = 0;
-
-            if (x / y > ix / iy) {
-                dy = y;
-                dx = dy * ix / iy;
-            } else {
-                dx = x;
-                dy = dx * iy / ix;
-            }
-
-            return new ImageIcon(image.getScaledInstance(dx, dy,
-                    image.SCALE_SMOOTH));
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
+//-------------------------------------------------------------------------------------------------------------------------------------------------
+    
+    
+    
+    
     
 }

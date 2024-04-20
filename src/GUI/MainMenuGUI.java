@@ -48,7 +48,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         //lấy tất cả button chức năng
         buttonList = getAllButtons(ChucNangPnl);
         for(JButton btn : buttonList) {
-            function.HoverBtn(btn,buttonList);
+            function.HoverBtn(btn, new Color(30, 30, 30), new Color(5, 7, 15), new Color(60, 78, 170));
         }
         
         //default
@@ -76,9 +76,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         DashBoard = new javax.swing.JPanel();
         TaiKhoanPnl = new javax.swing.JPanel();
-        lblName = new javax.swing.JLabel();
         lblVitri = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        lblName = new javax.swing.JLabel();
         ChucNangPnl = new javax.swing.JPanel();
         BanHangBtn = new javax.swing.JButton();
         SanPhamBtn = new javax.swing.JButton();
@@ -103,13 +103,9 @@ public class MainMenuGUI extends javax.swing.JFrame {
         DashBoard.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         DashBoard.setAlignmentX(0.0F);
         DashBoard.setAlignmentY(0.0F);
+        DashBoard.setPreferredSize(new java.awt.Dimension(210, 725));
 
         TaiKhoanPnl.setBackground(new java.awt.Color(153, 102, 255));
-
-        lblName.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
-        lblName.setForeground(new java.awt.Color(255, 255, 255));
-        lblName.setText("User Name");
-        lblName.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
 
         lblVitri.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
         lblVitri.setForeground(new java.awt.Color(255, 255, 255));
@@ -118,7 +114,11 @@ public class MainMenuGUI extends javax.swing.JFrame {
 
         jLabel1.setIcon(new FlatSVGIcon("img/avatar.svg",55,55));
         jLabel1.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jLabel1.setPreferredSize(new java.awt.Dimension(0, 0));
+
+        lblName.setFont(new java.awt.Font("Segoe UI", 2, 20)); // NOI18N
+        lblName.setForeground(new java.awt.Color(255, 255, 255));
+        lblName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblName.setText("USER");
 
         javax.swing.GroupLayout TaiKhoanPnlLayout = new javax.swing.GroupLayout(TaiKhoanPnl);
         TaiKhoanPnl.setLayout(TaiKhoanPnlLayout);
@@ -126,19 +126,20 @@ public class MainMenuGUI extends javax.swing.JFrame {
             TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TaiKhoanPnlLayout.createSequentialGroup()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(lblVitri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 110, Short.MAX_VALUE)))
+                .addGap(0, 0, 0)
+                .addGroup(TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(lblName, javax.swing.GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
+                    .addComponent(lblVitri, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         TaiKhoanPnlLayout.setVerticalGroup(
             TaiKhoanPnlLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(TaiKhoanPnlLayout.createSequentialGroup()
-                .addComponent(lblName)
+                .addComponent(lblName, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(lblVitri, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
-            .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         ChucNangPnl.setBackground(new java.awt.Color(5, 7, 15));
@@ -351,16 +352,17 @@ public class MainMenuGUI extends javax.swing.JFrame {
             .addGroup(DashBoardLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
                 .addGroup(DashBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(TaiKhoanPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(0, 0, 0))
+                    .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(DashBoardLayout.createSequentialGroup()
+                        .addComponent(TaiKhoanPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         DashBoardLayout.setVerticalGroup(
             DashBoardLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(DashBoardLayout.createSequentialGroup()
                 .addComponent(TaiKhoanPnl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 621, Short.MAX_VALUE)
+                .addComponent(ChucNangPnl, javax.swing.GroupLayout.DEFAULT_SIZE, 666, Short.MAX_VALUE)
                 .addGap(1, 1, 1))
         );
 
@@ -392,9 +394,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     }
     
     private void DangXuatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_DangXuatBtnActionPerformed
-        // TODO add your handling code here:
-        Icon icon = function.load("src/img/icons8-logout-40.png", 50, 50);
-        if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thoát?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION, 0, icon)==0) {
+        if(JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thoát?", "Xác nhận thoát", JOptionPane.YES_NO_OPTION, 0, null)==0) {
             this.dispose();
             new LogInGUI().setVisible(true);
         }

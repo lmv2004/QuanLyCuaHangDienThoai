@@ -4,10 +4,8 @@
  */
 package GUI;
 
-import static GUI.MainMenuGUI.getAllButtons;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import java.util.ArrayList;
-import javax.swing.JButton;
+import java.awt.Color;
 
 /**
  *
@@ -18,6 +16,14 @@ public class toolBar extends javax.swing.JPanel {
     public toolBar() {
         initComponents();
         function.placeHolder(tfSearch, "Nhập nội dung tìm kiếm...");
+        
+//        function.HoverBtn(addBtn, new Color(235,235,235), new Color(255,255,255));
+//        function.HoverBtn(editBtn, new Color(235,235,235), new Color(255,255,255));
+//        function.HoverBtn(removeBtn, new Color(235,235,235), new Color(255,255,255));
+//        function.HoverBtn(detailBtn, new Color(235,235,235), new Color(255,255,255));
+//        function.HoverBtn(exportBtn, new Color(235,235,235), new Color(255,255,255));
+//        function.HoverBtn(importBtn, new Color(235,235,235), new Color(255,255,255));
+//        function.HoverBtn(findBtn, new Color(235,235,235), new Color(255,255,255));
     }
 
     /**
@@ -40,7 +46,7 @@ public class toolBar extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         cbbFilter = new javax.swing.JComboBox<>();
         tfSearch = new javax.swing.JTextField();
-        jButton7 = new javax.swing.JButton();
+        findBtn = new javax.swing.JButton();
 
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 10));
 
@@ -126,14 +132,14 @@ public class toolBar extends javax.swing.JPanel {
         tfSearch.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel2.add(tfSearch);
 
-        jButton7.setIcon(new FlatSVGIcon("img/search.svg",40,40));
-        jButton7.setBorder(null);
-        jButton7.setBorderPainted(false);
-        jButton7.setContentAreaFilled(false);
-        jButton7.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        jButton7.setPreferredSize(new java.awt.Dimension(30, 30));
-        jButton7.setPressedIcon(new FlatSVGIcon("img/search.svg",35,35));
-        jPanel2.add(jButton7);
+        findBtn.setBackground(new java.awt.Color(255, 255, 255));
+        findBtn.setIcon(new FlatSVGIcon("img/search.svg",40,40));
+        findBtn.setBorder(null);
+        findBtn.setBorderPainted(false);
+        findBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        findBtn.setPreferredSize(new java.awt.Dimension(26, 26));
+        findBtn.setPressedIcon(new FlatSVGIcon("img/search.svg",35,35));
+        jPanel2.add(findBtn);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -141,7 +147,7 @@ public class toolBar extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 206, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 210, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -172,8 +178,8 @@ public class toolBar extends javax.swing.JPanel {
     private javax.swing.JButton detailBtn;
     private javax.swing.JButton editBtn;
     private javax.swing.JButton exportBtn;
+    private javax.swing.JButton findBtn;
     private javax.swing.JButton importBtn;
-    private javax.swing.JButton jButton7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
