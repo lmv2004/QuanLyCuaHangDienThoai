@@ -4,7 +4,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.Base64;
 
-public class test {
+//public class test {
 //    public static void main(String[] args) {
 ////        DTO.PhieuNhapDTO pn = new DTO.PhieuNhapDTO(1, 76, 1,new Timestamp(System.currentTimeMillis()), 12000,1);
 ////        DAO.PhieuNhapDAO pnd= new DAO.PhieuNhapDAO();
@@ -13,5 +13,5 @@ public class test {
 //        //System.out.println(new Timestamp(System.currentTimeMillis()));
 //        
 //    }
-}
+//}
 

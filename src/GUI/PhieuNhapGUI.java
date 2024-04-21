@@ -4,6 +4,10 @@
  */
 package GUI;
 
+import javax.swing.JLabel;
+import javax.swing.border.EtchedBorder;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 /**
  *
  * @author ACER
@@ -16,6 +20,16 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     public PhieuNhapGUI() {
         initComponents();
         toolBar.add(new toolBar(), java.awt.BorderLayout.CENTER);
+        
+        BUS.PhieuNhapBUS.pouringData(tblDSPN);
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        TableColumnModel columnModel = tblDSPN.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(1);
+        columnModel.getColumn(0).setCellRenderer(centerRenderer);
+        columnModel.getColumn(1).setPreferredWidth(1);
+        columnModel.getColumn(1).setCellRenderer(centerRenderer);
     }
 
     /**
@@ -84,8 +98,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
         tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "STT", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền (VNĐ)"

@@ -4,14 +4,10 @@
  */
 package GUI;
 
-import com.formdev.flatlaf.FlatIntelliJLaf;
-import com.formdev.flatlaf.FlatLaf;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
-import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
 import java.awt.Color;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
-import javax.swing.UIManager;
 
 /**
  *
@@ -114,6 +110,7 @@ public class LogInGUI extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new FlatSVGIcon("img/avatar.svg",128,128));
         jLabel1.setOpaque(true);
+        jLabel1.setPreferredSize(new java.awt.Dimension(128, 128));
 
         cbRemember.setForeground(new java.awt.Color(5, 7, 15));
         cbRemember.setMnemonic('g');
@@ -159,7 +156,7 @@ public class LogInGUI extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(tk, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -169,7 +166,7 @@ public class LogInGUI extends javax.swing.JFrame {
                     .addComponent(lbForgetPassword)
                     .addComponent(cbRemember))
                 .addGap(18, 18, 18)
-                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
+                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -265,15 +262,6 @@ public class LogInGUI extends javax.swing.JFrame {
 //        });
 //    }
     
-    public static void main(String[] args) {
-        FlatLaf.setPreferredFontFamily(FlatRobotoFont.FAMILY);
-        FlatLaf.setPreferredLightFontFamily(FlatRobotoFont.FAMILY_LIGHT);
-        FlatLaf.setPreferredSemiboldFontFamily(FlatRobotoFont.FAMILY_SEMIBOLD);
-        FlatIntelliJLaf.registerCustomDefaultsSource("style");
-        FlatIntelliJLaf.setup();
-        UIManager.put("PasswordField.showRevealButton", true);
-        new LogInGUI().setVisible(true);
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnLogIn;

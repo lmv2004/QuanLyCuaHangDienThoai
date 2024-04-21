@@ -92,7 +92,7 @@
                       <Component id="cbRemember" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
-                  <Component id="btnLogIn" pref="65" max="32767" attributes="0"/>
+                  <Component id="btnLogIn" max="32767" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
               </Group>
           </Group>
@@ -179,6 +179,9 @@
               <Connection code="new FlatSVGIcon(&quot;img/avatar.svg&quot;,128,128)" type="code"/>
             </Property>
             <Property name="opaque" type="boolean" value="true"/>
+            <Property name="preferredSize" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
+              <Dimension value="[128, 128]"/>
+            </Property>
           </Properties>
         </Component>
         <Component class="javax.swing.JCheckBox" name="cbRemember">

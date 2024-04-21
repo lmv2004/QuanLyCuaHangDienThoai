@@ -31,14 +31,4 @@ public class JDBCConnection {
 			e.printStackTrace();
 		}
 	}
-  
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        Connection cn = getJDBCConnection();
-        if(cn!=null) {
-            System.out.println("Thanh cong");
-        }
-        else {
-            System.out.println("That bai");
-        }
-    }
 }
