@@ -36,6 +36,6 @@ public class PhieuNhapDTO extends PhieuDTO{
 
     @Override
     public String toString() {
-        return super.toString() + ", NCC=" + NCC;
+        return super.toString();// + " " + new DAO.NhaCungCapDAO().selectByID(NCC).getHoTen();
     }
 }

@@ -4,6 +4,12 @@
  */
 package GUI;
 
+import BUS.PhieuNhapBUS;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 /**
  *
  * @author ACER
@@ -15,7 +21,32 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
      */
     public PhieuNhapGUI() {
         initComponents();
-        toolBar.add(new toolBar(), java.awt.BorderLayout.CENTER);
+        
+        BUS.PhieuNhapBUS.pouringData(tblDSPN);
+        
+        toolBar.getCbbFilter().removeAllItems();
+        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
+            "Tất cả","Mã phiếu nhập","Tên hách hàng","Tên nhân viên"
+        }));
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        TableColumnModel columnModel = tblDSPN.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(1);
+        columnModel.getColumn(0).setCellRenderer(centerRenderer);
+        columnModel.getColumn(1).setPreferredWidth(1);
+        columnModel.getColumn(1).setCellRenderer(centerRenderer);
+        
+        
+        toolBar.getFindBtn().addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(function.TextFieldIsEmpty(toolBar.getTfSearch(), "nội dung tìm kiếm","Nhập nội dung tìm kiếm...")) {
+                    return;
+                }
+                PhieuNhapBUS.pouringData(tblDSPN, PhieuNhapBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
+            }
+        });
     }
 
     /**
@@ -31,8 +62,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         edit = new javax.swing.JMenuItem();
         remove = new javax.swing.JMenuItem();
         details = new javax.swing.JMenuItem();
-        viewContent = new javax.swing.JPanel();
-        toolBar = new javax.swing.JPanel();
+        toolBar = new GUI.toolBar();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblDSPN = new javax.swing.JTable();
@@ -70,25 +100,17 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
         setOpaque(false);
         setPreferredSize(new java.awt.Dimension(1200, 725));
-
-        viewContent.setOpaque(false);
-        viewContent.setPreferredSize(new java.awt.Dimension(1200, 725));
-        viewContent.setLayout(new java.awt.BorderLayout());
-
-        toolBar.setOpaque(false);
-        toolBar.setPreferredSize(new java.awt.Dimension(963, 84));
-        toolBar.setLayout(new java.awt.BorderLayout());
-        viewContent.add(toolBar, java.awt.BorderLayout.PAGE_START);
+        setLayout(new java.awt.BorderLayout());
+        add(toolBar, java.awt.BorderLayout.PAGE_START);
 
         jPanel3.setOpaque(false);
 
         tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
-                "STT", "Mã phiếu nhập", "Nhà cung cấp", "Nhân viên nhập", "Thời gian", "Tổng tiền (VNĐ)"
+                "STT", "Mã phiếu", "Nhà cung cấp", "Nhân viên", "Thời gian", "Tổng tiền (VNĐ)"
             }
         ) {
             Class[] types = new Class [] {
@@ -124,11 +146,11 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 641, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
-        viewContent.add(jPanel3, java.awt.BorderLayout.CENTER);
+        add(jPanel3, java.awt.BorderLayout.CENTER);
 
         jPanel2.setMinimumSize(new java.awt.Dimension(140, 524));
         jPanel2.setOpaque(false);
@@ -186,22 +208,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        viewContent.add(jPanel4, java.awt.BorderLayout.LINE_END);
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1200, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(viewContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 725, Short.MAX_VALUE)
-            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(viewContent, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-        );
+        add(jPanel4, java.awt.BorderLayout.LINE_END);
     }// </editor-fold>//GEN-END:initComponents
 
     private void removeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_removeActionPerformed
@@ -234,7 +241,6 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private javax.swing.JMenuItem remove;
     private javax.swing.JPopupMenu rowConfig;
     protected javax.swing.JTable tblDSPN;
-    private javax.swing.JPanel toolBar;
-    private javax.swing.JPanel viewContent;
+    protected GUI.toolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }
