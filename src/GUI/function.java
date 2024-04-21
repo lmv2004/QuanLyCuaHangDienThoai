@@ -101,7 +101,14 @@ public class function {
 
 //-------------------------------------------------------------------------------------------------------------------------------------------------
     
-    
+    public static boolean TextFieldIsEmpty(JTextField tf, String alert, String holder) {
+        if (tf.getText().isEmpty() || tf.getText().equals(holder)) {
+            JOptionPane.showMessageDialog(null, "Bạn chưa nhập " + alert);
+            tf.requestFocus();
+            return true;
+        }
+        return false;
+    }
     
     
     

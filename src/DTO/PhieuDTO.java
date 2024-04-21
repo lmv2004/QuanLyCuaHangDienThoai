@@ -69,7 +69,7 @@ public class PhieuDTO {
     }
     @Override
     public String toString() {
-        return "\nMaPhieu=" + MaPhieu + ", MNV=" + MNV + ", ThoiGian=" + ThoiGian + ", TongTien=" + TongTien;
+        return MaPhieu + " " + new DAO.NhanVienDAO().selectByID(MNV).getHoTen() + " " + ThoiGian + " " + TongTien;
     }
     
 }

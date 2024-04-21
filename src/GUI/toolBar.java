@@ -6,6 +6,10 @@ package GUI;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  *
@@ -126,7 +130,6 @@ public class toolBar extends javax.swing.JPanel {
         flowLayout1.setAlignOnBaseline(true);
         jPanel2.setLayout(flowLayout1);
 
-        cbbFilter.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
         cbbFilter.setPreferredSize(new java.awt.Dimension(150, 30));
         jPanel2.add(cbbFilter);
 
@@ -173,6 +176,104 @@ public class toolBar extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+    public JButton getAddBtn() {
+        return addBtn;
+    }
+
+    public void setAddBtn(JButton addBtn) {
+        this.addBtn = addBtn;
+    }
+
+    public JComboBox<String> getCbbFilter() {
+        return cbbFilter;
+    }
+
+    public void setCbbFilter(JComboBox<String> cbbFilter) {
+        this.cbbFilter = cbbFilter;
+    }
+
+    public JButton getDetailBtn() {
+        return detailBtn;
+    }
+
+    public void setDetailBtn(JButton detailBtn) {
+        this.detailBtn = detailBtn;
+    }
+
+    public JButton getEditBtn() {
+        return editBtn;
+    }
+
+    public void setEditBtn(JButton editBtn) {
+        this.editBtn = editBtn;
+    }
+
+    public JButton getExportBtn() {
+        return exportBtn;
+    }
+
+    public void setExportBtn(JButton exportBtn) {
+        this.exportBtn = exportBtn;
+    }
+
+    public JButton getFindBtn() {
+        return findBtn;
+    }
+
+    public void setFindBtn(JButton findBtn) {
+        this.findBtn = findBtn;
+    }
+
+    public JButton getImportBtn() {
+        return importBtn;
+    }
+
+    public void setImportBtn(JButton importBtn) {
+        this.importBtn = importBtn;
+    }
+
+    public JPanel getjPanel1() {
+        return jPanel1;
+    }
+
+    public void setjPanel1(JPanel jPanel1) {
+        this.jPanel1 = jPanel1;
+    }
+
+    public JPanel getjPanel2() {
+        return jPanel2;
+    }
+
+    public void setjPanel2(JPanel jPanel2) {
+        this.jPanel2 = jPanel2;
+    }
+
+    public JPanel getjPanel3() {
+        return jPanel3;
+    }
+
+    public void setjPanel3(JPanel jPanel3) {
+        this.jPanel3 = jPanel3;
+    }
+
+    public JButton getRemoveBtn() {
+        return removeBtn;
+    }
+
+    public void setRemoveBtn(JButton removeBtn) {
+        this.removeBtn = removeBtn;
+    }
+
+    public JTextField getTfSearch() {
+        return tfSearch;
+    }
+
+    public void setTfSearch(JTextField tfSearch) {
+        this.tfSearch = tfSearch;
+    }
+    
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addBtn;

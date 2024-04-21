@@ -4,6 +4,8 @@
  */
 package GUI;
 
+import com.formdev.flatlaf.extras.FlatSVGIcon;
+
 /**
  *
  * @author ASUS
@@ -124,7 +126,7 @@ public class ThongKe extends javax.swing.JPanel {
 
         jPanel6.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/baseline_phone_iphone_black_24dp.png"))); // NOI18N
+        jLabel3.setIcon(new FlatSVGIcon("img/product.svg",50,50));
         jLabel3.setText("Số lượng điện thoại còn trong kho");
 
         javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
@@ -147,7 +149,7 @@ public class ThongKe extends javax.swing.JPanel {
 
         jPanel7.setBackground(new java.awt.Color(255, 255, 255));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Img/outline_person_black_24dp.png"))); // NOI18N
+        jLabel1.setIcon(new FlatSVGIcon("img/customer.svg",50,50));
         jLabel1.setText("Khách hàng từ trước đến nay");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
@@ -163,8 +165,8 @@ public class ThongKe extends javax.swing.JPanel {
             jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel7Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 57, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 68, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         jPanel1.add(jPanel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 20, 300, 80));
