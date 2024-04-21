@@ -4,7 +4,6 @@
  */
 package DTO;
 
-import java.util.Date;
 import java.sql.Timestamp;
 
 /**
@@ -36,6 +35,6 @@ public class PhieuNhapDTO extends PhieuDTO{
 
     @Override
     public String toString() {
-        return super.toString();// + " " + new DAO.NhaCungCapDAO().selectByID(NCC).getHoTen();
+        return super.toString() + " " + new DAO.NhaCungCapDAO().selectById(NCC).getTenNCC();
     }
 }

@@ -26,7 +26,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         
         toolBar.getCbbFilter().removeAllItems();
         toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
-            "Tất cả","Mã phiếu nhập","Tên hách hàng","Tên nhân viên"
+            "Tất cả","Mã phiếu nhập","Tên nhà cung cấp","Tên nhân viên"
         }));
         
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();

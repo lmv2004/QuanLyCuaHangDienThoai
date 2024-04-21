@@ -35,7 +35,7 @@ public class PhieuNhapBUS {
                 Vector vector = new Vector();
                 vector.add(i);
                 vector.add(PN.getMaPhieu());
-                vector.add(PN.getNCC());
+                vector.add(new DAO.NhaCungCapDAO().selectById(PN.getNCC()).getTenNCC());
                 vector.add(new DAO.NhanVienDAO().selectByID(PN.getMNV()).getHoTen());
                 vector.add(PN.getThoiGian());
                 vector.add(decimalFormat.format(PN.getTongTien()));
@@ -60,7 +60,7 @@ public class PhieuNhapBUS {
                 Vector vector = new Vector();
                 vector.add(i);
                 vector.add(PN.getMaPhieu());
-                vector.add(PN.getNCC());
+                vector.add(new DAO.NhaCungCapDAO().selectById(PN.getNCC()).getTenNCC());
                 vector.add(new DAO.NhanVienDAO().selectByID(PN.getMNV()).getHoTen());
                 vector.add(PN.getThoiGian());
                 vector.add(decimalFormat.format(PN.getTongTien()));
@@ -95,14 +95,14 @@ public class PhieuNhapBUS {
             }
             return myArr;
         }
-//        if(n==2) {
-//            for(PhieuNhapDTO x : data) {
-//                if(new DAO.KhachHangDAO.selectByID(x.getMKH()).getHoTen().toLowerCase().equals(s)) {
-//                    myArr.add(x);
-//                }
-//            }
-//            return myArr;
-//        }
+        if(n==2) {
+            for(PhieuNhapDTO x : data) {
+                if(new DAO.NhaCungCapDAO().selectById(x.getNCC()).getTenNCC().toLowerCase().contains(s)) {
+                    myArr.add(x);
+                }
+            }
+            return myArr;
+        }
         if (n == 3) {
             for (PhieuNhapDTO x : data) {
                 if (new DAO.NhanVienDAO().selectByID(x.getMNV()).getHoTen().toLowerCase().contains(s)) {

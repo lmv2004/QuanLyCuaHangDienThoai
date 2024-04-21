@@ -31,7 +31,7 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
         
         toolBar.getCbbFilter().removeAllItems();
         toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
-            "Tất cả","Mã phiếu xuất","Nhà cung cấp","Tên nhân viên"
+            "Tất cả","Mã phiếu","Tên khách hàng","Tên nhân viên"
         }));
     }
 

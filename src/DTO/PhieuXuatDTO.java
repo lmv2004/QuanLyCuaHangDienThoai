@@ -31,8 +31,6 @@ public class PhieuXuatDTO extends PhieuDTO{
 
     @Override
     public String toString() {
-        return super.toString();// + " " + new DAO.KhachHangDAO().selectByID(MKH).getHoTen();
+        return super.toString() + " " + new DAO.KhachHangDAO().selectById(MKH).getTenKhachHang();
     }
-
-    
 }
