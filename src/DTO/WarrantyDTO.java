@@ -76,7 +76,9 @@ public class WarrantyDTO {
 
     @Override
     public String toString() {
-        return "WarrantyDTO{" + "maSanPham=" + maSanPham + ", maBaoHanh=" + maBaoHanh + ", tenKhachHang=" + tenKhachHang + ", yeuCauBaoHanh=" + yeuCauBaoHanh + ", trangThai=" + trangThai + ", ngayBaoHanh=" + ngayBaoHanh + '}';
+        return "WarrantyDTO{" + "\n" + "maSanPham=" + maSanPham + ", maBaoHanh=" + maBaoHanh + ", tenKhachHang=" + tenKhachHang + ", yeuCauBaoHanh=" + yeuCauBaoHanh + ", trangThai=" + trangThai + ", ngayBaoHanh=" + ngayBaoHanh + "\n" + '}';
     }
+    
+    
 
 }

@@ -21,13 +21,12 @@ public class test {
 
         // Phiếu Nhập Test
         System.out.println("============ This is Phieunhap test ============");
-        // DTO.PhieuNhapDTO pn = new DTO.PhieuNhapDTO(1, 76, 1,new
-        // Timestamp(System.currentTimeMillis()), 12000,1);
+        // DTO.PhieuNhapDTO pn = new DTO.PhieuNhapDTO(1, 76, 1,new Timestamp(System.currentTimeMillis()), 12000,1);
         DAO.PhieuNhapDAO pnd = new DAO.PhieuNhapDAO();
         System.out.println(pnd.selecAll().toString());
         // System.out.println(pnd.selectById(110).toString());
         // System.out.println(new Timestamp(System.currentTimeMillis()));
-        System.out.println("   ccccVương van vo".contains("Vương"));
+        // System.out.println("   ccccVương van vo".contains("Vương"));
 
         // Warranty Test
         System.out.println("============ This is Warranty test ============");
