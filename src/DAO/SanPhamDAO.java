@@ -193,7 +193,22 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         }
         return ketqua;
     }
-
+    public int updateSoLuongTon(int masp,int soluong){
+        int soLuongThayDoi=this.selectById(masp).getSoluongton();
+        int ketqua=0;
+        try {
+            Connection conn=JDBCConnection.getJDBCConnection();
+            String sql="UPDATE sanpham SET soluongton=? WHERE masp=?";
+            PreparedStatement psm=conn.prepareStatement(sql);
+            psm.setInt(1, soLuongThayDoi);
+            psm.setInt(2, masp);
+            ketqua=psm.executeUpdate();
+            JDBCConnection.closeConection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ketqua;
+    }
     @Override
     public SanPhamDTO selectById(SanPhamDTO t) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
