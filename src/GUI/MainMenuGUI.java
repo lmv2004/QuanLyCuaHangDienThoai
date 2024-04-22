@@ -9,7 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.util.ArrayList;
-import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -41,8 +40,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     
     public MainMenuGUI(DTO.AccountDTO myAcc) {
         initComponents();
-        ImageIcon logo = new ImageIcon("src/img/logo.jpg");
-        setIconImage(logo.getImage());
+        setIconImage(new FlatSVGIcon("img/logo.svg",100,100).getImage());
         
         
         //lấy tất cả button chức năng

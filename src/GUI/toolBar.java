@@ -104,7 +104,7 @@ public class toolBar extends javax.swing.JPanel {
         jPanel3.add(detailBtn);
 
         exportBtn.setBackground(new java.awt.Color(255, 255, 255));
-        exportBtn.setIcon(new FlatSVGIcon("img/importExcel.svg",64,64));
+        exportBtn.setIcon(new FlatSVGIcon("img/exportExcel.svg",64,64));
         exportBtn.setToolTipText("Xuất Excel");
         exportBtn.setBorder(null);
         exportBtn.setBorderPainted(false);
@@ -116,7 +116,7 @@ public class toolBar extends javax.swing.JPanel {
         jPanel3.add(exportBtn);
 
         importBtn.setBackground(new java.awt.Color(255, 255, 255));
-        importBtn.setIcon(new FlatSVGIcon("img/exportExcel.svg",64,64));
+        importBtn.setIcon(new FlatSVGIcon("img/importExcel.svg",64,64));
         importBtn.setToolTipText("Nhập Excel");
         importBtn.setBorder(null);
         importBtn.setBorderPainted(false);
@@ -148,7 +148,7 @@ public class toolBar extends javax.swing.JPanel {
         jPanel2.add(findBtn);
 
         refreshBtn.setIcon(new FlatSVGIcon("img/refresh.svg",30,30));
-        refreshBtn.setToolTipText("Tìm kiếm");
+        refreshBtn.setToolTipText("Làm mới");
         refreshBtn.setBorder(null);
         refreshBtn.setBorderPainted(false);
         refreshBtn.setContentAreaFilled(false);

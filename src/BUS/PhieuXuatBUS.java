@@ -34,7 +34,7 @@ public class PhieuXuatBUS {
                 Vector vector = new Vector();//"STT", "Mã phiếu xuất", "Khách hàng", "Nhân viên xuất", "Thời gian", "Tổng tiền (VNĐ)"
                 vector.add(i);
                 vector.add(PX.getMaPhieu());
-                vector.add(PX.getMKH());//new DAO.KhachHangDAO().selectByID(PX.getMKH()).getHoTen()
+                vector.add(new DAO.KhachHangDAO().selectById(PX.getMKH()).getTenKhachHang());//
                 vector.add(new DAO.NhanVienDAO().selectByID(PX.getMNV()).getHoTen());
                 vector.add(PX.getThoiGian());
                 vector.add(decimalFormat.format(PX.getTongTien()));

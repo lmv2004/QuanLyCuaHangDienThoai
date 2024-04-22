@@ -4,7 +4,9 @@
  */
 package GUI;
 
-import javax.swing.ComboBoxModel;
+import DTO.KhachHangDTO;
+import DTO.NhanVienDTO;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 
 /**
@@ -29,10 +31,14 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
             }));
         BUS.PhieuXuatBUS.pouringData(tblDSPN);
         
+        
         toolBar.getCbbFilter().removeAllItems();
         toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
             "Tất cả","Mã phiếu","Tên khách hàng","Tên nhân viên"
         }));
+        
+        cbbNCC.setModel(new DefaultComboBoxModel<>(getTenKH()));
+        cbbNVN.setModel(new DefaultComboBoxModel<>(getTenNV()));
     }
 
     /**
@@ -56,7 +62,29 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-
+    public static String[] getTenKH() {
+        ArrayList<KhachHangDTO> myArr = new DAO.KhachHangDAO().selecAll();
+        String[] s = new String[myArr.size()+1];
+        int i = 1;
+        s[0] = "";
+        for(KhachHangDTO x : myArr) {
+            s[i]=x.getTenKhachHang();
+            i++;
+        }
+        return s;
+    }
+    public static String[] getTenNV() {
+        ArrayList<NhanVienDTO> myArr = new DAO.NhanVienDAO().selecAll();
+        String[] s = new String[myArr.size()+1];
+        int i = 1;
+        s[0] = "";
+        for(NhanVienDTO x : myArr) {
+            s[i]=x.getHoTen();
+            i++;
+        }
+        return s;
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
 }

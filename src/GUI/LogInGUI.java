@@ -20,8 +20,7 @@ public class LogInGUI extends javax.swing.JFrame {
      */
     public LogInGUI() {
         initComponents();
-        ImageIcon logo = new ImageIcon("src/img/logo.jpg");
-        setIconImage(logo.getImage());
+        setIconImage(new FlatSVGIcon("img/logo.svg",100,100).getImage());
         
         function.placeHolder(tk, "Tên tài khoản");
         function.placeHolder(mk, "Mật khẩu");
@@ -166,7 +165,7 @@ public class LogInGUI extends javax.swing.JFrame {
                     .addComponent(lbForgetPassword)
                     .addComponent(cbRemember))
                 .addGap(18, 18, 18)
-                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnLogIn, javax.swing.GroupLayout.DEFAULT_SIZE, 64, Short.MAX_VALUE)
                 .addContainerGap())
         );
 
@@ -178,7 +177,9 @@ public class LogInGUI extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         pack();

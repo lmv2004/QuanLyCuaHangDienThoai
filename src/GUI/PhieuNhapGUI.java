@@ -5,10 +5,14 @@
 package GUI;
 
 import BUS.PhieuNhapBUS;
+import DTO.NhanVienDTO;
+import DTO.NhaCungCapDTO;
+import java.awt.event.ActionEvent;
+import java.text.DecimalFormat;
+import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
-import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 /**
  *
@@ -29,6 +33,9 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
             "Tất cả","Mã phiếu nhập","Tên nhà cung cấp","Tên nhân viên"
         }));
         
+        cbbNCC.setModel(new DefaultComboBoxModel<>(getNameNCC()));
+        cbbNVN.setModel(new DefaultComboBoxModel<>(getNameNV()));
+        
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         TableColumnModel columnModel = tblDSPN.getColumnModel();
@@ -47,6 +54,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                 PhieuNhapBUS.pouringData(tblDSPN, PhieuNhapBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
             }
         });
+        
     }
 
     /**
@@ -70,9 +78,9 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         labelNCC = new javax.swing.JLabel();
-        jComboBox2 = new javax.swing.JComboBox<>();
+        cbbNCC = new javax.swing.JComboBox<>();
         labelNV = new javax.swing.JLabel();
-        jComboBox3 = new javax.swing.JComboBox<>();
+        cbbNVN = new javax.swing.JComboBox<>();
         jLabel3 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         jLabel4 = new javax.swing.JLabel();
@@ -83,6 +91,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jLabel6 = new javax.swing.JLabel();
         jTextField5 = new javax.swing.JTextField();
         jSlider2 = new javax.swing.JSlider();
+        detroyFilterBtn = new javax.swing.JButton();
 
         edit.setText("Sửa");
         rowConfig.add(edit);
@@ -166,12 +175,12 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         labelNCC.setText("Nhà cung cấp");
         jPanel2.add(labelNCC);
 
-        jPanel2.add(jComboBox2);
+        jPanel2.add(cbbNCC);
 
         labelNV.setText("Nhân viên nhập");
         jPanel2.add(labelNV);
 
-        jPanel2.add(jComboBox3);
+        jPanel2.add(cbbNVN);
 
         jLabel3.setText("Từ ngày");
         jPanel2.add(jLabel3);
@@ -184,12 +193,33 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jLabel5.setText("Từ số tiền (VNĐ)");
         jPanel2.add(jLabel5);
         jPanel2.add(jTextField4);
+
+        jSlider1.setValue(0);
+        jSlider1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider1StateChanged(evt);
+            }
+        });
         jPanel2.add(jSlider1);
 
         jLabel6.setText("Đến số tiền (VNĐ)");
         jPanel2.add(jLabel6);
         jPanel2.add(jTextField5);
+
+        jSlider2.setValue(0);
+        jSlider2.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jSlider2StateChanged(evt);
+            }
+        });
         jPanel2.add(jSlider2);
+
+        detroyFilterBtn.setBackground(java.awt.Color.red);
+        detroyFilterBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        detroyFilterBtn.setForeground(new java.awt.Color(5, 7, 15));
+        detroyFilterBtn.setText("Hủy Bộ Lọc");
+        detroyFilterBtn.setPreferredSize(new java.awt.Dimension(95, 40));
+        jPanel2.add(detroyFilterBtn);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -215,12 +245,54 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_removeActionPerformed
 
+    private void jSlider1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider1StateChanged
+        // TODO add your handling code here:
+        try {
+            DecimalFormat decimalFormat = new DecimalFormat("#,###");
+            jTextField4.setText(decimalFormat.format(1000000000*((double)jSlider1.getValue()/100)));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jSlider1StateChanged
+
+    private void jSlider2StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jSlider2StateChanged
+        // TODO add your handling code here:
+        try {
+            DecimalFormat decimalFormat = new DecimalFormat("#,###");
+            jTextField5.setText(decimalFormat.format(1000000000*((double)jSlider2.getValue()/100)));
+        } catch (Exception e) {
+        }
+    }//GEN-LAST:event_jSlider2StateChanged
+
+    public static String[] getNameNCC() {
+        ArrayList<NhaCungCapDTO> myArr = new DAO.NhaCungCapDAO().selecAll();
+        String[] s = new String[myArr.size()+1];
+        int i = 1;
+        s[0] = "";
+        for(NhaCungCapDTO x : myArr) {
+            s[i]=x.getTenNCC();
+            i++;
+        }
+        return s;
+    }
+    public static String[] getNameNV() {
+        ArrayList<NhanVienDTO> myArr = new DAO.NhanVienDAO().selecAll();
+        String[] s = new String[myArr.size()+1];
+        int i = 1;
+        s[0] = "";
+        for(NhanVienDTO x : myArr) {
+            s[i]=x.getHoTen();
+            i++;
+        }
+        return s;
+    }
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    protected javax.swing.JComboBox<String> cbbNCC;
+    protected javax.swing.JComboBox<String> cbbNVN;
     private javax.swing.JMenuItem details;
+    private javax.swing.JButton detroyFilterBtn;
     private javax.swing.JMenuItem edit;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
     private com.toedter.calendar.JDateChooser jDateChooser1;
     private com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
