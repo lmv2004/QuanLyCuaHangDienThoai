@@ -9,6 +9,10 @@ public class XuatXuDTO {
 
     }
 
+    public XuatXuDTO(String tenxuatxu) {
+        this.tenxuatxu = tenxuatxu;
+    }
+
     public XuatXuDTO(int maxuatxu, String tenxuatxu) {
         this.maxuatxu = maxuatxu;
         this.tenxuatxu = tenxuatxu;

@@ -9,6 +9,10 @@ public class DungLuongRomDTO {
     public DungLuongRomDTO() {
     }
 
+    public DungLuongRomDTO(int dungluongrom) {
+        this.dungluongrom = dungluongrom;
+    }
+
     public DungLuongRomDTO(int madungluongrom, int dungluongrom) {
         this.madungluongrom = madungluongrom;
         this.dungluongrom = dungluongrom;

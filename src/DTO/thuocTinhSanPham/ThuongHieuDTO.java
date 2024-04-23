@@ -9,6 +9,10 @@ public class ThuongHieuDTO {
     public ThuongHieuDTO() {
     }
 
+    public ThuongHieuDTO(String tenthuonghieu) {
+        this.tenthuonghieu = tenthuonghieu;
+    }
+
     public ThuongHieuDTO(int mathuonghieu, String tenthuonghieu) {
         this.mathuonghieu = mathuonghieu;
         this.tenthuonghieu = tenthuonghieu;

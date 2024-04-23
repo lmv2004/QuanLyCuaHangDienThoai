@@ -11,6 +11,10 @@ public class HeDieuHanhDTO {
     public HeDieuHanhDTO() {
     }
 
+    public HeDieuHanhDTO(String tenhdh) {
+        this.tenhdh = tenhdh;
+    }
+
     public HeDieuHanhDTO(int mahdh, String tenhdh) {
         this.mahdh = mahdh;
         this.tenhdh = tenhdh;

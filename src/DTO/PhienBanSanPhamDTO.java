@@ -14,6 +14,10 @@ public class PhienBanSanPhamDTO {
      public PhienBanSanPhamDTO() {
     }
 
+    public PhienBanSanPhamDTO(int giaxuat) {
+        this.giaxuat = giaxuat;
+    }
+
     public PhienBanSanPhamDTO(int maphienbansp, int masp, int ram, int rom, int mausac, int gianhap, int giaxuat, int soluongton) {
         this.maphienbansp = maphienbansp;
         this.masp = masp;

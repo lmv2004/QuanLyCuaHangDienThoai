@@ -1,6 +1,12 @@
 
 package DTO;
 
+import DTO.thuocTinhSanPham.DungLuongRamDTO;
+import DTO.thuocTinhSanPham.DungLuongRomDTO;
+import DTO.thuocTinhSanPham.HeDieuHanhDTO;
+import DTO.thuocTinhSanPham.MauSacDTO;
+import DTO.thuocTinhSanPham.ThuongHieuDTO;
+import DTO.thuocTinhSanPham.XuatXuDTO;
 import java.util.Objects;
 
 public class SanPhamDTO {
@@ -19,8 +25,25 @@ public class SanPhamDTO {
     private int thuonghieu;
     private int khuvuckho;
     private int soluongton;
-
+    private PhienBanSanPhamDTO PBSPDTO=new PhienBanSanPhamDTO();
+    private DungLuongRamDTO DLRamDTO=new DungLuongRamDTO();
+    private DungLuongRomDTO DLRomDTO=new DungLuongRomDTO();
+    private HeDieuHanhDTO HDHDTO=new HeDieuHanhDTO();
+    private MauSacDTO MSDTO=new MauSacDTO();
+    private ThuongHieuDTO THDTO=new ThuongHieuDTO();
+    private XuatXuDTO XXDTO=new XuatXuDTO();
     public SanPhamDTO() {
+    }
+
+    public SanPhamDTO(String tensp, String hinhanh, String chipxuly, int dungluongpin, double kichthuocman, int phienbanhdh, String camerasau, String cameratruoc) {
+        this.tensp = tensp;
+        this.hinhanh = hinhanh;
+        this.chipxuly = chipxuly;
+        this.dungluongpin = dungluongpin;
+        this.kichthuocman = kichthuocman;
+        this.phienbanhdh = phienbanhdh;
+        this.camerasau = camerasau;
+        this.cameratruoc = cameratruoc;
     }
 
     public SanPhamDTO(int masp, String tensp, String hinhanh, int xuatxu, String chipxuly, int dungluongpin, double kichthuocman, int hedieuhanh, int phienbanhdh, String camerasau, String cameratruoc, int thoigianbaohanh, int thuonghieu, int khuvuckho, int soluongton) {
@@ -161,6 +184,62 @@ public class SanPhamDTO {
         this.soluongton = soluongton;
     }
 
+    public PhienBanSanPhamDTO getPBSPDTO() {
+        return PBSPDTO;
+    }
+
+    public void setPBSPDTO(PhienBanSanPhamDTO PBSPDTO) {
+        this.PBSPDTO = PBSPDTO;
+    }
+
+    public DungLuongRamDTO getDLRamDTO() {
+        return DLRamDTO;
+    }
+
+    public void setDLRamDTO(DungLuongRamDTO DLRamDTO) {
+        this.DLRamDTO = DLRamDTO;
+    }
+
+    public DungLuongRomDTO getDLRomDTO() {
+        return DLRomDTO;
+    }
+
+    public void setDLRomDTO(DungLuongRomDTO DLRomDTO) {
+        this.DLRomDTO = DLRomDTO;
+    }
+
+    public HeDieuHanhDTO getHDHDTO() {
+        return HDHDTO;
+    }
+
+    public void setHDHDTO(HeDieuHanhDTO HDHDTO) {
+        this.HDHDTO = HDHDTO;
+    }
+
+    public MauSacDTO getMSDTO() {
+        return MSDTO;
+    }
+
+    public void setMSDTO(MauSacDTO MSDTO) {
+        this.MSDTO = MSDTO;
+    }
+
+    public ThuongHieuDTO getTHDTO() {
+        return THDTO;
+    }
+
+    public void setTHDTO(ThuongHieuDTO THDTO) {
+        this.THDTO = THDTO;
+    }
+
+    public XuatXuDTO getXXDTO() {
+        return XXDTO;
+    }
+
+    public void setXXDTO(XuatXuDTO XXDTO) {
+        this.XXDTO = XXDTO;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -241,7 +320,11 @@ public class SanPhamDTO {
 
     @Override
     public String toString() {
-        return "SanPhamDTO{" + "masp=" + masp + ", tensp=" + tensp + ", hinhanh=" + hinhanh + ", xuatxu=" + xuatxu + ", chipxuly=" + chipxuly + ", dungluongpin=" + dungluongpin + ", kichthuocman=" + kichthuocman + ", hedieuhanh=" + hedieuhanh + ", phienbanhdh=" + phienbanhdh + ", camerasau=" + camerasau + ", cameratruoc=" + cameratruoc + ", thoigianbaohanh=" + thoigianbaohanh + ", thuonghieu=" + thuonghieu + ", khuvuckho=" + khuvuckho + ", soluongton=" + soluongton + '}';
+        return "SanPhamDTO{" + "tensp=" + tensp + ", hinhanh=" + hinhanh + ", chipxuly=" + chipxuly + ", dungluongpin=" + dungluongpin + ", kichthuocman=" + kichthuocman + ", phienbanhdh=" + phienbanhdh + ", camerasau=" + camerasau + ", cameratruoc=" + cameratruoc + ", thoigianbaohanh=" + thoigianbaohanh + ", PBSPDTO=" + PBSPDTO + ", DLRamDTO=" + DLRamDTO + ", DLRomDTO=" + DLRomDTO + ", HDHDTO=" + HDHDTO + ", MSDTO=" + MSDTO + ", THDTO=" + THDTO + ", XXDTO=" + XXDTO + '}';
     }
+
+  
+
+    
     
 }

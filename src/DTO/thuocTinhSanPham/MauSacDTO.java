@@ -11,6 +11,10 @@ public class MauSacDTO {
     public MauSacDTO() {
     }
 
+    public MauSacDTO(String tenmau) {
+        this.tenmau = tenmau;
+    }
+
     public MauSacDTO(int mamau, String tenmau) {
         this.mamau = mamau;
         this.tenmau = tenmau;
