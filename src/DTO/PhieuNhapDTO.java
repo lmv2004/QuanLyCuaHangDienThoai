@@ -12,6 +12,7 @@ import java.sql.Timestamp;
  */
 public class PhieuNhapDTO extends PhieuDTO{
     private int NCC;
+    private NhaCungCapDTO NCCDTO = new NhaCungCapDTO();
 
     public PhieuNhapDTO() {
     }
@@ -33,6 +34,15 @@ public class PhieuNhapDTO extends PhieuDTO{
         this.NCC = NCC;
     }
 
+    public NhaCungCapDTO getNCCDTO() {
+        return NCCDTO;
+    }
+
+    public void setNCCDTO(NhaCungCapDTO NCCDTO) {
+        this.NCCDTO = NCCDTO;
+    }
+
+    
     @Override
     public String toString() {
         return super.toString() + " " + new DAO.NhaCungCapDAO().selectById(NCC).getTenNCC();

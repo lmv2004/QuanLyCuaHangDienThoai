@@ -8,6 +8,9 @@ import DTO.KhachHangDTO;
 import DTO.NhanVienDTO;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -39,6 +42,18 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
         
         cbbNCC.setModel(new DefaultComboBoxModel<>(getTenKH()));
         cbbNVN.setModel(new DefaultComboBoxModel<>(getTenNV()));
+        
+        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+        TableColumnModel columnModel = tblDSPN.getColumnModel();
+        columnModel.getColumn(0).setPreferredWidth(50);
+        columnModel.getColumn(0).setCellRenderer(centerRenderer);
+        columnModel.getColumn(1).setPreferredWidth(100);
+        columnModel.getColumn(1).setCellRenderer(centerRenderer);
+        columnModel.getColumn(2).setPreferredWidth(400);
+        columnModel.getColumn(3).setPreferredWidth(200);
+        columnModel.getColumn(4).setPreferredWidth(200);
+        columnModel.getColumn(5).setPreferredWidth(200);
     }
 
     /**

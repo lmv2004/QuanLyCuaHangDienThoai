@@ -24,7 +24,6 @@ public class main {
         UIManager.put("PasswordField.showRevealButton", true);
         
         //init all in here
-        BUS.PhieuNhapBUS.loadPhieuNhap();
         BUS.PhieuXuatBUS.loadPhieuXuat();
         
         new LogInGUI().setVisible(true);

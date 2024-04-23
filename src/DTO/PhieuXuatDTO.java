@@ -8,6 +8,7 @@ import java.sql.Timestamp;
 
 public class PhieuXuatDTO extends PhieuDTO{
     private int MKH;
+    private KhachHangDTO KHDTO = new KhachHangDTO();
 
     public PhieuXuatDTO() {
     }
@@ -29,6 +30,15 @@ public class PhieuXuatDTO extends PhieuDTO{
         this.MKH = MKH;
     }
 
+    public KhachHangDTO getKHDTO() {
+        return KHDTO;
+    }
+
+    public void setKHDTO(KhachHangDTO KHDTO) {
+        this.KHDTO = KHDTO;
+    }
+    
+    
     @Override
     public String toString() {
         return super.toString() + " " + new DAO.KhachHangDAO().selectById(MKH).getTenKhachHang();

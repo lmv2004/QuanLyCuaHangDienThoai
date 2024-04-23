@@ -17,6 +17,7 @@ public class PhieuDTO {
     private Timestamp ThoiGian;
     private long TongTien;
     private int trangthai=1;
+    private NhanVienDTO NVDTO = new NhanVienDTO();
 
     public PhieuDTO() {
     }
@@ -67,6 +68,15 @@ public class PhieuDTO {
     public void setTrangthai(int trangthai) {
         this.trangthai = trangthai;
     }
+
+    public NhanVienDTO getNVDTO() {
+        return NVDTO;
+    }
+
+    public void setNVDTO(NhanVienDTO NVDTO) {
+        this.NVDTO = NVDTO;
+    }
+    
     @Override
     public String toString() {
         return MaPhieu + " " + new DAO.NhanVienDAO().selectByID(MNV).getHoTen() + " " + ThoiGian + " " + TongTien;

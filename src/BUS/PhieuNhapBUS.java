@@ -4,6 +4,7 @@
  */
 package BUS;
 
+import DAO.PhieuNhapDAO;
 import DTO.*;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -17,16 +18,42 @@ import javax.swing.table.DefaultTableModel;
  */
 public class PhieuNhapBUS {
 
-    static ArrayList<PhieuNhapDTO> data;
+    private ArrayList<PhieuNhapDTO> data;
+    PhieuNhapDAO PNDAO = new PhieuNhapDAO();
 
-    public static void loadPhieuNhap() {
-        data = new DAO.PhieuNhapDAO().selecAll();
+    public PhieuNhapBUS() {
+        data = PNDAO.selecAll();
     }
 
-    public static void pouringData(JTable tbl) {
+    public ArrayList<PhieuNhapDTO> getAll() {
+        return PNDAO.selecAll();
+    }
+    
+    public boolean add(PhieuNhapDTO phieuNhap) {
+        if(PNDAO.insert(phieuNhap)!=0) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean delete(PhieuNhapDTO phieuNhap) {
+        if(PNDAO.delete(phieuNhap)!=0) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean edit(PhieuNhapDTO phieuNhapEdited) {
+        if(PNDAO.update(phieuNhapEdited)!=0) {
+            return true;
+        }
+        return false;
+    }
+
+    public void pouringData(JTable tbl) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         while (model.getRowCount() > 0) {
-            model.removeRow(0);
+            model.removeRow(0);  
         }
         int i = 1;
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
@@ -48,7 +75,7 @@ public class PhieuNhapBUS {
         tbl.revalidate();
     }
 
-    public static void pouringData(JTable tbl, ArrayList<PhieuNhapDTO> myArr) {
+    public void pouringData(JTable tbl, ArrayList<PhieuNhapDTO> myArr) {
         DefaultTableModel model = (DefaultTableModel) tbl.getModel();
         while (model.getRowCount() > 0) {
             model.removeRow(0);
@@ -71,7 +98,7 @@ public class PhieuNhapBUS {
         tbl.setModel(model);
     }
 
-    public static ArrayList<PhieuNhapDTO> search(int n, String s) {
+    public ArrayList<PhieuNhapDTO> search(int n, String s) {
         ArrayList<DTO.PhieuNhapDTO> myArr = new ArrayList<>();
         s = s.toLowerCase();
         if (n == 0) {

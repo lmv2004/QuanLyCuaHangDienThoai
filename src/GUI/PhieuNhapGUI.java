@@ -1,60 +1,95 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package GUI;
 
+import BUS.NhaCungCapBUS;
+import BUS.NhanVienBUS;
 import BUS.PhieuNhapBUS;
 import DTO.NhanVienDTO;
 import DTO.NhaCungCapDTO;
-import java.awt.event.ActionEvent;
+import DTO.PhieuNhapDTO;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
-/**
- *
- * @author ACER
- */
-public class PhieuNhapGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form PhieuNhapGUI
-     */
+public class PhieuNhapGUI extends javax.swing.JPanel {
+    
+    private PhieuNhapBUS PNBUS = new PhieuNhapBUS();
+    private NhanVienBUS NVBUS = new NhanVienBUS();
+    private NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
+    private DefaultTableModel tblModel;
+    
+    
     public PhieuNhapGUI() {
         initComponents();
+        tblModel=(DefaultTableModel)tblDSPN.getModel();
         
-        BUS.PhieuNhapBUS.pouringData(tblDSPN);
-        
-        toolBar.getCbbFilter().removeAllItems();
+        loadData();
+        loadCbbFilter();
+        loadCbbNhanVien();
+        loadCbbNhaCungCap();
+        setTable();
+        setEvent();
+    }
+    
+    public void loadData() {
+        int i=1;
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        for(PhieuNhapDTO x : PNBUS.getAll()) {
+            tblModel.addRow(new Object[] {i,x.getMaPhieu(),NCCBUS.getByID(x.getNCC()).getTenNCC(),NVBUS.getByID(x.getMNV()).getHoTen(),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
+            i++;
+        }
+        tblDSPN.setModel(tblModel);
+    }
+    
+    public void loadCbbFilter() {
         toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
             "Tất cả","Mã phiếu nhập","Tên nhà cung cấp","Tên nhân viên"
         }));
-        
-        cbbNCC.setModel(new DefaultComboBoxModel<>(getNameNCC()));
-        cbbNVN.setModel(new DefaultComboBoxModel<>(getNameNV()));
-        
+    }
+    
+    public void loadCbbNhanVien() {
+        cbbNVN.addItem("");
+        for(NhanVienDTO x : NVBUS.getAllNhanVien()) {
+            cbbNVN.addItem(x.getHoTen());
+        }
+    }
+    
+    public void loadCbbNhaCungCap() {
+        cbbNCC.addItem("");
+        for(NhaCungCapDTO x : NCCBUS.getAllNhaCungCap()) {
+            cbbNCC.addItem(x.getTenNCC());
+        }
+    }
+    
+    public void setTable() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
         TableColumnModel columnModel = tblDSPN.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(1);
+        columnModel.getColumn(0).setPreferredWidth(50);
         columnModel.getColumn(0).setCellRenderer(centerRenderer);
-        columnModel.getColumn(1).setPreferredWidth(1);
+        columnModel.getColumn(1).setPreferredWidth(100);
         columnModel.getColumn(1).setCellRenderer(centerRenderer);
-        
-        
+        columnModel.getColumn(2).setPreferredWidth(400);
+        columnModel.getColumn(3).setPreferredWidth(200);
+        columnModel.getColumn(4).setPreferredWidth(200);
+        columnModel.getColumn(5).setPreferredWidth(200);
+        centerRenderer.setHorizontalAlignment(JLabel.LEFT);
+        columnModel.getColumn(5).setCellRenderer(centerRenderer);
+    }
+    
+    public void setEvent() {
+        //set event for search buttton 
         toolBar.getFindBtn().addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 if(function.TextFieldIsEmpty(toolBar.getTfSearch(), "nội dung tìm kiếm","Nhập nội dung tìm kiếm...")) {
                     return;
                 }
-                PhieuNhapBUS.pouringData(tblDSPN, PhieuNhapBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
+                PNBUS.pouringData(tblDSPN, PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
             }
         });
-        
     }
 
     /**
@@ -139,7 +174,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         });
         tblDSPN.setComponentPopupMenu(rowConfig);
         tblDSPN.setOpaque(false);
-        tblDSPN.setShowGrid(true);
+        tblDSPN.setShowGrid(false);
         jScrollPane1.setViewportView(tblDSPN);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
@@ -148,18 +183,20 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1048, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 1000, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 653, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 649, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
         add(jPanel3, java.awt.BorderLayout.CENTER);
+
+        jPanel4.setPreferredSize(new java.awt.Dimension(200, 800));
 
         jPanel2.setMinimumSize(new java.awt.Dimension(140, 524));
         jPanel2.setOpaque(false);
@@ -214,7 +251,6 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         });
         jPanel2.add(jSlider2);
 
-        detroyFilterBtn.setBackground(java.awt.Color.red);
         detroyFilterBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         detroyFilterBtn.setForeground(new java.awt.Color(5, 7, 15));
         detroyFilterBtn.setText("Hủy Bộ Lọc");
@@ -225,15 +261,15 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel4Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addGap(0, 0, 0)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel4Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(0, 0, 0)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 641, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -263,29 +299,6 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_jSlider2StateChanged
 
-    public static String[] getNameNCC() {
-        ArrayList<NhaCungCapDTO> myArr = new DAO.NhaCungCapDAO().selecAll();
-        String[] s = new String[myArr.size()+1];
-        int i = 1;
-        s[0] = "";
-        for(NhaCungCapDTO x : myArr) {
-            s[i]=x.getTenNCC();
-            i++;
-        }
-        return s;
-    }
-    public static String[] getNameNV() {
-        ArrayList<NhanVienDTO> myArr = new DAO.NhanVienDAO().selecAll();
-        String[] s = new String[myArr.size()+1];
-        int i = 1;
-        s[0] = "";
-        for(NhanVienDTO x : myArr) {
-            s[i]=x.getHoTen();
-            i++;
-        }
-        return s;
-    }
-    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JComboBox<String> cbbNCC;
