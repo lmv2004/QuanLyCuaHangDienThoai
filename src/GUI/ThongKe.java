@@ -4,7 +4,16 @@
  */
 package GUI;
 
+import BUS.ThongKeBUS;
+import DTO.ThongKe.ThongKeDoanhThuDTO;
+import DTO.ThongKe.ThongKeTheoThangDTO;
+import DTO.ThongKe.ThongKeTungNgayTrongThangDTO;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
+import com.reven.chart.ModelChart;
+import java.awt.Color;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,10 +24,119 @@ public class ThongKe extends javax.swing.JPanel {
     /**
      * Creates new form ThongKe
      */
+    private ArrayList<ThongKeDoanhThuDTO> listDoanhThu;
+    private int currentYear;
+    private int currentMonth;
+    private ArrayList<ThongKeTheoThangDTO> listTheoThang;
+    private ArrayList<ThongKeTungNgayTrongThangDTO> listNgay;
+    private ArrayList<ThongKeTungNgayTrongThangDTO> list7Ngay;
+    /**
+     * Creates new form ThongKe
+     */
     public ThongKe() {
         initComponents();
+        initTongQuan();
+        initThongKeTungNam();
+        initThongKeTungThangTrongNam();
+        initThongKeTungNgayTrongThang();
+    }
+    
+    public void initTongQuan(){
+        chart1.addLegend("Chi Phí", Color.yellow);
+        chart1.addLegend("Doanh Thu", Color.red);
+        chart1.addLegend("Lợi nhuận", Color.orange);
+        
+        list7Ngay = new ThongKeBUS().getThongKe7NgayGanNhat();
+        // xử lí chart
+        for(ThongKeTungNgayTrongThangDTO i : list7Ngay){
+            chart1.addData(new ModelChart("Ngày " +i.getNgay(), new double[]{i.getChiphi(),i.getDoanhthu(), i.getLoinhuan()}));
+        }
+        
+        // xử lí table
+        DefaultTableModel tableModel = (DefaultTableModel) jTable1.getModel();
+        tableModel.setRowCount(0);
+        for(ThongKeTungNgayTrongThangDTO i : list7Ngay){
+            tableModel.addRow(new Object[]{i.getNgay(),i.getChiphi(),i.getDoanhthu(),i.getLoinhuan()});
+        }
+        //jLabel18
+        //jLabel19
+        
         
     }
+    
+    
+    public void initThongKeTungNam(){
+        chart2.addLegend("Vốn", Color.yellow);
+        chart2.addLegend("Doanh Thu", Color.red);
+        chart2.addLegend("Lợi nhuận", Color.orange);
+        
+        currentYear = LocalDate.now().getYear();
+        listDoanhThu = new ThongKeBUS().getDoanhThuTheoTungNam(currentYear - 5, currentYear);
+        
+        // xử lí chart
+        for(ThongKeDoanhThuDTO i : listDoanhThu){
+            chart2.addData(new ModelChart("Năm " + i.getThoigian(), new double[]{i.getVon(), i.getDoanhthu(), i.getLoinhuan()}));
+        }
+        
+        // xử lí table
+        DefaultTableModel tableModel = (DefaultTableModel) jTable5.getModel();
+        tableModel.setRowCount(0);
+        for(ThongKeDoanhThuDTO i : listDoanhThu){
+            tableModel.addRow(new Object[]{i.getThoigian(),i.getVon(),i.getDoanhthu(),i.getLoinhuan()});
+        }
+    }
+    
+    public void initThongKeTungThangTrongNam(){
+        chart3.addLegend("Chi phí", Color.yellow);
+        chart3.addLegend("Doanh thu", Color.red);
+        chart3.addLegend("Lợi nhuận", Color.yellow);
+        
+        
+        listTheoThang = new ThongKeBUS().getThongKeTheoThang(currentYear);
+        for(ThongKeTheoThangDTO i : listTheoThang){
+            chart3.addData(new ModelChart("Tháng "+ i.getThang(), new double[]{i.getChiphi() , i.getDoanhthu() , i.getLoinhuan()}));
+        }
+        
+        // xử lí table
+        DefaultTableModel tableModel = (DefaultTableModel) jTable6.getModel();
+        tableModel.setRowCount(0);
+        for(ThongKeTheoThangDTO i : listTheoThang){
+            tableModel.addRow(new Object[]{i.getThang(),i.getChiphi(),i.getDoanhthu(),i.getLoinhuan()});
+        }
+    }
+    
+    public void initThongKeTungNgayTrongThang(){
+        chart4.addLegend("Chi phí", Color.yellow);
+        chart4.addLegend("Doanh thu", Color.red);
+        chart4.addLegend("Lợi nhuận", Color.yellow);
+        currentMonth = LocalDate.now().getMonthValue();
+        System.out.println(currentMonth);
+        listNgay = new ThongKeBUS().getThongKeTungNgayTrongThang(currentMonth , currentYear );
+         int sum_chiphi = 0;
+        int sum_doanhthu = 0;
+        int sum_loinhuan = 0;
+        for (int i = 0; i < listNgay.size(); i++) {
+            int index = i + 1;
+            sum_chiphi += listNgay.get(i).getChiphi();
+            sum_doanhthu += listNgay.get(i).getDoanhthu();
+            sum_loinhuan += listNgay.get(i).getLoinhuan();
+            if (index % 3 == 0) {
+                chart4.addData(new ModelChart("Ngày " + (index - 2) + "->" + (index), new double[]{sum_chiphi, sum_doanhthu, sum_loinhuan}));
+                sum_chiphi = 0;
+                sum_doanhthu = 0;
+                sum_loinhuan = 0;
+            }
+        }
+        
+        
+        // xử lí table
+         DefaultTableModel tableModel = (DefaultTableModel) jTable7.getModel();
+        tableModel.setRowCount(0);
+        for(ThongKeTungNgayTrongThangDTO i : listNgay){
+            tableModel.addRow(new Object[]{i.getNgay(),i.getChiphi(),i.getDoanhthu(),i.getLoinhuan()});
+        }
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

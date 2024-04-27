@@ -4,6 +4,18 @@
  */
 package GUI;
 
+import BUS.KhuVucKhoBUS;
+import DTO.KhuVucKhoDTO;
+import GUI.Dialog.KhuVucKhoDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author ASUS
@@ -13,9 +25,130 @@ public class area extends javax.swing.JPanel {
     /**
      * Creates new form area
      */
+    public KhuVucKhoBUS kvkBUS = new KhuVucKhoBUS();
+    public ArrayList<KhuVucKhoDTO> list = kvkBUS.getAll();
+    JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(this);
+    public KhuVucKhoDTO kvkDTO ;
+    /**
+     * Creates new form area
+     */
+    @SuppressWarnings("empty-statement")
     public area() {
+        
         initComponents();
+        toolBar1.getCbbFilter().removeAllItems();
+        toolBar1.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
+            "Tất cả","Mã khu vực kho","Tên khu vực kho"
+        }));
+             
+        toolBar1.getFindBtn().addActionListener(new java.awt.event.ActionListener() {
+            
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                
+               if(toolBar1.getTfSearch().getText() != ""){
+                   String type =  (String) toolBar1.getCbbFilter().getSelectedItem();
+   
+                   list =  kvkBUS.search(type,toolBar1.getTfSearch().getText());
+                   loadData(list);
+               }
+            }
+        });
+        
+        
+        
+        toolBar1.getAddBtn().addActionListener(new java.awt.event.ActionListener(){
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                KhuVucKhoDialog kvkDialog = new KhuVucKhoDialog(area.this,owner,true, "Thêm khu vực kho" ,"add");
+
+            }
+        
+        });
+        
+        // xử lí update
+        
+        toolBar1.getEditBtn().addActionListener(new ActionListener() {
+            
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(getIndexRow() != -1){
+               KhuVucKhoDialog kvkDialog = new KhuVucKhoDialog(area.this , owner , true, "Chỉnh sửa khu vực" , "update",list.get(getIndexRow()));
+                } else {
+                    JOptionPane.showMessageDialog(area.this, "Vui lòng chọn khu vực kho trong bảng");
+                }
+            }
+        });   
+        
+        
+        // xử lí chi tiết
+        toolBar1.getDetailBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               if(getIndexRow() != -1){
+               KhuVucKhoDialog kvkDialog = new KhuVucKhoDialog(area.this , owner , true, "Chi tiết khu vực" , "detail",list.get(getIndexRow()));
+                } else {
+                    JOptionPane.showMessageDialog(area.this, "Vui lòng chọn khu vực kho trong bảng");
+                }
+            }
+        });
+        
+        // xử lí xóa
+        
+        toolBar1.getRemoveBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (getIndexRow() != -1) {
+                    int index = getIndexRow();
+                    int input = JOptionPane.showConfirmDialog(null,
+                            "Bạn có chắc chắn muốn xóa khu vực!", "Xóa khu vực kho",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    if (input == 0) {
+                        kvkBUS.delete(list.get(index), index);
+                        loadData(list);
+                    } else {
+                        JOptionPane.showMessageDialog(area.this, "Không thể xóa kho vì vẫn còn sản phẩm trong kho.");
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(area.this, "Vui lòng chọn khu vực bạn muốn xóa");
+                }
+            }
+
+
+        });
+        
+        loadData(list);
     }
+    
+    
+    
+     public void loadData(ArrayList<KhuVucKhoDTO> list){
+         
+        DefaultTableModel tblModel = (DefaultTableModel) jTable1.getModel();
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+        }
+        // tblModel.setRowCount(0);
+        for(KhuVucKhoDTO result : list){
+            tblModel.addRow(new Object [] {result.getMaKhuVuc(), result.getTenKhuVuc(), result.getGhiChu()});
+        }    
+        jTable1.setModel(tblModel);
+        jTable1.repaint();
+        jTable1.validate();
+    }
+     
+     public int getIndexRow(){
+         int i = jTable1.getSelectedRow();
+//         if(i == -1){
+//             JOptionPane.showMessageDialog( this, "vui lòng chọn khu vực kho trong bảng");
+//         }
+//         
+           System.out.println(i);
+         return i;
+     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -27,15 +160,7 @@ public class area extends javax.swing.JPanel {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jPanel4 = new javax.swing.JPanel();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jTextField1 = new javax.swing.JTextField();
-        jButton6 = new javax.swing.JButton();
+        toolBar1 = new GUI.toolBar();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -50,59 +175,7 @@ public class area extends javax.swing.JPanel {
 
         jPanel1.setMinimumSize(new java.awt.Dimension(1200, 99));
         jPanel1.setPreferredSize(new java.awt.Dimension(1200, 100));
-
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/Add.png"))); // NOI18N
-        jButton1.setText("Thêm");
-        jButton1.setMinimumSize(new java.awt.Dimension(96, 66));
-        jButton1.setPreferredSize(new java.awt.Dimension(96, 66));
-        jPanel1.add(jButton1);
-
-        jButton3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/edit.png"))); // NOI18N
-        jButton3.setText("Sửa");
-        jButton3.setPreferredSize(new java.awt.Dimension(96, 66));
-        jPanel1.add(jButton3);
-
-        jButton2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/delete.png"))); // NOI18N
-        jButton2.setText("Xóa");
-        jButton2.setPreferredSize(new java.awt.Dimension(96, 66));
-        jPanel1.add(jButton2);
-
-        jButton4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/import_excel.png"))); // NOI18N
-        jButton4.setText("Nhập Excel");
-        jButton4.setPreferredSize(new java.awt.Dimension(125, 66));
-        jPanel1.add(jButton4);
-
-        jButton5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/export_excel.png"))); // NOI18N
-        jButton5.setText("Xuất Excel");
-        jButton5.setPreferredSize(new java.awt.Dimension(120, 66));
-        jPanel1.add(jButton5);
-
-        jPanel4.setPreferredSize(new java.awt.Dimension(220, 100));
-
-        javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
-        jPanel4.setLayout(jPanel4Layout);
-        jPanel4Layout.setHorizontalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 220, Short.MAX_VALUE)
-        );
-        jPanel4Layout.setVerticalGroup(
-            jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel1.add(jPanel4);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Tất cả" }));
-        jComboBox1.setPreferredSize(new java.awt.Dimension(100, 33));
-        jPanel1.add(jComboBox1);
-
-        jTextField1.setPreferredSize(new java.awt.Dimension(150, 22));
-        jPanel1.add(jTextField1);
-
-        jButton6.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/refresh.png"))); // NOI18N
-        jButton6.setText("Làm mới");
-        jButton6.setPreferredSize(new java.awt.Dimension(105, 66));
-        jPanel1.add(jButton6);
+        jPanel1.add(toolBar1);
 
         add(jPanel1, java.awt.BorderLayout.PAGE_START);
 
@@ -198,23 +271,15 @@ public class area extends javax.swing.JPanel {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
-    private javax.swing.JTextField jTextField1;
+    private GUI.toolBar toolBar1;
     // End of variables declaration//GEN-END:variables
 }
