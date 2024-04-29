@@ -25,16 +25,18 @@ public class WarrantyDAO implements DAO_Interface<WarrantyDTO> {
         try {
             Connection con = JDBCConnection.getJDBCConnection(); // get database connection
 
-            String sql = "INSERT INTO `baohanh` (`masanpham`, `mabaohanh`, `tenkhachhang`, `yeucaubaohanh`, `trangthai`, `ngaybaohanh`) VALUES (?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO `baohanh` (masanpham, mabaohanh, tenkhachhang, yeucaubaohanh, trangthai, ngaybaohanh)" 
+                    + "VALUES (?, ?, ?, ?, ?, ?)";
             PreparedStatement pst = con.prepareStatement(sql); // create a prepared statement
             
             pst.setInt(1, t.getMaSanPham()); // set the values for the ? in sql
             pst.setInt(2, t.getMaBaoHanh());
             pst.setString(3, t.getTenKhachHang());
             pst.setString(4, t.getYeuCauBaoHanh());
-            pst.setString(5, t.getNgayBaoHanh());
+            pst.setInt(5, t.getTrangThai());
+            pst.setString(6, t.getNgayBaoHanh());
 
-            result = pst.executeUpdate(sql); // execute the query, get the number of affected rows
+            result = pst.executeUpdate(); // execute the query, get the number of affected rows
 
             System.out.println("Insert Successfully! Affected rows: " + result); // print the affected rows
 
@@ -62,7 +64,7 @@ public class WarrantyDAO implements DAO_Interface<WarrantyDTO> {
             pst.setString(4, t.getYeuCauBaoHanh());
             pst.setString(5, t.getNgayBaoHanh());
 
-            result = pst.executeUpdate(sql); // execute the query, get the number of affected rows
+            result = pst.executeUpdate(); // execute the query, get the number of affected rows
 
             System.out.println("Updated Successfully! Affected rows: " + result); // print the affected rows
 
@@ -86,7 +88,7 @@ public class WarrantyDAO implements DAO_Interface<WarrantyDTO> {
 
             pst.setInt(1, t.getMaBaoHanh()); // set the value for the ? in sql
 
-            result = pst.executeUpdate(sql); // execute the query, get the number of affected rows
+            result = pst.executeUpdate(); // execute the query, get the number of affected rows
 
             System.out.println("Deleted Successfully! Affected rows: " + result); // print the affected rows
 

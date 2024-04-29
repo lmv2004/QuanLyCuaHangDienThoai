@@ -14,7 +14,8 @@ public class PermissionManagerDAO implements DAO_Interface<PermissionManagerDTO>
         int result = 0; // initialize the result variable to 0
         try { // try to execute the following block of code
             Connection con = JDBCConnection.getJDBCConnection(); // get a connection to the database
-            String sql = "INSERT INTO `nhomquyen` (`manhomquyen`,`tennhomquyen`, `trangthai`) VALUES (?, ?, ?)"; // the SQL query to execute
+            String sql = "INSERT INTO `nhomquyen` (manhomquyen, tennhomquyen, trangthai)" 
+                    + "VALUES (?, ?, ?)"; // the SQL query to execute
             PreparedStatement pst = con.prepareStatement(sql); // create a prepared statement from the SQL query
             
             pst.setInt(1, t.getMaNhomQuyen()); // set the first parameter of the prepared statement to the value of t.getMaNhomQuyen()
