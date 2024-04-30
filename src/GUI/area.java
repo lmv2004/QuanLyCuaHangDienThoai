@@ -5,10 +5,15 @@
 package GUI;
 
 import BUS.KhuVucKhoBUS;
+import BUS.SanPhamBUS;
+import Component.itemTaskBar;
 import DTO.KhuVucKhoDTO;
+import DTO.SanPhamDTO;
 import GUI.Dialog.KhuVucKhoDialog;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
@@ -29,6 +34,9 @@ public class area extends javax.swing.JPanel {
     public ArrayList<KhuVucKhoDTO> list = kvkBUS.getAll();
     JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(this);
     public KhuVucKhoDTO kvkDTO ;
+    
+    public SanPhamBUS spBUS = new SanPhamBUS();
+    public ArrayList<SanPhamDTO> listSP = spBUS.getAll();
     /**
      * Creates new form area
      */
@@ -36,6 +44,7 @@ public class area extends javax.swing.JPanel {
     public area() {
         
         initComponents();
+       
         toolBar1.getCbbFilter().removeAllItems();
         toolBar1.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
             "Tất cả","Mã khu vực kho","Tên khu vực kho"
@@ -106,11 +115,21 @@ public class area extends javax.swing.JPanel {
                             "Bạn có chắc chắn muốn xóa khu vực!", "Xóa khu vực kho",
                             JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
                     if (input == 0) {
-                        kvkBUS.delete(list.get(index), index);
-                        loadData(list);
-                    } else {
-                        JOptionPane.showMessageDialog(area.this, "Không thể xóa kho vì vẫn còn sản phẩm trong kho.");
-                    }
+                        int check = 0;
+                        for (SanPhamDTO i : listSP) {
+                            if (list.get(index).getMaKhuVuc() == i.getKhuvuckho()) {
+                                check++;
+                                break;
+                            }
+                        }
+                        if (check == 0) {
+                            kvkBUS.delete(list.get(index), index);
+                            loadData(list);
+                            JOptionPane.showMessageDialog(area.this, "Xóa khu vực kho thành công");
+                        } else {
+                            JOptionPane.showMessageDialog(area.this, "Không thể xóa kho vì vẫn còn sản phẩm trong kho.");
+                        }
+                }
                 } else {
                     JOptionPane.showMessageDialog(area.this, "Vui lòng chọn khu vực bạn muốn xóa");
                 }
@@ -120,6 +139,7 @@ public class area extends javax.swing.JPanel {
         });
         
         loadData(list);
+      
     }
     
     
@@ -141,14 +161,11 @@ public class area extends javax.swing.JPanel {
      
      public int getIndexRow(){
          int i = jTable1.getSelectedRow();
-//         if(i == -1){
-//             JOptionPane.showMessageDialog( this, "vui lòng chọn khu vực kho trong bảng");
-//         }
-//         
-           System.out.println(i);
          return i;
      }
 
+     
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -166,9 +183,6 @@ public class area extends javax.swing.JPanel {
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jPanel5 = new javax.swing.JPanel();
-        jPanel7 = new javax.swing.JPanel();
-        jPanel6 = new javax.swing.JPanel();
 
         setPreferredSize(new java.awt.Dimension(1200, 725));
         setLayout(new java.awt.BorderLayout());
@@ -183,16 +197,21 @@ public class area extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+                "Mã khu vực kho", "Tên khu vực kho", "Ghi chú"
             }
         ));
         jTable1.setMinimumSize(new java.awt.Dimension(200, 80));
+        jTable1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTable1MouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(jTable1);
 
         jPanel2.setMinimumSize(new java.awt.Dimension(200, 100));
@@ -202,51 +221,6 @@ public class area extends javax.swing.JPanel {
         jLabel1.setText("Danh sách sản phẩm có trong khu vực");
         jLabel1.setPreferredSize(new java.awt.Dimension(300, 20));
         jPanel2.add(jLabel1);
-
-        jPanel5.setPreferredSize(new java.awt.Dimension(300, 100));
-
-        javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
-        jPanel7.setLayout(jPanel7Layout);
-        jPanel7Layout.setHorizontalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-        jPanel7Layout.setVerticalGroup(
-            jPanel7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 200, Short.MAX_VALUE))
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-        );
-
-        jPanel2.add(jPanel5);
-
-        jPanel6.setPreferredSize(new java.awt.Dimension(300, 100));
-
-        javax.swing.GroupLayout jPanel6Layout = new javax.swing.GroupLayout(jPanel6);
-        jPanel6.setLayout(jPanel6Layout);
-        jPanel6Layout.setHorizontalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
-        );
-        jPanel6Layout.setVerticalGroup(
-            jPanel6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 100, Short.MAX_VALUE)
-        );
-
-        jPanel2.add(jPanel6);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -269,15 +243,29 @@ public class area extends javax.swing.JPanel {
         add(jPanel3, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jTable1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTable1MouseClicked
+        jPanel2.removeAll();
+        String makv = jTable1.getValueAt(getIndexRow(), 0).toString();
+        ArrayList<SanPhamDTO> result = spBUS.getByMKV(Integer.parseInt(makv));
+        itemTaskBar []item = new itemTaskBar[result.size()];
+        int z = 0;
+        for(SanPhamDTO i : result) {
+            if (i.getSoluongton() != 0){
+            item[z] = new itemTaskBar(i.getHinhanh(), i.getTensp(), i.getSoluongton());
+            jPanel2.add(item[z]);
+            z++;
+            }
+        }
+        jPanel2.repaint();
+        jPanel2.validate();
+    }//GEN-LAST:event_jTable1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JPanel jPanel5;
-    private javax.swing.JPanel jPanel6;
-    private javax.swing.JPanel jPanel7;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable jTable1;
     private GUI.toolBar toolBar1;

@@ -12,7 +12,7 @@ public class BanHangGUI extends javax.swing.JPanel {
     
     DefaultTableModel modelSPBan, modelGiohang;
     SanPhamBUS SPBUS = new SanPhamBUS();
-    ArrayList<SanPhamDTO> ListSP = SPBUS.getAllSanPhamAttibute();
+    ArrayList<SanPhamDTO> ListSP = SPBUS.getAllSanPhamAttribute();
     DecimalFormat dfThapPhan = new DecimalFormat("0.00");
     DecimalFormat dfGiaTien = new DecimalFormat("###,###,### VNĐ");
     ArrayList<Integer> ClickCounts;
