@@ -12,7 +12,7 @@ public class BanHangGUI extends javax.swing.JPanel {
     
     DefaultTableModel modelSPBan, modelGiohang;
     SanPhamBUS SPBUS = new SanPhamBUS();
-    ArrayList<SanPhamDTO> ListSP = SPBUS.getAllSanPhamAttibute();
+    ArrayList<SanPhamDTO> ListSP = SPBUS.getAllSanPhamAttribute();
     DecimalFormat dfThapPhan = new DecimalFormat("0.00");
     DecimalFormat dfGiaTien = new DecimalFormat("###,###,### VNĐ");
     ArrayList<Integer> ClickCounts;
@@ -188,7 +188,7 @@ public class BanHangGUI extends javax.swing.JPanel {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "SL", "Đơn Giá", "Màu Sắc", "Tổng tiền", ""
+                "Mã SP", "Tên SP", "SL", "Đơn Giá", "Màu Sắc", "Tổng tiền", "Xóa"
             }
         ) {
             Class[] types = new Class [] {
@@ -548,9 +548,11 @@ public class BanHangGUI extends javax.swing.JPanel {
                
            }
            modelGiohang.removeRow(rowSelect);
+           PrintTongtien();
+           
        }
        GioHangTable.setModel(modelGiohang);
-       PrintTongtien();
+       
     }//GEN-LAST:event_GioHangTableMouseClicked
 
     //Kiểm tra value có giống trong ArrayList không để đưa vào Panel chi tiết Sản phẩm
@@ -672,6 +674,10 @@ public class BanHangGUI extends javax.swing.JPanel {
             int tongTien = (int) GioHangTable.getModel().getValueAt(i, 5);
             TongTienSP += tongTien;
             DisplayTongTienLabel.setText(dfGiaTien.format(TongTienSP));
+        }
+        int rowCount=GioHangTable.getModel().getRowCount();
+        if(rowCount==0){
+            DisplayTongTienLabel.setText("0 VNĐ");
         }
     }
     
