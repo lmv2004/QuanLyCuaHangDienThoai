@@ -58,4 +58,17 @@ public class SanPhamBUS {
         }
         return false;
     }
+    
+    public ArrayList<SanPhamDTO> getByMKV(int makv){
+        ArrayList<SanPhamDTO> result = new ArrayList<>();
+        for (SanPhamDTO i : this.listSp) {
+            if (i.getKhuvuckho() == makv) {
+                result.add(i);
+            }
+        }
+        
+        return result;
+    }
+
+    
 }
