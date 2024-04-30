@@ -147,21 +147,21 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         XuatXuDTO xuatxu;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT Distinct sp.tensp ,sp.hinhanh ,sp.chipxuly,dlram.kichthuocram ,dlrom.kichthuocrom ,sp.dungluongpin,sp.kichthuocman,sp.camerasau,sp.cameratruoc,hdh.tenhedieuhanh ,sp.phienbanhdh,th.tenthuonghieu,xx.tenxuatxu,ms.tenmau,pbsp.giaxuat"
+            String sql = "SELECT Distinct sp.masp,sp.tensp ,sp.hinhanh ,sp.chipxuly,dlram.kichthuocram ,dlrom.kichthuocrom ,sp.dungluongpin,sp.kichthuocman,sp.camerasau,sp.cameratruoc,hdh.tenhedieuhanh ,sp.phienbanhdh,th.tenthuonghieu,xx.tenxuatxu,ms.tenmau,pbsp.giaxuat,sp.soluongton"
                     + " FROM sanpham sp,phienbansanpham pbsp,dungluongram dlram,dungluongrom dlrom,hedieuhanh hdh,thuonghieu th,xuatxu xx,mausac ms"
                     + " WHERE sp.hedieuhanh=hdh.mahedieuhanh && sp.thuonghieu=th.mathuonghieu && sp.masp=pbsp.masp && sp.xuatxu=xx.maxuatxu "
                     + " && pbsp.rom=dlrom.madlrom && pbsp.ram=dlram.madlram && pbsp.mausac=ms.mamau";
             PreparedStatement psm=conn.prepareStatement(sql);
             ResultSet rs=psm.executeQuery();
             while(rs.next()){
-               PBSP=new PhienBanSanPhamDTO(rs.getInt(15));
-               DLRam=new DungLuongRamDTO(rs.getInt(4));
-               DLRom=new DungLuongRomDTO(rs.getInt(5));
-               HDH=new HeDieuHanhDTO(rs.getString(10));
-               mausac=new MauSacDTO(rs.getString(14));
-               ThuongHieu=new ThuongHieuDTO(rs.getString(12));
-               xuatxu=new XuatXuDTO(rs.getString(13));
-               SanPhamDTO sanpham=new SanPhamDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(6), rs.getFloat(7), rs.getInt(11), rs.getString(8), rs.getString(9));
+               PBSP=new PhienBanSanPhamDTO(rs.getInt(16));
+               DLRam=new DungLuongRamDTO(rs.getInt(5));
+               DLRom=new DungLuongRomDTO(rs.getInt(6));
+               HDH=new HeDieuHanhDTO(rs.getString(11));
+               mausac=new MauSacDTO(rs.getString(15));
+               ThuongHieu=new ThuongHieuDTO(rs.getString(13));
+               xuatxu=new XuatXuDTO(rs.getString(14));
+               SanPhamDTO sanpham=new SanPhamDTO(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(7), rs.getFloat(8), rs.getInt(12), rs.getString(9), rs.getString(10),rs.getInt(17));
                sanpham.setPBSPDTO(PBSP);
                sanpham.setDLRamDTO(DLRam);
                sanpham.setDLRomDTO(DLRom);

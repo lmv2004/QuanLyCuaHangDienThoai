@@ -11,6 +11,7 @@ public class PhienBanSanPhamDTO {
     private int gianhap;
     private int giaxuat;
     private int soluongton;
+    
      public PhienBanSanPhamDTO() {
     }
 
