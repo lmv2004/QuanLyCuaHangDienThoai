@@ -31,6 +31,7 @@ public class NhaCungCapDTO {
         this.TrangThai = TrangThai;
     }
 
+
     // Getter và Setter cho MaNCC
     public int getMaNCC() {
         return MaNCC;
