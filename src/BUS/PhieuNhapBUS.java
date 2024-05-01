@@ -50,54 +50,6 @@ public class PhieuNhapBUS {
         return false;
     }
 
-    public void pouringData(JTable tbl) {
-        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);  
-        }
-        int i = 1;
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        for (PhieuNhapDTO PNDAO : data) {
-            if (PNDAO.getTrangthai() == 1) {
-                Vector vector = new Vector();
-                vector.add(i);
-                vector.add(PNDAO.getMaPhieu());
-                vector.add(new DAO.NhaCungCapDAO().selectById(PNDAO.getNCC()).getTenNCC());
-                vector.add(new DAO.NhanVienDAO().selectByID(PNDAO.getMNV()).getHoTen());
-                vector.add(PNDAO.getThoiGian());
-                vector.add(decimalFormat.format(PNDAO.getTongTien()));
-                i++;
-                model.addRow(vector);
-            }
-        }
-        tbl.setModel(model);
-        tbl.repaint();
-        tbl.revalidate();
-    }
-
-    public void pouringData(JTable tbl, ArrayList<PhieuNhapDTO> myArr) {
-        DefaultTableModel model = (DefaultTableModel) tbl.getModel();
-        while (model.getRowCount() > 0) {
-            model.removeRow(0);
-        }
-        int i = 1;
-        DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        for (PhieuNhapDTO PNDAO : myArr) {
-            if (PNDAO.getTrangthai() == 1) {
-                Vector vector = new Vector();
-                vector.add(i);
-                vector.add(PNDAO.getMaPhieu());
-                vector.add(new DAO.NhaCungCapDAO().selectById(PNDAO.getNCC()).getTenNCC());
-                vector.add(new DAO.NhanVienDAO().selectByID(PNDAO.getMNV()).getHoTen());
-                vector.add(PNDAO.getThoiGian());
-                vector.add(decimalFormat.format(PNDAO.getTongTien()));
-                i++;
-                model.addRow(vector);
-            }
-        }
-        tbl.setModel(model);
-    }
-
     public ArrayList<PhieuNhapDTO> search(int n, String s) {
         ArrayList<DTO.PhieuNhapDTO> myArr = new ArrayList<>();
         s = s.toLowerCase();

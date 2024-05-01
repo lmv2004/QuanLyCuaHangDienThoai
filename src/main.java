@@ -16,7 +16,6 @@ public class main {
         
         
         //init all in here
-        BUS.PhieuXuatBUS.loadPhieuXuat();
         
         new LogInGUI().setVisible(true);
     }

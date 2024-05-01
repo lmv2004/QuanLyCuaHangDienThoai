@@ -127,7 +127,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
         ArrayList<PhieuXuatDTO> ketqua = new ArrayList<PhieuXuatDTO>();
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM phieuxuat";
+            String sql = "SELECT * FROM phieuxuat WHERE trangthai=1";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {

@@ -39,14 +39,12 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     public void loadData(ArrayList<PhieuNhapDTO> listPN) {
         int i = 1;
         DefaultTableModel tblModel = (DefaultTableModel) tblDSPN.getModel();
-        //remove all row
         while (tblModel.getRowCount() > 0) {
             tblModel.removeRow(0);
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         for (PhieuNhapDTO x : listPN) {
-            tblModel.addRow(new Object[]{i, x.getMaPhieu(), NCCBUS.getByID(x.getNCC()).getTenNCC(), NVBUS.getByID(x.getMNV()).getHoTen(), x.getThoiGian(), decimalFormat.format(x.getTongTien())});
-            i++;
+            tblModel.addRow(new Object[] {i++,x.getMaPhieu(),NCCBUS.getByIndex(NCCBUS.getByID(x.getNCC())).getTenNCC(),NVBUS.getByIndex(NVBUS.getByID(x.getMNV())).getHoTen(),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
         }
         tblDSPN.setModel(tblModel);
     }

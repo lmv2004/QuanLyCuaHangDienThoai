@@ -4,12 +4,19 @@
  */
 package GUI;
 
+import BUS.KhachHangBUS;
+import BUS.NhanVienBUS;
+import BUS.PhieuXuatBUS;
 import DTO.KhachHangDTO;
 import DTO.NhanVienDTO;
+import DTO.PhieuNhapDTO;
+import DTO.PhieuXuatDTO;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 /**
@@ -17,10 +24,15 @@ import javax.swing.table.TableColumnModel;
  * @author ACER
  */
 public class PhieuXuatGUI extends PhieuNhapGUI {
-
-    /**
-     * Creates new form PhieuXuat
-     */
+    
+    private PhieuXuatBUS PXBUS = new PhieuXuatBUS();
+    private NhanVienBUS NVBUS = new NhanVienBUS();
+    private KhachHangBUS KHBUS = new KhachHangBUS();
+    private ArrayList<PhieuXuatDTO> listPX = PXBUS.getAll();
+    private ArrayList<KhachHangDTO> listKH = KHBUS.getAllKhachHang();
+    private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
+    
+    
     public PhieuXuatGUI() {
         super();
         labelNCC.setText("Khách hàng");
@@ -32,29 +44,58 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
             new String [] {
                 "STT", "Mã phiếu", "Khách hàng", "Nhân viên", "Thời gian", "Tổng tiền (VNĐ)"
             }));
-        BUS.PhieuXuatBUS.pouringData(tblDSPN);
         
-        
-        toolBar.getCbbFilter().removeAllItems();
-        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
+//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
+//        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
+//        TableColumnModel columnModel = tblDSPN.getColumnModel();
+//        columnModel.getColumn(0).setPreferredWidth(50);
+//        columnModel.getColumn(0).setCellRenderer(centerRenderer);
+//        columnModel.getColumn(1).setPreferredWidth(100);
+//        columnModel.getColumn(1).setCellRenderer(centerRenderer);
+//        columnModel.getColumn(2).setPreferredWidth(400);
+//        columnModel.getColumn(3).setPreferredWidth(200);
+//        columnModel.getColumn(4).setPreferredWidth(200);
+//        columnModel.getColumn(5).setPreferredWidth(200);
+    }
+    
+    @Override
+    public void loadData(ArrayList<PhieuNhapDTO> listPN) {
+        int i = 1;
+        DefaultTableModel tblModel = (DefaultTableModel) tblDSPN.getModel();
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        for (PhieuXuatDTO x : listPX) {
+            tblModel.addRow(new Object[] {i++,x.getMaPhieu(),KHBUS.getByIndex(KHBUS.getByID(x.getMKH())),NVBUS.getByIndex(NVBUS.getByID(x.getMNV())).getHoTen(),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
+        }
+        tblDSPN.setModel(tblModel);
+    }
+
+    @Override
+    public void loadCbbFilter() {
+        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String[]{
             "Tất cả","Mã phiếu","Tên khách hàng","Tên nhân viên"
         }));
-        
-        cbbNCC.setModel(new DefaultComboBoxModel<>(getTenKH()));
-        cbbNVN.setModel(new DefaultComboBoxModel<>(getTenNV()));
-        
-        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-        TableColumnModel columnModel = tblDSPN.getColumnModel();
-        columnModel.getColumn(0).setPreferredWidth(50);
-        columnModel.getColumn(0).setCellRenderer(centerRenderer);
-        columnModel.getColumn(1).setPreferredWidth(100);
-        columnModel.getColumn(1).setCellRenderer(centerRenderer);
-        columnModel.getColumn(2).setPreferredWidth(400);
-        columnModel.getColumn(3).setPreferredWidth(200);
-        columnModel.getColumn(4).setPreferredWidth(200);
-        columnModel.getColumn(5).setPreferredWidth(200);
     }
+
+    public void loadCbbKhachHang() {
+        for (KhachHangDTO x : listKH) {
+            cbbNVN.addItem(x.getTenKhachHang());
+        }
+    }
+
+    @Override
+    public void loadCbbNhanVien() {
+        super.loadCbbNhanVien();
+    }
+
+    @Override
+    public void setEvent() {
+        super.setEvent();
+    }
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -77,28 +118,10 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    public static String[] getTenKH() {
-        ArrayList<KhachHangDTO> myArr = new DAO.KhachHangDAO().selecAll();
-        String[] s = new String[myArr.size()+1];
-        int i = 1;
-        s[0] = "";
-        for(KhachHangDTO x : myArr) {
-            s[i]=x.getTenKhachHang();
-            i++;
-        }
-        return s;
-    }
-    public static String[] getTenNV() {
-        ArrayList<NhanVienDTO> myArr = new DAO.NhanVienDAO().selecAll();
-        String[] s = new String[myArr.size()+1];
-        int i = 1;
-        s[0] = "";
-        for(NhanVienDTO x : myArr) {
-            s[i]=x.getHoTen();
-            i++;
-        }
-        return s;
-    }
+    
+    
+    
+    
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables
