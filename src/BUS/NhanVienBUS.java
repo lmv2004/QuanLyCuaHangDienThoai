@@ -24,6 +24,13 @@ public class NhanVienBUS {
         return NVDAO.selectByID(Index);
     }
     
+    public String getNameByID(int ID) {
+        for(NhanVienDTO x : DanhSachNV) {
+            if(x.getManv()==ID) return x.getHoTen();
+        }
+        return null;
+    }
+    
     
     public int getByID(int maNV) {
         int vitri = -1;

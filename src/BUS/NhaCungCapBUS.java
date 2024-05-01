@@ -26,6 +26,16 @@ public class NhaCungCapBUS {
         return this.DanhSachNCC.get(index);
     }
     
+    
+    public String getNameByID(int ID) {
+        for(NhaCungCapDTO x : DanhSachNCC) {
+            if(x.getMaNCC()==ID) {
+                return x.getTenNCC();
+            }
+        }
+        return null;
+    }
+    
     public int getByID(int maNCC) {
         int vitri = -1;
         for (int i = 0; i < DanhSachNCC.size(); i++) {

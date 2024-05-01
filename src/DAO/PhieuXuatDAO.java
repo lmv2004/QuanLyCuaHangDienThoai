@@ -133,7 +133,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 int MaKH = rs.getInt("makh");
-                int MNV = rs.getInt("nguoitaophieuxuat");
+                int MNV = rs.getInt("manv");
                 Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
                 ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));

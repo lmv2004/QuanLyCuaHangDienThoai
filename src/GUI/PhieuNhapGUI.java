@@ -44,7 +44,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         for (PhieuNhapDTO x : listPN) {
-            tblModel.addRow(new Object[] {i++,x.getMaPhieu(),NCCBUS.getByIndex(NCCBUS.getByID(x.getNCC())).getTenNCC(),NVBUS.getByIndex(NVBUS.getByID(x.getMNV())).getHoTen(),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
+            tblModel.addRow(new Object[] {i++,x.getMaPhieu(),NCCBUS.getNameByID(x.getNCC()),NVBUS.getNameByID(x.getMNV()),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
         }
         tblDSPN.setModel(tblModel);
     }
@@ -316,49 +316,49 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jSlider2StateChanged
 
     private void cbbNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNCCActionPerformed
-        int index = cbbNCC.getSelectedIndex();
-        listPNFilter.clear();
-        listPNFilter.addAll(listPN);
-        if (index == 0) {
-            if (cbbNVN.getSelectedIndex() != 0) {
-                cbbNVNActionPerformed(null);
-            } else {
-                loadData(listPNFilter);
-            }
-            return;
-        }
-        int ID = listNCC.get(index - 1).getMaNCC();
-        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
-        while (iterator.hasNext()) {
-            PhieuNhapDTO x = iterator.next();
-            if (x.getNCC() != ID) {
-                iterator.remove(); // Sử dụng Iterator.remove() để loại bỏ phần tử
-            }
-        }
-        loadData(listPNFilter);
+//        int index = cbbNCC.getSelectedIndex();
+//        listPNFilter.clear();
+//        listPNFilter.addAll(listPN);
+//        if (index == 0) {
+//            if (cbbNVN.getSelectedIndex() != 0) {
+//                cbbNVNActionPerformed(null);
+//            } else {
+//                loadData(listPNFilter);
+//            }
+//            return;
+//        }
+//        int ID = listNCC.get(index - 1).getMaNCC();
+//        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
+//        while (iterator.hasNext()) {
+//            PhieuNhapDTO x = iterator.next();
+//            if (x.getNCC() != ID) {
+//                iterator.remove(); // Sử dụng Iterator.remove() để loại bỏ phần tử
+//            }
+//        }
+//        loadData(listPNFilter);
     }//GEN-LAST:event_cbbNCCActionPerformed
 
     private void cbbNVNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNVNActionPerformed
-        int index = cbbNVN.getSelectedIndex();
-        listPNFilter.clear();
-        listPNFilter.addAll(listPN);
-        if (index == 0) {
-            if (cbbNVN.getSelectedIndex() != 0) {
-                cbbNCCActionPerformed(null);
-            } else {
-                loadData(listPNFilter);
-            }
-            return;
-        }
-        int ID = listNV.get(index - 1).getManv();
-        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
-        while (iterator.hasNext()) {
-            PhieuNhapDTO x = iterator.next();
-            if (x.getMNV() != ID) {
-                iterator.remove();
-            }
-        }
-        loadData(listPNFilter);
+//        int index = cbbNVN.getSelectedIndex();
+//        listPNFilter.clear();
+//        listPNFilter.addAll(listPN);
+//        if (index == 0) {
+//            if (cbbNVN.getSelectedIndex() != 0) {
+//                cbbNCCActionPerformed(null);
+//            } else {
+//                loadData(listPNFilter);
+//            }
+//            return;
+//        }
+//        int ID = listNV.get(index - 1).getManv();
+//        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
+//        while (iterator.hasNext()) {
+//            PhieuNhapDTO x = iterator.next();
+//            if (x.getMNV() != ID) {
+//                iterator.remove();
+//            }
+//        }
+//        loadData(listPNFilter);
     }//GEN-LAST:event_cbbNVNActionPerformed
 
 
