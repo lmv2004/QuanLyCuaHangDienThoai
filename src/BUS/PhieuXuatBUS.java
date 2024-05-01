@@ -4,6 +4,7 @@
  */
 package BUS;
 
+import DAO.PhieuXuatDAO;
 import DTO.PhieuXuatDTO;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -11,19 +12,28 @@ import java.util.Vector;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author ACER
- */
+
 public class PhieuXuatBUS {
-    static ArrayList<PhieuXuatDTO> data;
-    
-    
-    public static void loadPhieuXuat() {
-        data = new DAO.PhieuXuatDAO().selecAll();
+    static ArrayList<PhieuXuatDTO> data=new ArrayList<>();
+    static PhieuXuatDAO PXDAO=new PhieuXuatDAO();
+
+    public PhieuXuatBUS() {
+        data = PXDAO.selecAll();
     }
     
-    
+    public static void loadPhieuXuat() {
+        
+    }
+    public ArrayList<PhieuXuatDTO> getAll(){
+        return this.data;
+    }
+    public boolean add(PhieuXuatDTO px){
+        if(PXDAO.insert(px)!=0){
+            data.add(px);
+            return true;
+        }
+        return false;
+    }
     public static void pouringData(JTable tbl) {
         //tbl.removeAll();
         DefaultTableModel model = (DefaultTableModel)tbl.getModel();
@@ -44,4 +54,5 @@ public class PhieuXuatBUS {
         }
         tbl.setModel(model);
     }
+    
 }

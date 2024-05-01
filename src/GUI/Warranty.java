@@ -4,17 +4,50 @@
  */
 package GUI;
 
+import DTO.WarrantyDTO;
+import BUS.WarrantyBUS;
+// import DTO.SanPhamDTO;
+import BUS.SanPhamBUS;
+
+import java.text.DecimalFormat;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JLabel;
+import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
 /**
  *
  * @author Danny
  */
 public class Warranty extends javax.swing.JPanel {
 
+    private WarrantyBUS warrantyBUS = new WarrantyBUS();
+    private SanPhamBUS sanPhamBUS = new SanPhamBUS();
+    private DefaultTableModel tblModel;
+
+
     /**
      * Creates new form Warranty
      */
     public Warranty() {
         initComponents();
+        tblModel = (DefaultTableModel) List_Warranty.getModel();
+
+        loadData();
+    }
+
+    public void loadData() {
+        int i = 1;
+        for (WarrantyDTO warranty : warrantyBUS.getAll()) {
+            tblModel.addRow(new Object[]{
+                warranty.getMaSanPham(),
+                warranty.getMaBaoHanh(),
+                warranty.getTenKhachHang(),
+                warranty.getYeuCauBaoHanh(),
+                warranty.getTrangThai(),
+                warranty.getNgayBaoHanh()
+            });
+        }
     }
 
     /**
@@ -34,10 +67,7 @@ public class Warranty extends javax.swing.JPanel {
 
         List_Warranty.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
+
             },
             new String [] {
                 "Mã Sản Phẩm", "Mã Bảo Hành", "Tên Khách Hàng", "Yêu Cầu Bảo Hành", "Trạng Thái Bảo Hành", "Ngày Bảo Hành"

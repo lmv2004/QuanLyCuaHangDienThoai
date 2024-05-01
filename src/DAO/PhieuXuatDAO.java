@@ -1,17 +1,10 @@
 package DAO;
 
 import DTO.PhieuXuatDTO;
-import java.sql.Connection;
-import java.sql.Timestamp;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 
-/**
- *
- * @author ACER
- */
 public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
     @Override
     public ArrayList selectByCondition(String condition) {
@@ -45,10 +38,12 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             String sql = "INSERT INTO phieuxuat VALUES(? , ? , ? , ? , ? , 1);";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, t.getMaPhieu());
-            pst.setInt(2, t.getMKH());
-            pst.setInt(3, t.getMNV());
-            pst.setTimestamp(4, t.getThoiGian());
-            pst.setLong(5, t.getTongTien());
+            pst.setInt(5, t.getMKH());
+            pst.setInt(4, t.getMNV());
+            java.util.Date utilDate=t.getThoiGian();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            pst.setDate(2, sqlDate);
+            pst.setLong(3, t.getTongTien());
             System.out.println(pst.toString());
             ketqua = pst.executeUpdate();
 
@@ -76,7 +71,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             
             pst.setInt(1, t.getMKH());
             pst.setInt(2, t.getMNV());
-            pst.setTimestamp(3, t.getThoiGian());
+            pst.setDate(3, (java.sql.Date) t.getThoiGian());
             pst.setLong(4, t.getTongTien());
             pst.setInt(5, t.getMaPhieu());
             ketqua = pst.executeUpdate();
@@ -116,7 +111,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 int MaKH = rs.getInt("makh");
                 int MNV = rs.getInt("manv");
-                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
                 ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
             }
@@ -138,8 +133,8 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 int MaKH = rs.getInt("makh");
-                int MNV = rs.getInt("manv");
-                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                int MNV = rs.getInt("nguoitaophieuxuat");
+                Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
                 ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));
             }
@@ -162,7 +157,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 int MaKH = rs.getInt("makh");
                 int MNV = rs.getInt("manv");
-                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
                 ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
             }

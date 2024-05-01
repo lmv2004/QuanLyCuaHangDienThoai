@@ -21,6 +21,11 @@ import java.sql.ResultSet;
  */
 public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
 
+   public static KhuVucKhoDAO getInstance() {
+        return new KhuVucKhoDAO();
+    }
+
+    
    @Override
     public int insert(KhuVucKhoDTO t) {
         int ketqua = 0;
@@ -28,14 +33,14 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             // bước 1 kết nối
             Connection con = JDBCConnection.getJDBCConnection();
             // bước 2,3 tạo đối tượng , tạo câu lệnh thực thi
-            String sql = "INSERT INTO `khuvuckho`(`makhuvuc`, `tenkhuvuc`,`ghichu`,`trangthai`) VALUES (?,?,?,1)";
+            String sql = "INSERT INTO `khuvuckho` (`makhuvuc`, `tenkhuvuc`, `ghichu`, `trangthai`) VALUES (?, ?, ?, 1)";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, t.getMaKhuVuc());
             pst.setString(2, t.getTenKhuVuc());
             pst.setString(3, t.getGhiChu());
             
             
-            ketqua = pst.executeUpdate(sql);
+            ketqua = pst.executeUpdate();
             // bước 4:
             System.out.println("bạn đã thực thi");
             System.out.println("có " +ketqua +" dòng được cập nhật");
@@ -57,8 +62,8 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             
             
             // bước 2 tạo đối tượng statement
-            String sql = "UPDATE `khuvuckho` SET `tenkhuvuc`=?,`ghichu`=? WHERE `makhuvuc`=?";
-            
+           String sql = "UPDATE `khuvuckho` SET `tenkhuvuc`=?,`ghichu`=? WHERE `makhuvuc`=?";
+
             PreparedStatement pst = con.prepareStatement(sql);
             
             
@@ -66,7 +71,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             pst.setString(2, t.getGhiChu());
             pst.setInt(3, t.getMaKhuVuc());
             // bước 3 tạo câu lệnh sql
-            ketqua = pst.executeUpdate(sql);
+            ketqua = pst.executeUpdate();
             
             // bước 4 
             
@@ -91,8 +96,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             
             // tạo đối tượng statement
             
-            String sql = "Delete from khuvuckho "
-                    + "where makhuvuc=?";
+            String sql = "UPDATE `khuvuckho` SET `trangthai` = 0 WHERE `makhuvuc`=?";
             
             PreparedStatement pst = con.prepareStatement(sql);
             
@@ -143,7 +147,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
                 String ghiChu = rs.getString("ghichu");
                 int trangThai = rs.getInt("trangthai");
                 
-                KhuVucKhoDTO khuvuckho = new KhuVucKhoDTO(maKhuVuc, tenKhuVuc, ghiChu, trangThai);
+                KhuVucKhoDTO khuvuckho = new KhuVucKhoDTO(maKhuVuc, tenKhuVuc, ghiChu);
                 ketqua.add(khuvuckho);
             }
             // bước 5:
@@ -183,7 +187,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
 				String tenKhuVuc = rs.getString("tenKhuVuc");
 				String ghiChu = rs.getString("ghichu");
 				int trangThai = rs.getInt("trangthai");
-				ketqua = new KhuVucKhoDTO(maKhuVuc, tenKhuVuc, ghiChu, trangThai);
+				ketqua = new KhuVucKhoDTO(maKhuVuc, tenKhuVuc, ghiChu);
 				
 			
 			}			
@@ -196,7 +200,31 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
 		}
         return ketqua;
     }
+    
+     public int getAutoIncrement() {
+        int result = -1;
+        try {
+            Connection con = (Connection) JDBCConnection.getJDBCConnection();
+            String sql = "SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'quanlikhohang' AND   TABLE_NAME   = 'khuvuckho'";
+            PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
+            ResultSet rs2 = pst.executeQuery();
+            if (!rs2.isBeforeFirst()) {
+                System.out.println("No data");
+            } else {
+                while (rs2.next()) {
+                    result = rs2.getInt("AUTO_INCREMENT");
 
+                }
+            }
+            
+            JDBCConnection.closeConection(con);
+        } catch (SQLException ex) {
+            Logger.getLogger(KhuVucKhoDAO.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return result;
+    }
+    
+    
     @Override
     public ArrayList<KhuVucKhoDTO> selectByCondition(String condition) {
         throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody

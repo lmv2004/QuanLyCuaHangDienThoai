@@ -9,16 +9,16 @@ package DTO;
  * @author ASUS
  */
 public class KhuVucKhoDTO {
-     private int maKhuVuc;
+      private int maKhuVuc;
     private String tenKhuVuc;
     private String ghiChu;
-    private int trangThai;
 
-    public KhuVucKhoDTO(int maKhuVuc, String tenKhuVuc, String ghiChu, int trangThai) {
+
+    public KhuVucKhoDTO(int maKhuVuc, String tenKhuVuc, String ghiChu) {
         this.maKhuVuc = maKhuVuc;
         this.tenKhuVuc = tenKhuVuc;
         this.ghiChu = ghiChu;
-        this.trangThai = trangThai;
+        
     }
 
     public int getMaKhuVuc() {
@@ -33,9 +33,7 @@ public class KhuVucKhoDTO {
         return ghiChu;
     }
 
-    public int getTrangThai() {
-        return trangThai;
-    }
+   
 
     public void setMaKhuVuc(int maKhuVuc) {
         this.maKhuVuc = maKhuVuc;
@@ -49,12 +47,8 @@ public class KhuVucKhoDTO {
         this.ghiChu = ghiChu;
     }
 
-    public void setTrangThai(int trangThai) {
-        this.trangThai = trangThai;
-    }
-
     @Override
     public String toString() {
-        return "DTOKhuVucKho{" + "maKhuVuc=" + maKhuVuc + ", tenKhuVuc=" + tenKhuVuc + ", ghiChu=" + ghiChu + ", trangThai=" + trangThai + '}';
+        return "KhuVucKhoDTO{" + "maKhuVuc=" + maKhuVuc + ", tenKhuVuc=" + tenKhuVuc + ", ghiChu=" + ghiChu + '}';
     }
 }

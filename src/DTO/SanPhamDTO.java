@@ -35,7 +35,7 @@ public class SanPhamDTO {
     public SanPhamDTO() {
     }
 
-    public SanPhamDTO(String tensp, String hinhanh, String chipxuly, int dungluongpin, double kichthuocman, int phienbanhdh, String camerasau, String cameratruoc) {
+    public SanPhamDTO(int masp,String tensp, String hinhanh, String chipxuly, int dungluongpin, double kichthuocman, int phienbanhdh, String camerasau, String cameratruoc,int soluongton) {
         this.tensp = tensp;
         this.hinhanh = hinhanh;
         this.chipxuly = chipxuly;
@@ -44,6 +44,8 @@ public class SanPhamDTO {
         this.phienbanhdh = phienbanhdh;
         this.camerasau = camerasau;
         this.cameratruoc = cameratruoc;
+        this.masp=masp;
+        this.soluongton=soluongton;
     }
 
     public SanPhamDTO(int masp, String tensp, String hinhanh, int xuatxu, String chipxuly, int dungluongpin, double kichthuocman, int hedieuhanh, int phienbanhdh, String camerasau, String cameratruoc, int thoigianbaohanh, int thuonghieu, int khuvuckho, int soluongton) {

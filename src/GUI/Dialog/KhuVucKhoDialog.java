@@ -1,0 +1,225 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JDialog.java to edit this template
+ */
+package GUI.Dialog;
+
+import Component.InputForm;
+import DAO.KhuVucKhoDAO;
+import DTO.KhuVucKhoDTO;
+import GUI.area;
+import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.FlowLayout;
+import java.awt.Font;
+import java.awt.GridBagLayout;
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
+
+
+
+/**
+ *
+ * @author ASUS
+ */
+public class KhuVucKhoDialog extends javax.swing.JDialog implements ActionListener{
+
+    private JLabel titlePage;
+    private KhuVucKhoDTO kvk;
+    private area jpkvk;
+    private InputForm tenkv;
+    private InputForm ghichu;
+    private JButton btnadd;
+    private JButton btnupdate;
+    
+    /**
+     * Creates new form KhuVucKhoDialog
+     */
+    public KhuVucKhoDialog(area jpkvk,java.awt.Frame parent, boolean modal , String title, String type) {
+        super(parent, modal);
+        this.jpkvk = jpkvk;
+        initComponents(title, type);
+    }
+    
+    public KhuVucKhoDialog(area jpkvk,java.awt.Frame parent, boolean modal , String title, String type, KhuVucKhoDTO kvk){
+         super(parent, modal);
+        this.jpkvk = jpkvk;
+        this.kvk = kvk;
+        initComponents(title, type);
+        
+    }
+    
+    
+    
+   public void initComponents(String title , String type){
+       this.setSize(500, 350);
+       this.setLayout(new BorderLayout(0,0));
+       
+       
+       // phần title 
+       JPanel jPanelTop = new JPanel();
+       titlePage = new JLabel(title.toUpperCase()); 
+       titlePage.setFont(new Font(FlatRobotoFont.FAMILY, 1, 18));
+       titlePage.setForeground(new Color(26,33,220));
+       jPanelTop.setLayout(new FlowLayout());
+       jPanelTop.add(titlePage);
+       // Phần nút trung tâm
+        tenkv = new InputForm("Tên khu vực kho");
+        ghichu = new InputForm("Ghi chú");
+       
+        JPanel jPanelCenter = new JPanel();
+        jPanelCenter.setLayout(new GridLayout(2, 2, 20, 0));
+        jPanelCenter.add(tenkv);
+        jPanelCenter.add(ghichu);
+        
+        
+        // phần bottom
+       JPanel jPanelBottom = new JPanel();
+       btnadd = new JButton("Thêm sản phẩm");
+       btnupdate =new JButton("Cập nhật sản phẩm");
+       btnadd.addActionListener((ActionListener) this);
+       btnupdate.addActionListener((ActionListener) this);
+       
+        
+       switch (type) {
+            case "add" -> jPanelBottom.add(btnadd);
+            case "update" -> {
+                jPanelBottom.add(btnupdate);
+                initInfo();
+            }
+            case "detail" -> {
+                initInfo();
+                disabledText();
+            }
+            default -> throw new AssertionError();
+        }
+       
+       
+//       
+//       
+       this.add(jPanelTop , BorderLayout.NORTH);
+       this.add(jPanelCenter, BorderLayout.CENTER);
+       this.add(jPanelBottom , BorderLayout.SOUTH);
+       this.setLocationRelativeTo(null);
+       this.setVisible(true);
+   }
+    
+   
+  public void initInfo() {
+        tenkv.setText(kvk.getTenKhuVuc());
+        ghichu.setText(kvk.getGhiChu());
+    }
+
+    boolean Validation() {
+        if (tenkv.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Tên khu vực kho không được rỗng", "Cảnh báo !", JOptionPane.WARNING_MESSAGE);
+            return false;
+        }
+        return true;
+    }
+    public void disabledText(){
+        tenkv.txtForm.setEnabled(false);
+        ghichu.txtForm.setEnabled(false);
+    }
+       
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btnadd && Validation()) {
+            int makhuvuc = KhuVucKhoDAO.getInstance().getAutoIncrement();
+            String tenkhuvuc = this.tenkv.getText();
+            String ghichu = this.ghichu.getText();
+            jpkvk.kvkBUS.add(new KhuVucKhoDTO(makhuvuc, tenkhuvuc, ghichu));
+            jpkvk.loadData(jpkvk.list);
+            dispose();
+        } 
+        else if (e.getSource() == btnupdate && Validation()) {
+            String tenkhuvuc = this.tenkv.getText();
+            String ghichu = this.ghichu.getText();
+            jpkvk.kvkBUS.update(new KhuVucKhoDTO(kvk.getMaKhuVuc(), tenkhuvuc, ghichu));
+            jpkvk.loadData(jpkvk.list);
+            dispose();
+        }
+    }
+    
+    
+    
+
+    /**
+     * This method is called from within the constructor to initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is always
+     * regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 500, Short.MAX_VALUE)
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 349, Short.MAX_VALUE)
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(KhuVucKhoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(KhuVucKhoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(KhuVucKhoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(KhuVucKhoDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//
+//        /* Create and display the dialog */
+//        java.awt.EventQueue.invokeLater(new Runnable() {
+//            public void run() {
+//                KhuVucKhoDialog dialog = new KhuVucKhoDialog(area jpkvk, new javax.swing.JFrame(), true,"Thêm khu vực kho", "Add");
+//                dialog.addWindowListener(new java.awt.event.WindowAdapter() {
+//                    @Override
+//                    public void windowClosing(java.awt.event.WindowEvent e) {
+//                        System.exit(0);
+//                    }
+//                });
+//               
+//            }
+//        });
+//    }
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // End of variables declaration//GEN-END:variables
+}
