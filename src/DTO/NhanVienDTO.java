@@ -123,7 +123,7 @@ public class NhanVienDTO {
 
     @Override
     public String toString() {
-        return "NhanVienDTO{" + "manv=" + manv + ", hoTen=" + hoTen + ", gioiTinh=" + gioiTinh + ", ngaySinh=" + ngaySinh + ", SDT=" + SDT + ", Email=" + Email + '}';
+        return "NhanVienDTO{" + "manv=" + manv + ", hoTen=" + hoTen + ", gioiTinh=" + (gioiTinh==1?"Nam":"Nữ") + ", ngaySinh=" + ngaySinh + ", SDT=" + SDT + ", Email=" + Email + '}';
     }
     
 }

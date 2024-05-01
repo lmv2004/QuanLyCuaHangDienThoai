@@ -5,6 +5,7 @@
 package BUS;
 import DTO.NhaCungCapDTO;
 import DAO.NhaCungCapDAO;
+import java.awt.AWTEventMulticaster;
 import java.util.ArrayList;
 /**
  *
@@ -17,5 +18,16 @@ public class NhaCungCapBUS {
     }
     public NhaCungCapDTO getByID(int ID) {
         return NCCDAO.selectById(ID);
+    }
+    
+    
+    public ArrayList<NhaCungCapDTO> filterByName(String name) {
+        ArrayList<NhaCungCapDTO> l = new ArrayList<>();
+        for(NhaCungCapDTO x : getAllNhaCungCap()) {
+            if(x.getTenNCC().equals(name)) {
+                l.add(x);
+            }
+        }
+        return l;
     }
 }

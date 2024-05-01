@@ -7,6 +7,9 @@ import DTO.NhanVienDTO;
 import DTO.NhaCungCapDTO;
 import DTO.PhieuNhapDTO;
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -14,55 +17,58 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 
 public class PhieuNhapGUI extends javax.swing.JPanel {
-    
+
     private PhieuNhapBUS PNBUS = new PhieuNhapBUS();
     private NhanVienBUS NVBUS = new NhanVienBUS();
     private NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
-    private DefaultTableModel tblModel;
-    
-    
+    private ArrayList<PhieuNhapDTO> listPN = PNBUS.getAllPhieuNhap();
+    private ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
+    private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
+    private ArrayList<PhieuNhapDTO> listPNFilter = new ArrayList<>();
+
     public PhieuNhapGUI() {
         initComponents();
-        tblModel=(DefaultTableModel)tblDSPN.getModel();
-        
-        loadData();
+        loadData(listPN);
         loadCbbFilter();
         loadCbbNhanVien();
         loadCbbNhaCungCap();
         setTable();
         setEvent();
     }
-    
-    public void loadData() {
-        int i=1;
+
+    public void loadData(ArrayList<PhieuNhapDTO> listPN) {
+        int i = 1;
+        DefaultTableModel tblModel = (DefaultTableModel) tblDSPN.getModel();
+        //remove all row
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+        }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        for(PhieuNhapDTO x : PNBUS.getAll()) {
-            tblModel.addRow(new Object[] {i,x.getMaPhieu(),NCCBUS.getByID(x.getNCC()).getTenNCC(),NVBUS.getByID(x.getMNV()).getHoTen(),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
+        for (PhieuNhapDTO x : listPN) {
+            tblModel.addRow(new Object[]{i, x.getMaPhieu(), NCCBUS.getByID(x.getNCC()).getTenNCC(), NVBUS.getByID(x.getMNV()).getHoTen(), x.getThoiGian(), decimalFormat.format(x.getTongTien())});
             i++;
         }
         tblDSPN.setModel(tblModel);
     }
-    
+
     public void loadCbbFilter() {
-        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String [] {
-            "Tất cả","Mã phiếu nhập","Tên nhà cung cấp","Tên nhân viên"
+        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String[]{
+            "Tất cả", "Mã phiếu nhập", "Tên nhà cung cấp", "Tên nhân viên"
         }));
     }
-    
+
     public void loadCbbNhanVien() {
-        cbbNVN.addItem("");
-        for(NhanVienDTO x : NVBUS.getAllNhanVien()) {
+        for (NhanVienDTO x : listNV) {
             cbbNVN.addItem(x.getHoTen());
         }
     }
-    
+
     public void loadCbbNhaCungCap() {
-        cbbNCC.addItem("");
-        for(NhaCungCapDTO x : NCCBUS.getAllNhaCungCap()) {
+        for (NhaCungCapDTO x : listNCC) {
             cbbNCC.addItem(x.getTenNCC());
         }
     }
-    
+
     public void setTable() {
         DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
         centerRenderer.setHorizontalAlignment(JLabel.CENTER);
@@ -78,18 +84,18 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         centerRenderer.setHorizontalAlignment(JLabel.LEFT);
         columnModel.getColumn(5).setCellRenderer(centerRenderer);
     }
-    
+
     public void setEvent() {
         //set event for search buttton 
-        toolBar.getFindBtn().addActionListener(new java.awt.event.ActionListener() {
-            @Override
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                if(function.TextFieldIsEmpty(toolBar.getTfSearch(), "nội dung tìm kiếm","Nhập nội dung tìm kiếm...")) {
-                    return;
-                }
-                PNBUS.pouringData(tblDSPN, PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
-            }
-        });
+//        toolBar.getFindBtn().addActionListener(new java.awt.event.ActionListener() {
+//            @Override
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                if(function.TextFieldIsEmpty(toolBar.getTfSearch(), "nội dung tìm kiếm","Nhập nội dung tìm kiếm...")) {
+//                    return;
+//                }
+//                PNBUS.pouringData(tblDSPN, PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
+//            }
+//        });
     }
 
     /**
@@ -212,11 +218,23 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         labelNCC.setText("Nhà cung cấp");
         jPanel2.add(labelNCC);
 
+        cbbNCC.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        cbbNCC.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbNCCActionPerformed(evt);
+            }
+        });
         jPanel2.add(cbbNCC);
 
         labelNV.setText("Nhân viên nhập");
         jPanel2.add(labelNV);
 
+        cbbNVN.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "" }));
+        cbbNVN.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbbNVNActionPerformed(evt);
+            }
+        });
         jPanel2.add(cbbNVN);
 
         jLabel3.setText("Từ ngày");
@@ -285,7 +303,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             DecimalFormat decimalFormat = new DecimalFormat("#,###");
-            jTextField4.setText(decimalFormat.format(1000000000*((double)jSlider1.getValue()/100)));
+            jTextField4.setText(decimalFormat.format(1000000000 * ((double) jSlider1.getValue() / 100)));
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jSlider1StateChanged
@@ -294,12 +312,58 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             DecimalFormat decimalFormat = new DecimalFormat("#,###");
-            jTextField5.setText(decimalFormat.format(1000000000*((double)jSlider2.getValue()/100)));
+            jTextField5.setText(decimalFormat.format(1000000000 * ((double) jSlider2.getValue() / 100)));
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jSlider2StateChanged
 
-    
+    private void cbbNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNCCActionPerformed
+        int index = cbbNCC.getSelectedIndex();
+        listPNFilter.clear();
+        listPNFilter.addAll(listPN);
+        if (index == 0) {
+            if (cbbNVN.getSelectedIndex() != 0) {
+                cbbNVNActionPerformed(null);
+            } else {
+                loadData(listPNFilter);
+            }
+            return;
+        }
+        int ID = listNCC.get(index - 1).getMaNCC();
+        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
+        while (iterator.hasNext()) {
+            PhieuNhapDTO x = iterator.next();
+            if (x.getNCC() != ID) {
+                iterator.remove(); // Sử dụng Iterator.remove() để loại bỏ phần tử
+            }
+        }
+        loadData(listPNFilter);
+    }//GEN-LAST:event_cbbNCCActionPerformed
+
+    private void cbbNVNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNVNActionPerformed
+        int index = cbbNVN.getSelectedIndex();
+        listPNFilter.clear();
+        listPNFilter.addAll(listPN);
+        if (index == 0) {
+            if (cbbNVN.getSelectedIndex() != 0) {
+                cbbNCCActionPerformed(null);
+            } else {
+                loadData(listPNFilter);
+            }
+            return;
+        }
+        int ID = listNV.get(index - 1).getManv();
+        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
+        while (iterator.hasNext()) {
+            PhieuNhapDTO x = iterator.next();
+            if (x.getMNV() != ID) {
+                iterator.remove();
+            }
+        }
+        loadData(listPNFilter);
+    }//GEN-LAST:event_cbbNVNActionPerformed
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JComboBox<String> cbbNCC;
     protected javax.swing.JComboBox<String> cbbNVN;

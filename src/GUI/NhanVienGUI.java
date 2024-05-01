@@ -4,7 +4,14 @@
  */
 package GUI;
 
+import BUS.NhanVienBUS;
+import DTO.NhanVienDTO;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -15,11 +22,44 @@ public class NhanVienGUI extends javax.swing.JPanel {
     /**
      * Creates new form NhanVienGUI
      */
+    private NhanVienBUS NVBUS = new NhanVienBUS();
+    
+    
     public NhanVienGUI() {
         initComponents();
-        
+        loadData(NVBUS.getAllNhanVien());
+        loadCbb();
+        addEvent();
+    }
+    
+    public void loadData(ArrayList<NhanVienDTO> listNV) {
+        DefaultTableModel tblModel = (DefaultTableModel) NhanVienTable.getModel();
+        //remove all row
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+        }
+        for (NhanVienDTO x : listNV) {
+            tblModel.addRow(new Object[]{x.getManv(),x.getHoTen(),x.getGioiTinh()==1 ? "Nam" : "Nữ",x.getNgaySinh(),x.getSDT(),x.getEmail()});
+        }
+        NhanVienTable.setModel(tblModel);
     }
 
+    
+    public void loadCbb() {
+        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String[]{
+            "Tất cả", "Họ tên", "Giới tính", "SĐT", "Email"
+        }));
+    }
+    
+    public void addEvent() {
+        toolBar.getFindBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadData(NVBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText()));
+            }
+            
+        });
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -29,7 +69,6 @@ public class NhanVienGUI extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        PanelNhanVIen = new javax.swing.JPanel();
         PanelControl = new javax.swing.JPanel();
         PanelControlLeft = new javax.swing.JPanel();
         AddBtn = new javax.swing.JButton();
@@ -42,13 +81,11 @@ public class NhanVienGUI extends javax.swing.JPanel {
         SearchTF = new javax.swing.JTextField();
         RefeshBtn = new javax.swing.JButton();
         CatogoryCBB = new javax.swing.JComboBox<>();
+        PanelNhanVIen = new javax.swing.JPanel();
+        toolBar = new GUI.toolBar();
         PanelTable = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         NhanVienTable = new javax.swing.JTable();
-
-        setPreferredSize(new java.awt.Dimension(1200, 725));
-
-        PanelNhanVIen.setLayout(new java.awt.BorderLayout());
 
         PanelControl.setBackground(new java.awt.Color(64, 103, 146));
         PanelControl.setOpaque(false);
@@ -216,18 +253,21 @@ public class NhanVienGUI extends javax.swing.JPanel {
 
         PanelControl.add(PanelControlRight, java.awt.BorderLayout.LINE_END);
 
-        PanelNhanVIen.add(PanelControl, java.awt.BorderLayout.PAGE_START);
+        setPreferredSize(new java.awt.Dimension(1200, 725));
+
+        PanelNhanVIen.setLayout(new java.awt.BorderLayout());
+        PanelNhanVIen.add(toolBar, java.awt.BorderLayout.PAGE_START);
 
         NhanVienTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
             },
             new String [] {
-                "MNV", "Họ tên", "Giới tính", "Ngày sinh", "SĐT"
+                "MNV", "Họ tên", "Giới tính", "Ngày sinh", "SĐT", "Email"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -246,9 +286,9 @@ public class NhanVienGUI extends javax.swing.JPanel {
         );
         PanelTableLayout.setVerticalGroup(
             PanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 655, Short.MAX_VALUE)
+            .addGap(0, 631, Short.MAX_VALUE)
             .addGroup(PanelTableLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 655, Short.MAX_VALUE))
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE))
         );
 
         PanelNhanVIen.add(PanelTable, java.awt.BorderLayout.CENTER);
@@ -305,6 +345,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     private javax.swing.JButton RemoveBtn;
     private javax.swing.JTextField SearchTF;
     private javax.swing.JScrollPane jScrollPane1;
+    private GUI.toolBar toolBar;
     // End of variables declaration//GEN-END:variables
 }
 

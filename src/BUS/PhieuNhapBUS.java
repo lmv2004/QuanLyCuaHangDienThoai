@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package BUS;
 
 import DAO.PhieuNhapDAO;
@@ -25,8 +21,12 @@ public class PhieuNhapBUS {
         data = PNDAO.selecAll();
     }
 
-    public ArrayList<PhieuNhapDTO> getAll() {
+    public ArrayList<PhieuNhapDTO> getAllPhieuNhap() {
         return PNDAO.selecAll();
+    }
+    
+    public PhieuNhapDTO getByID(int ID) {
+        return PNDAO.selectById(ID);
     }
     
     public boolean add(PhieuNhapDTO phieuNhap) {
@@ -57,15 +57,15 @@ public class PhieuNhapBUS {
         }
         int i = 1;
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        for (PhieuNhapDTO PN : data) {
-            if (PN.getTrangthai() == 1) {
+        for (PhieuNhapDTO PNDAO : data) {
+            if (PNDAO.getTrangthai() == 1) {
                 Vector vector = new Vector();
                 vector.add(i);
-                vector.add(PN.getMaPhieu());
-                vector.add(new DAO.NhaCungCapDAO().selectById(PN.getNCC()).getTenNCC());
-                vector.add(new DAO.NhanVienDAO().selectByID(PN.getMNV()).getHoTen());
-                vector.add(PN.getThoiGian());
-                vector.add(decimalFormat.format(PN.getTongTien()));
+                vector.add(PNDAO.getMaPhieu());
+                vector.add(new DAO.NhaCungCapDAO().selectById(PNDAO.getNCC()).getTenNCC());
+                vector.add(new DAO.NhanVienDAO().selectByID(PNDAO.getMNV()).getHoTen());
+                vector.add(PNDAO.getThoiGian());
+                vector.add(decimalFormat.format(PNDAO.getTongTien()));
                 i++;
                 model.addRow(vector);
             }
@@ -82,15 +82,15 @@ public class PhieuNhapBUS {
         }
         int i = 1;
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        for (PhieuNhapDTO PN : myArr) {
-            if (PN.getTrangthai() == 1) {
+        for (PhieuNhapDTO PNDAO : myArr) {
+            if (PNDAO.getTrangthai() == 1) {
                 Vector vector = new Vector();
                 vector.add(i);
-                vector.add(PN.getMaPhieu());
-                vector.add(new DAO.NhaCungCapDAO().selectById(PN.getNCC()).getTenNCC());
-                vector.add(new DAO.NhanVienDAO().selectByID(PN.getMNV()).getHoTen());
-                vector.add(PN.getThoiGian());
-                vector.add(decimalFormat.format(PN.getTongTien()));
+                vector.add(PNDAO.getMaPhieu());
+                vector.add(new DAO.NhaCungCapDAO().selectById(PNDAO.getNCC()).getTenNCC());
+                vector.add(new DAO.NhanVienDAO().selectByID(PNDAO.getMNV()).getHoTen());
+                vector.add(PNDAO.getThoiGian());
+                vector.add(decimalFormat.format(PNDAO.getTongTien()));
                 i++;
                 model.addRow(vector);
             }
@@ -139,5 +139,9 @@ public class PhieuNhapBUS {
             return myArr;
         }
         return null;
+    }
+    
+    public void filterByName(String name) {
+        
     }
 }

@@ -118,6 +118,28 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
         }
         return ketqua;
     }
+    
+    public PhieuNhapDTO selectById(int ID) {
+        PhieuNhapDTO ketqua = null;
+        try {
+            Connection con = JDBCConnection.getJDBCConnection();
+            String sql = String.format("SELECT * FROM phieunhap WHERE maphieunhap=%s and trangthai=1", ID);
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaPhieu = rs.getInt("maphieunhap");
+                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                int NCC = rs.getInt("manhacungcap");
+                int MNV = rs.getInt("nguoitao");
+                long TongTien = rs.getLong("tongtien");
+                ketqua = new PhieuNhapDTO(NCC, MaPhieu, MNV, ThoiGian, TongTien);
+            }
+            JDBCConnection.closeConection(con);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ketqua;
+    }
 
     @Override
     public ArrayList<PhieuNhapDTO> selecAll() {
