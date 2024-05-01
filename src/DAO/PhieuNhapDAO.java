@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 
 public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
     @Override
@@ -41,7 +42,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
             String sql = "INSERT INTO phieunhap VALUES(? , ? , ? , ? , ? , 1);";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, t.getMaPhieu());
-            pst.setTimestamp(2, t.getThoiGian());
+            pst.setDate(2, (java.sql.Date) t.getThoiGian());
             pst.setInt(3, t.getNCC());
             pst.setInt(4, t.getMNV());
             pst.setLong(5, t.getTongTien());
@@ -66,7 +67,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
                     + " Where maphieunhap =?";
             PreparedStatement pst = con.prepareStatement(sql);
             
-            pst.setTimestamp(1, t.getThoiGian());
+            pst.setDate(1, (java.sql.Date) t.getThoiGian());
             pst.setInt(2, t.getNCC());
             pst.setInt(3, t.getMNV());
             pst.setLong(4, t.getTongTien());
@@ -106,7 +107,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieunhap");
-                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                Date ThoiGian = rs.getDate("thoigian");
                 int NCC = rs.getInt("manhacungcap");
                 int MNV = rs.getInt("nguoitao");
                 long TongTien = rs.getLong("tongtien");
@@ -129,7 +130,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieunhap");
-                Timestamp ThoiGian = rs.getTimestamp("thoigian");
+                Date ThoiGian = rs.getDate("thoigian");
                 int NCC = rs.getInt("manhacungcap");
                 int MNV = rs.getInt("nguoitao");
                 long TongTien = rs.getLong("tongtien");

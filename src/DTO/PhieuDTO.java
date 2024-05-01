@@ -14,7 +14,7 @@ import java.sql.Timestamp;
 public class PhieuDTO {
     private int MaPhieu;
     private int MNV;
-    private Timestamp ThoiGian;
+    private Date ThoiGian;
     private long TongTien;
     private int trangthai=1;
     private NhanVienDTO NVDTO = new NhanVienDTO();
@@ -22,7 +22,7 @@ public class PhieuDTO {
     public PhieuDTO() {
     }
 
-    public PhieuDTO(int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
+    public PhieuDTO(int MaPhieu, int MNV, Date ThoiGian, long TongTien) {
         this.MaPhieu = MaPhieu;
         this.MNV = MNV;
         this.ThoiGian = ThoiGian;
@@ -45,7 +45,7 @@ public class PhieuDTO {
         this.MNV = MNV;
     }
 
-    public Timestamp getThoiGian() {
+    public Date getThoiGian() {
         return ThoiGian;
     }
 

@@ -5,6 +5,7 @@
 package DTO;
 
 import java.sql.Timestamp;
+import java.util.Date;
 
 /**
  *
@@ -21,7 +22,7 @@ public class PhieuNhapDTO extends PhieuDTO{
         this.NCC = NCC;
     }
 
-    public PhieuNhapDTO(int NCC, int MaPhieu, int MNV, Timestamp ThoiGian, long TongTien) {
+    public PhieuNhapDTO(int NCC, int MaPhieu, int MNV, Date ThoiGian, long TongTien) {
         super(MaPhieu, MNV, ThoiGian, TongTien);
         this.NCC = NCC;
     }
