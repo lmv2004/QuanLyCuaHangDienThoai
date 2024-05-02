@@ -46,7 +46,6 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
             pst.setInt(3, t.getNCC());
             pst.setInt(4, t.getMNV());
             pst.setLong(5, t.getTongTien());
-            System.out.println(pst.toString());
             ketqua = pst.executeUpdate();
 
             System.out.println("success! Affected rows: "+ketqua);
@@ -63,7 +62,7 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
         try {
             Connection con = JDBCConnection.getJDBCConnection();
             String sql = "Update phieunhap"
-                    + " Set thoigian=? ,manhacungcap=? ,nguoitao=? ,tongtien=? ,trangthai=1"
+                    + " Set thoigian=? ,manhacungcap=? ,nguoitao=? ,tongtien=?"
                     + " Where maphieunhap =?";
             PreparedStatement pst = con.prepareStatement(sql);
             
