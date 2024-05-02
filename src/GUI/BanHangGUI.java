@@ -557,12 +557,10 @@ public class BanHangGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_TaoHD_BtnActionPerformed
 
     private void ThanhToanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThanhToanBtnActionPerformed
-         int maHD=Integer.parseInt(MaHD_TF.getText());
-         
+        // Lấy dữ liệu từ giỏ hàng và thông tin KH để tạo Hóa đơn trong database
+        int maHD=Integer.parseInt(MaHD_TF.getText());        
          LocalDateTime localDateTime = LocalDateTime.now();
-         java.sql.Date ngayMua = java.sql.Date.valueOf(localDateTime.toLocalDate());       
-        
-        Timestamp NgayMua = new Timestamp(System.currentTimeMillis());
+         java.sql.Date ngayMua = java.sql.Date.valueOf(localDateTime.toLocalDate());              
          String SDT=SDT_TF.getText().trim();
          String TenKH=TenKH_TF.getText().trim();
          int MaKH=0;
