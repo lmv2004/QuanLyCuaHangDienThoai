@@ -18,7 +18,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 Timestamp ThoiGian = rs.getTimestamp("thoigian");
                 long TongTien = rs.getLong("tongtien");
-                int MNV = rs.getInt("manv");
+                int MNV = rs.getInt("nguoitaophieuxuat");
                 int MaKH = rs.getInt("makh");
                 ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));
             }
@@ -62,7 +62,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
 
             // bước 2 tạo đối tượng statement
             String sql = "Update phieuxuat"
-                    + " SET makh=?, manv=?, thoigian=?, tongtien=?"
+                    + " SET makh=?, nguoitaophieuxuat=?, thoigian=?, tongtien=?"
                     + " Where maphieuxuat =?";
             PreparedStatement pst = con.prepareStatement(sql);
             
@@ -108,7 +108,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
-                int MNV = rs.getInt("manv");
+                int MNV = rs.getInt("nguoitaophieuxuat");
                 int MaKH = rs.getInt("makh");
                 ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
             }
@@ -131,7 +131,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
-                int MNV = rs.getInt("manv");
+                int MNV = rs.getInt("nguoitaophieuxuat");
                 int MaKH = rs.getInt("makh");
                 ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));
             }
@@ -154,7 +154,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
                 int MaPhieu = rs.getInt("maphieuxuat");
                 Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
-                int MNV = rs.getInt("manv");
+                int MNV = rs.getInt("nguoitaophieuxuat");
                 int MaKH = rs.getInt("makh");
                 ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
             }
