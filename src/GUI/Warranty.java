@@ -5,11 +5,12 @@
 package GUI;
 
 import DTO.WarrantyDTO;
-import BUS.WarrantyBUS;
-// import DTO.SanPhamDTO;
 import BUS.SanPhamBUS;
+import BUS.WarrantyBUS;
 
 import java.text.DecimalFormat;
+import java.util.ArrayList;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JLabel;
 import javax.swing.table.DefaultTableCellRenderer;
@@ -22,6 +23,8 @@ import javax.swing.table.TableColumnModel;
 public class Warranty extends javax.swing.JPanel {
 
     private WarrantyBUS warrantyBUS = new WarrantyBUS();
+    private ArrayList<WarrantyDTO> WarrantyList = new ArrayList<>();
+
     private SanPhamBUS sanPhamBUS = new SanPhamBUS();
     private DefaultTableModel tblModel;
 
@@ -31,23 +34,38 @@ public class Warranty extends javax.swing.JPanel {
      */
     public Warranty() {
         initComponents();
-        tblModel = (DefaultTableModel) List_Warranty.getModel();
 
-        loadData();
+        loadData(WarrantyList);
+        loadCbbFilter();
+
     }
 
-    public void loadData() {
+    public void loadData(ArrayList<WarrantyDTO> WarrantyList) {
         int i = 1;
-        for (WarrantyDTO warranty : warrantyBUS.getAll()) {
+        DefaultTableModel tblModel = (DefaultTableModel) List_Warranty.getModel();
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+        }
+
+        for (WarrantyDTO warranty : WarrantyList) {
             tblModel.addRow(new Object[]{
+                i++, 
                 warranty.getMaSanPham(),
                 warranty.getMaBaoHanh(),
                 warranty.getTenKhachHang(),
                 warranty.getYeuCauBaoHanh(),
                 warranty.getTrangThai(),
-                warranty.getNgayBaoHanh()
+                warranty.getNgayBaoHanh(),
             });
         }
+
+        List_Warranty.setModel(tblModel);
+    }
+
+    public void loadCbbFilter() {
+        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel<>(new String[]{
+            "Tất cả", "Mã sản phẩm", "Mã bảo hành", "Tên khách hàng", "Yêu cầu bảo hành", "Trạng thái bảo hành"
+        }));
     }
 
     /**
