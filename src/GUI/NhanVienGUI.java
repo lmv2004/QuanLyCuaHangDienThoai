@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
+
 package GUI;
 
 import BUS.NhanVienBUS;
@@ -9,19 +6,16 @@ import DTO.NhanVienDTO;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Vuong
- */
+
 public class NhanVienGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form NhanVienGUI
-     */
+   
     private NhanVienBUS NVBUS = new NhanVienBUS();
     
     
@@ -30,6 +24,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
         loadData(NVBUS.getAllNhanVien());
         loadCbb();
         addEvent();
+       toolBar.remove(toolBar.getDetailBtn());
     }
     
     public void loadData(ArrayList<NhanVienDTO> listNV) {
@@ -39,7 +34,13 @@ public class NhanVienGUI extends javax.swing.JPanel {
             tblModel.removeRow(0);
         }
         for (NhanVienDTO x : listNV) {
-            tblModel.addRow(new Object[]{x.getManv(),x.getHoTen(),x.getGioiTinh()==1 ? "Nam" : "Nữ",x.getNgaySinh(),x.getSDT(),x.getEmail()});
+            tblModel.addRow(new Object[]{
+                x.getManv(),
+                x.getHoTen(),
+                x.getGioiTinh()==1 ? "Nam" : "Nữ",
+                x.getNgaySinh(),x.getSDT(),
+                x.getEmail()
+            });
         }
         NhanVienTable.setModel(tblModel);
     }
@@ -47,7 +48,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
     
     public void loadCbb() {
         toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String[]{
-            "Tất cả", "Họ tên", "Giới tính", "SĐT", "Email"
+            "Tất cả","Mã NV" ,"Họ tên", "Giới tính", "SĐT", "Email"
         }));
     }
     
@@ -55,10 +56,32 @@ public class NhanVienGUI extends javax.swing.JPanel {
         toolBar.getFindBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadData(NVBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText()));
+                loadData(NVBUS.Search((String) toolBar.getCbbFilter().getSelectedItem(), toolBar.getTfSearch().getText()));
+            } 
+        });
+        toolBar.getTfSearch().addKeyListener(new KeyListener(){
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+               if(e.getKeyCode() == KeyEvent.VK_ENTER){
+                   loadData(NVBUS.Search((String) toolBar.getCbbFilter().getSelectedItem(), toolBar.getTfSearch().getText()));
+               }
+            }
+            @Override
+            public void keyReleased(KeyEvent e) {
             }
             
         });
+       toolBar.getRefreshBtn().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadData(NVBUS.getAllNhanVien());
+             }
+           
+       });
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -274,6 +297,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        NhanVienTable.setRowHeight(25);
         jScrollPane1.setViewportView(NhanVienTable);
 
         javax.swing.GroupLayout PanelTableLayout = new javax.swing.GroupLayout(PanelTable);
