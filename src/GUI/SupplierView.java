@@ -61,7 +61,8 @@ public class SupplierView extends JPanel {
         refresh.setIcon(new ImageIcon(getClass().getResource("/img/refresh.png")));
 
         this.setLayout(new BorderLayout());
-        this.add(jpanel, BorderLayout.NORTH);
+        this.add(new toolBar(), BorderLayout.NORTH);
+        this.add(jpanel, BorderLayout.CENTER);
     }
 
     public void table() {
