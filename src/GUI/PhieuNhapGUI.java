@@ -34,6 +34,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
     public PhieuNhapGUI() {
         initComponents();
+        
         loadData(listPN);
         loadCbbFilter();
         loadCbbNhanVien();

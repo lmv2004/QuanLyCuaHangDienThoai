@@ -29,6 +29,13 @@ public class toolBar extends javax.swing.JPanel {
 //        function.HoverBtn(importBtn, new Color(235,235,235), new Color(255,255,255));
 //        function.HoverBtn(findBtn, new Color(235,235,235), new Color(255,255,255));
     }
+    
+    public void removeBtn() {
+        this.remove(addBtn);
+        System.out.println("da xoa");
+        repaint();
+        revalidate();
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.

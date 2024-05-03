@@ -12,12 +12,16 @@ import java.util.Objects;
  * @author ACER
  */
 public class AccountDTO {
+    private int MaNV;
     private String TaiKhoan;
     private char[] MatKhau;
+    private int MaNQ;
 
-    public AccountDTO(String TaiKhoan, char[] MatKhau) {
+    public AccountDTO(int MaNV, String TaiKhoan, char[] MatKhau, int MaNQ) {
+        this.MaNV=MaNV;
         this.TaiKhoan = TaiKhoan;
         this.MatKhau = MatKhau;
+        this.MaNQ=MaNQ;
     }
 
     public AccountDTO() {
@@ -38,6 +42,24 @@ public class AccountDTO {
     public void setMatKhau(char[] MatKhau) {
         this.MatKhau = MatKhau;
     }
+
+    public int getMaNV() {
+        return MaNV;
+    }
+
+    public void setMaNV(int MaNV) {
+        this.MaNV = MaNV;
+    }
+
+    public int getMaNQ() {
+        return MaNQ;
+    }
+
+    public void setMaNQ(int MaNQ) {
+        this.MaNQ = MaNQ;
+    }
+    
+    
 
     @Override
     public int hashCode() {

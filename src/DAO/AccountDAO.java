@@ -38,13 +38,15 @@ public class AccountDAO implements DAO_Interface<AccountDTO>{
         ArrayList<AccountDTO> ketqua = new ArrayList<AccountDTO>();
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM taikhoan";
+            String sql = "SELECT * FROM taikhoan WHERE trangthai=1";
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
+                int MaNV = rs.getInt("manhomquyen");
                 String TaiKhoan = rs.getString("tendangnhap");
                 char[] MatKhau = rs.getString("matkhau").toCharArray();
-                ketqua.add(new AccountDTO(TaiKhoan, MatKhau));
+                int MaNQ = rs.getInt("manv");
+                ketqua.add(new AccountDTO(MaNV,TaiKhoan, MatKhau,MaNQ));
             }
             JDBCConnection.closeConection(con);
         } catch (SQLException ex) {

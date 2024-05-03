@@ -31,6 +31,10 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
     
     public PhieuXuatGUI() {
         super();
+        toolBar.getAddBtn().setVisible(false);
+        repaint();
+        revalidate();
+        
         labelNCC.setText("Khách hàng");
         labelNV.setText("Nhân viên xuất");
         tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
@@ -94,11 +98,11 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 963, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 724, Short.MAX_VALUE)
+            .addGap(0, 725, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

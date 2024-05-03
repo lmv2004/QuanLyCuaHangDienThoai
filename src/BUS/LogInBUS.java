@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 
 public class LogInBUS {
     public static void LogIn(JFrame jf, boolean rememberMe,String tk, char[] mk) {
-        DTO.AccountDTO myAcc = new AccountDTO(tk, mk);
+        DTO.AccountDTO myAcc = new AccountDTO(0,tk, mk,0);
         ArrayList<AccountDTO> accList = new DAO.AccountDAO().selecAll();
         for(AccountDTO acc : accList) {
             if(acc.equals(myAcc)) {

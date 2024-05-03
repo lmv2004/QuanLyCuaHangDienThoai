@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import DTO.AccountDTO;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,6 +38,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     ProductView SanPham;
     area khuVucKho;
     ArrayList<JButton> buttonList;
+    DTO.AccountDTO myAcc;
     
     public MainMenuGUI(DTO.AccountDTO myAcc) {
         initComponents();
@@ -58,9 +60,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
         function.setBtnBefore(BanHangBtn);
         
         //đỏ dữ liệu
-        lblName.setText(myAcc.getTaiKhoan().toUpperCase());
+        this.myAcc = myAcc;
+        lblName.setText(this.myAcc.getTaiKhoan().toUpperCase());
         lblVitri.setText("ADMIN");
     }
+
+    public AccountDTO getMyAcc() {
+        return myAcc;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
