@@ -400,6 +400,7 @@
                         <Column editable="true" title="Email" type="java.lang.String"/>
                       </Table>
                     </Property>
+                    <Property name="rowHeight" type="int" value="25"/>
                   </Properties>
                 </Component>
               </SubComponents>

@@ -55,7 +55,6 @@ public class toolBar extends javax.swing.JPanel {
 
         jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 10));
 
-        addBtn.setBackground(new java.awt.Color(255, 255, 255));
         addBtn.setIcon(new FlatSVGIcon("img/add.svg",59,59));
         addBtn.setToolTipText("Thêm");
         addBtn.setBorder(null);
@@ -67,7 +66,6 @@ public class toolBar extends javax.swing.JPanel {
         addBtn.setPressedIcon(new FlatSVGIcon("img/add.svg",53,53));
         jPanel3.add(addBtn);
 
-        editBtn.setBackground(new java.awt.Color(255, 255, 255));
         editBtn.setIcon(new FlatSVGIcon("img/edit.svg",64,64));
         editBtn.setToolTipText("Sửa");
         editBtn.setBorder(null);
@@ -79,7 +77,6 @@ public class toolBar extends javax.swing.JPanel {
         editBtn.setPressedIcon(new FlatSVGIcon("img/edit.svg",58,58));
         jPanel3.add(editBtn);
 
-        removeBtn.setBackground(new java.awt.Color(255, 255, 255));
         removeBtn.setIcon(new FlatSVGIcon("img/remove.svg",64,64));
         removeBtn.setToolTipText("Xóa");
         removeBtn.setBorder(null);
@@ -91,7 +88,6 @@ public class toolBar extends javax.swing.JPanel {
         removeBtn.setPressedIcon(new FlatSVGIcon("img/remove.svg",58,58));
         jPanel3.add(removeBtn);
 
-        detailBtn.setBackground(new java.awt.Color(255, 255, 255));
         detailBtn.setIcon(new FlatSVGIcon("img/details.svg",68,68));
         detailBtn.setToolTipText("Chi tiết");
         detailBtn.setBorder(null);
@@ -103,7 +99,6 @@ public class toolBar extends javax.swing.JPanel {
         detailBtn.setPressedIcon(new FlatSVGIcon("img/details.svg",62,62));
         jPanel3.add(detailBtn);
 
-        exportBtn.setBackground(new java.awt.Color(255, 255, 255));
         exportBtn.setIcon(new FlatSVGIcon("img/exportExcel.svg",64,64));
         exportBtn.setToolTipText("Xuất Excel");
         exportBtn.setBorder(null);
@@ -115,7 +110,6 @@ public class toolBar extends javax.swing.JPanel {
         exportBtn.setPressedIcon(new FlatSVGIcon("img/exportExcel.svg",58,58));
         jPanel3.add(exportBtn);
 
-        importBtn.setBackground(new java.awt.Color(255, 255, 255));
         importBtn.setIcon(new FlatSVGIcon("img/importExcel.svg",64,64));
         importBtn.setToolTipText("Nhập Excel");
         importBtn.setBorder(null);
@@ -137,7 +131,6 @@ public class toolBar extends javax.swing.JPanel {
         tfSearch.setPreferredSize(new java.awt.Dimension(300, 30));
         jPanel2.add(tfSearch);
 
-        findBtn.setBackground(new java.awt.Color(255, 255, 255));
         findBtn.setIcon(new FlatSVGIcon("img/search.svg",40,40));
         findBtn.setToolTipText("Tìm kiếm");
         findBtn.setBorder(null);
@@ -155,6 +148,7 @@ public class toolBar extends javax.swing.JPanel {
         refreshBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         refreshBtn.setPreferredSize(new java.awt.Dimension(30, 30));
         refreshBtn.setPressedIcon(new FlatSVGIcon("img/refresh.svg",26,26));
+        jPanel2.add(refreshBtn);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -162,11 +156,9 @@ public class toolBar extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 168, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
+                .addGap(48, 48, 48))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -175,9 +167,7 @@ public class toolBar extends javax.swing.JPanel {
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(refreshBtn, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -287,6 +277,14 @@ public class toolBar extends javax.swing.JPanel {
 
     public void setTfSearch(JTextField tfSearch) {
         this.tfSearch = tfSearch;
+    }
+
+    public JButton getRefreshBtn() {
+        return refreshBtn;
+    }
+
+    public void setRefreshBtn(JButton refreshBtn) {
+        this.refreshBtn = refreshBtn;
     }
     
     
