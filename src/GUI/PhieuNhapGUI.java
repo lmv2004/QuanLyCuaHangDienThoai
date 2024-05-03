@@ -6,6 +6,8 @@ import BUS.PhieuNhapBUS;
 import DTO.NhanVienDTO;
 import DTO.NhaCungCapDTO;
 import DTO.PhieuNhapDTO;
+import GUI.Dialog.ThemPhieuNhap;
+import java.awt.Component;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
@@ -101,7 +103,22 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         toolBar.getAddBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //new GUI.Dialog.ThemPhieuNhap(SwingUtilities.getWindowAncestor(),true);
+                new GUI.Dialog.ThemPhieuNhap(null,true).setVisible(true);
+            }
+            
+        });
+        
+        toolBar.getEditBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GUI.Dialog.ThemPhieuNhap(null,true).setVisible(true);
+            }
+            
+        });
+        toolBar.getDetailBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GUI.Dialog.ThemPhieuNhap(null,true).setVisible(true);
             }
             
         });
