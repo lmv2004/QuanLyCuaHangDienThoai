@@ -8,9 +8,12 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.security.Timestamp;
 import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import java.sql.*;
+import java.util.Date;
 
 public class NhanVienDialog extends javax.swing.JPanel {
 
@@ -205,7 +208,8 @@ public class NhanVienDialog extends javax.swing.JPanel {
                 String tenNV = TenNV_TF.getText();
                 String sdt = SDT_TF.getText();
                 String email = Email_Tf.getText();
-                Date NgaySinh = jDateChooser1.getDate();
+                java.util.Date NgaySinh = jDateChooser1.getDate();
+                System.out.println(NgaySinh);
                 int GioiTinh = "nam".equals(GioiTinh_TF.getText().trim().toLowerCase()) ? 1 : 0;
                 if (NVBUS.add(new NhanVienDTO(manv, tenNV, GioiTinh, NgaySinh, sdt, email)) == true) {
                     JOptionPane.showMessageDialog(null, "Thêm thành công");
