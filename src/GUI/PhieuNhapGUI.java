@@ -6,12 +6,16 @@ import BUS.PhieuNhapBUS;
 import DTO.NhanVienDTO;
 import DTO.NhaCungCapDTO;
 import DTO.PhieuNhapDTO;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -94,6 +98,13 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 //                PNBUS.pouringData(tblDSPN, PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
 //            }
 //        });
+        toolBar.getAddBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //new GUI.Dialog.ThemPhieuNhap(SwingUtilities.getWindowAncestor(),true);
+            }
+            
+        });
     }
 
     /**

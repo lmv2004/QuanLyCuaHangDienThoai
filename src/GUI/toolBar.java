@@ -39,76 +39,19 @@ public class toolBar extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        importBtn = new javax.swing.JButton();
+        exportBtn = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
         addBtn = new javax.swing.JButton();
         editBtn = new javax.swing.JButton();
         removeBtn = new javax.swing.JButton();
         detailBtn = new javax.swing.JButton();
-        exportBtn = new javax.swing.JButton();
-        importBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         cbbFilter = new javax.swing.JComboBox<>();
         tfSearch = new javax.swing.JTextField();
         findBtn = new javax.swing.JButton();
         refreshBtn = new javax.swing.JButton();
-
-        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 10));
-
-        addBtn.setIcon(new FlatSVGIcon("img/add.svg",59,59));
-        addBtn.setToolTipText("Thêm");
-        addBtn.setBorder(null);
-        addBtn.setBorderPainted(false);
-        addBtn.setContentAreaFilled(false);
-        addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        addBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        addBtn.setPreferredSize(new java.awt.Dimension(59, 59));
-        addBtn.setPressedIcon(new FlatSVGIcon("img/add.svg",53,53));
-        jPanel3.add(addBtn);
-
-        editBtn.setIcon(new FlatSVGIcon("img/edit.svg",64,64));
-        editBtn.setToolTipText("Sửa");
-        editBtn.setBorder(null);
-        editBtn.setBorderPainted(false);
-        editBtn.setContentAreaFilled(false);
-        editBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        editBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        editBtn.setPreferredSize(new java.awt.Dimension(64, 64));
-        editBtn.setPressedIcon(new FlatSVGIcon("img/edit.svg",58,58));
-        jPanel3.add(editBtn);
-
-        removeBtn.setIcon(new FlatSVGIcon("img/remove.svg",64,64));
-        removeBtn.setToolTipText("Xóa");
-        removeBtn.setBorder(null);
-        removeBtn.setBorderPainted(false);
-        removeBtn.setContentAreaFilled(false);
-        removeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        removeBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        removeBtn.setPreferredSize(new java.awt.Dimension(64, 64));
-        removeBtn.setPressedIcon(new FlatSVGIcon("img/remove.svg",58,58));
-        jPanel3.add(removeBtn);
-
-        detailBtn.setIcon(new FlatSVGIcon("img/details.svg",68,68));
-        detailBtn.setToolTipText("Chi tiết");
-        detailBtn.setBorder(null);
-        detailBtn.setBorderPainted(false);
-        detailBtn.setContentAreaFilled(false);
-        detailBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        detailBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        detailBtn.setPreferredSize(new java.awt.Dimension(68, 68));
-        detailBtn.setPressedIcon(new FlatSVGIcon("img/details.svg",62,62));
-        jPanel3.add(detailBtn);
-
-        exportBtn.setIcon(new FlatSVGIcon("img/exportExcel.svg",64,64));
-        exportBtn.setToolTipText("Xuất Excel");
-        exportBtn.setBorder(null);
-        exportBtn.setBorderPainted(false);
-        exportBtn.setContentAreaFilled(false);
-        exportBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
-        exportBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
-        exportBtn.setPreferredSize(new java.awt.Dimension(64, 64));
-        exportBtn.setPressedIcon(new FlatSVGIcon("img/exportExcel.svg",58,58));
-        jPanel3.add(exportBtn);
 
         importBtn.setIcon(new FlatSVGIcon("img/importExcel.svg",64,64));
         importBtn.setToolTipText("Nhập Excel");
@@ -119,7 +62,66 @@ public class toolBar extends javax.swing.JPanel {
         importBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
         importBtn.setPreferredSize(new java.awt.Dimension(64, 64));
         importBtn.setPressedIcon(new FlatSVGIcon("img/importExcel.svg",58,58));
-        jPanel3.add(importBtn);
+
+        exportBtn.setIcon(new FlatSVGIcon("img/exportExcel.svg",64,64));
+        exportBtn.setToolTipText("Xuất Excel");
+        exportBtn.setBorder(null);
+        exportBtn.setBorderPainted(false);
+        exportBtn.setContentAreaFilled(false);
+        exportBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        exportBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        exportBtn.setPreferredSize(new java.awt.Dimension(64, 64));
+        exportBtn.setPressedIcon(new FlatSVGIcon("img/exportExcel.svg",58,58));
+
+        jPanel3.setLayout(new java.awt.FlowLayout(java.awt.FlowLayout.LEFT, 15, 10));
+
+        addBtn.setBackground(new java.awt.Color(102, 102, 102));
+        addBtn.setIcon(new FlatSVGIcon("img/add.svg",55,55));
+        addBtn.setToolTipText("Thêm");
+        addBtn.setBorder(null);
+        addBtn.setBorderPainted(false);
+        addBtn.setContentAreaFilled(false);
+        addBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        addBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        addBtn.setPreferredSize(new java.awt.Dimension(60, 60));
+        addBtn.setPressedIcon(new FlatSVGIcon("img/add.svg",50,50));
+        jPanel3.add(addBtn);
+
+        editBtn.setBackground(new java.awt.Color(102, 102, 102));
+        editBtn.setIcon(new FlatSVGIcon("img/edit.svg",60,60));
+        editBtn.setToolTipText("Sửa");
+        editBtn.setBorder(null);
+        editBtn.setBorderPainted(false);
+        editBtn.setContentAreaFilled(false);
+        editBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        editBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        editBtn.setPreferredSize(new java.awt.Dimension(60, 60));
+        editBtn.setPressedIcon(new FlatSVGIcon("img/edit.svg",55,55));
+        jPanel3.add(editBtn);
+
+        removeBtn.setBackground(new java.awt.Color(102, 102, 102));
+        removeBtn.setIcon(new FlatSVGIcon("img/remove.svg",60,60));
+        removeBtn.setToolTipText("Xóa");
+        removeBtn.setBorder(null);
+        removeBtn.setBorderPainted(false);
+        removeBtn.setContentAreaFilled(false);
+        removeBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        removeBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        removeBtn.setPreferredSize(new java.awt.Dimension(60, 60));
+        removeBtn.setPressedIcon(new FlatSVGIcon("img/remove.svg",55,55));
+        jPanel3.add(removeBtn);
+
+        detailBtn.setBackground(new java.awt.Color(102, 102, 102));
+        detailBtn.setIcon(new FlatSVGIcon("img/details.svg",66,66));
+        detailBtn.setToolTipText("Chi tiết");
+        detailBtn.setBorder(null);
+        detailBtn.setBorderPainted(false);
+        detailBtn.setContentAreaFilled(false);
+        detailBtn.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
+        detailBtn.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        detailBtn.setPreferredSize(new java.awt.Dimension(60, 60));
+        detailBtn.setPressedIcon(new FlatSVGIcon("img/details.svg",61,61));
+        jPanel3.add(detailBtn);
 
         java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout(java.awt.FlowLayout.RIGHT, 5, 0);
         flowLayout1.setAlignOnBaseline(true);
@@ -156,7 +158,7 @@ public class toolBar extends javax.swing.JPanel {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 133, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 306, Short.MAX_VALUE)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(48, 48, 48))
         );
@@ -166,9 +168,9 @@ public class toolBar extends javax.swing.JPanel {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(29, 29, 29)
+                        .addGap(26, 26, 26)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(0, 0, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);

@@ -4,25 +4,13 @@
  */
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
+import java.awt.*;
+import java.awt.Font;
 
-/**
- *
- * @author User
- */
-public class SupplierView extends JPanel{
+public class SupplierView extends JPanel {
     private JButton add;
     private JButton update;
     private JButton delete;
@@ -73,7 +61,8 @@ public class SupplierView extends JPanel{
         refresh.setIcon(new ImageIcon(getClass().getResource("/img/refresh.png")));
 
         this.setLayout(new BorderLayout());
-        this.add(jpanel, BorderLayout.NORTH);
+        this.add(new toolBar(), BorderLayout.NORTH);
+        this.add(jpanel, BorderLayout.CENTER);
     }
 
     public void table() {
@@ -87,9 +76,9 @@ public class SupplierView extends JPanel{
         DefaultTableModel model = new DefaultTableModel(data, column);
         JTable table = new JTable(model);
 
-        // Đặt font in đậm cho tiêu đề cột
+        // Đặt font cho tiêu đề cột (không in đậm)
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 12));
+        header.setFont(new Font("Arial", Font.PLAIN, 12));
 
         // Đặt chiều cao của hàng trong bảng
         table.setRowHeight(25);
@@ -98,4 +87,6 @@ public class SupplierView extends JPanel{
 
         this.add(sp, BorderLayout.CENTER);
     }
+
+  
 }
