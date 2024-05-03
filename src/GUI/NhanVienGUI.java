@@ -13,24 +13,27 @@ import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 public class NhanVienGUI extends javax.swing.JPanel {
+
     private NhanVienBUS NVBUS = new NhanVienBUS();
+    private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
 
     public NhanVienGUI() {
         initComponents();
-        loadData(NVBUS.getAllNhanVien());
+        loadData(listNV);
         loadCbb();
         addEvent();
-       removeItemToolbar();
+        toolBar.getDetailBtn().setVisible(false);
     }
-    public void removeItemToolbar(){
-       
-        toolBar.setDetailBtn(null);
-        toolBar.revalidate();
-        toolBar.repaint();
+
+    public int getIndexRow() {
+        int row = NhanVienTable.getSelectedRow();
+        return row;
     }
+
     public void loadData(ArrayList<NhanVienDTO> listNV) {
         DefaultTableModel tblModel = (DefaultTableModel) NhanVienTable.getModel();
         //remove all row
@@ -48,6 +51,8 @@ public class NhanVienGUI extends javax.swing.JPanel {
             });
         }
         NhanVienTable.setModel(tblModel);
+        NhanVienTable.repaint();
+        NhanVienTable.validate();
     }
 
     public void loadCbb() {
@@ -90,29 +95,46 @@ public class NhanVienGUI extends javax.swing.JPanel {
         toolBar.getAddBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                NhanVienDialog PanelDialog = new NhanVienDialog( "add");
-                JDialog popupDialog = new JDialog();
-                popupDialog.getContentPane().add(PanelDialog);
-                popupDialog.pack();
-                popupDialog.setLocationRelativeTo(null);
-                popupDialog.setVisible(true);
-            } 
+                NhanVienDialog PanelDialog = new NhanVienDialog("add");
+            }
         });
-        toolBar.getEditBtn().addActionListener(new ActionListener(){
+        toolBar.getEditBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                NhanVienDialog PanelDialog = new NhanVienDialog("update");
-                JDialog popupDialog = new JDialog();
-                popupDialog.getContentPane().add(PanelDialog);
-                popupDialog.pack();
-                popupDialog.setLocationRelativeTo(null);
-                popupDialog.setVisible(true);}
-            
+                if (getIndexRow() >= 0) {
+                    NhanVienDialog PanelDialog = new NhanVienDialog("update", listNV.get(getIndexRow()));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên có trong bảng!");
+                }
+            }
         });
-        
+        toolBar.getRemoveBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = getIndexRow();
+                if (index >= 0) {
+                    int input = JOptionPane.showConfirmDialog(null,
+                            "Bạn có chắc chắn muốn xóa Nhân Viên này?", "Xóa Nhân Viên",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    if (input == 0) {
+                        int manv = Integer.parseInt(NhanVienTable.getValueAt(index, 0).toString());
+                        for (NhanVienDTO nv : listNV) {
+                            if (nv.getManv() == manv) {
+                                if (NVBUS.delete(nv)) {
+                                    JOptionPane.showMessageDialog(null, "Xóa thành công");
+                                    loadData(NVBUS.getAllNhanVien());
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+        });
+
     }
 
- 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {

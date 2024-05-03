@@ -13,7 +13,11 @@ import java.util.Date;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.sql.*;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JDialog;
+import javax.swing.JTextField;
 
 public class NhanVienDialog extends javax.swing.JPanel {
 
@@ -31,9 +35,18 @@ public class NhanVienDialog extends javax.swing.JPanel {
     public NhanVienDialog(String type, NhanVienDTO NV) {
         initComponents(type);
         this.NVDTO = NV;
+        addRow(NVDTO);
         eventBtn();
     }
-
+    public void addRow(NhanVienDTO nv){
+        MaNV_TF.setText(nv.getManv()+"");
+        TenNV_TF.setText(nv.getHoTen());
+        SDT_TF.setText(nv.getSDT());
+        Email_Tf.setText(nv.getEmail());
+        jDateChooser1.setDate(nv.getNgaySinh());
+        String gioiTinh=nv.getGioiTinh()==1?"Nam":"Nữ";
+        GioiTinh_TF.setSelectedItem(gioiTinh);
+    }
     private void initComponents(String type) {
 
         jDayChooser1 = new com.toedter.calendar.JDayChooser();
@@ -46,7 +59,10 @@ public class NhanVienDialog extends javax.swing.JPanel {
         javax.swing.JLabel jLabel3 = new javax.swing.JLabel();
         TenNV_TF = new javax.swing.JTextField();
         javax.swing.JLabel jLabel4 = new javax.swing.JLabel();
-        GioiTinh_TF = new javax.swing.JTextField();
+        GioiTinh_TF = new javax.swing.JComboBox<>();
+        GioiTinh_TF.setModel(new DefaultComboBoxModel(new String[]{
+            "Nam","Nữ"
+        }));
         javax.swing.JLabel jLabel5 = new javax.swing.JLabel();
         jDateChooser1 = new com.toedter.calendar.JDateChooser();
         javax.swing.JLabel jLabel6 = new javax.swing.JLabel();
@@ -81,7 +97,7 @@ public class NhanVienDialog extends javax.swing.JPanel {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel4.setText("Giới tính");
 
-        GioiTinh_TF.setMinimumSize(new java.awt.Dimension(64, 27));
+        GioiTinh_TF.setPreferredSize(new java.awt.Dimension(100, 35));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel5.setText("Ngày sinh");
@@ -121,7 +137,7 @@ public class NhanVienDialog extends javax.swing.JPanel {
                                                         .addGroup(PanelCenterLayout.createSequentialGroup()
                                                                 .addComponent(jLabel4)
                                                                 .addGap(18, 18, 18)
-                                                                .addComponent(GioiTinh_TF, javax.swing.GroupLayout.PREFERRED_SIZE, 52, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                                .addComponent(GioiTinh_TF, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                         .addGroup(PanelCenterLayout.createSequentialGroup()
                                                                 .addComponent(jLabel5)
                                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -190,6 +206,11 @@ public class NhanVienDialog extends javax.swing.JPanel {
             default:
                 throw new AssertionError();
         }
+                popupDialog = new JDialog();
+                popupDialog.getContentPane().add(jPanel1);
+                popupDialog.pack();
+                popupDialog.setLocationRelativeTo(null);
+                popupDialog.setVisible(true);
 
     }
 
@@ -199,7 +220,29 @@ public class NhanVienDialog extends javax.swing.JPanel {
         button.setFont(new Font("Segoe UI", Font.BOLD, 14));
         button.setForeground(new Color(255, 255, 255));
     }
-
+    public void checkRegex(){
+        String regexNumber="^[0-9]+$";
+        String regeString="^[a-zA-Z]+$";
+        String regexEmail="^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\\.[a-zA-Z0-9-]+)*$";
+        if(MaNV_TF.getText().matches(regexNumber)==false|| MaNV_TF.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Mã Nhân viên không được nhập kí tự!");
+            MaNV_TF.requestFocus();
+        }
+        if(SDT_TF.getText().trim().matches(regexNumber)==false||SDT_TF.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Số điện thoại không được nhập kí tự!");
+            SDT_TF.requestFocus();
+        }
+        if(TenNV_TF.getText().trim().matches(regeString)==false||TenNV_TF.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Họ và Tên không được nhập số hoặc kí tự đặc biệt!");
+            TenNV_TF.requestFocus();
+        }
+ 
+        if(Email_Tf.getText().trim().matches(regexEmail)==false||Email_Tf.getText().isEmpty()){
+              JOptionPane.showMessageDialog(null, "Email nhập Sai định dạng!");
+            Email_Tf.requestFocus();
+        }
+        
+    }
     public void eventBtn() {
         BtnAdd.addActionListener(new ActionListener() {
             @Override
@@ -208,19 +251,43 @@ public class NhanVienDialog extends javax.swing.JPanel {
                 String tenNV = TenNV_TF.getText();
                 String sdt = SDT_TF.getText();
                 String email = Email_Tf.getText();
-                java.util.Date NgaySinh = jDateChooser1.getDate();
-                System.out.println(NgaySinh);
-                int GioiTinh = "nam".equals(GioiTinh_TF.getText().trim().toLowerCase()) ? 1 : 0;
+                java.util.Date NgaySinh = jDateChooser1.getDate();   
+                String gioiTinh=GioiTinh_TF.getSelectedItem().toString().toLowerCase();
+                int GioiTinh = gioiTinh.equals("nam")? 1: 0;
+                checkRegex();
                 if (NVBUS.add(new NhanVienDTO(manv, tenNV, GioiTinh, NgaySinh, sdt, email)) == true) {
                     JOptionPane.showMessageDialog(null, "Thêm thành công");
+                    popupDialog.dispose();
                     NVGUI.loadData(NVBUS.getAllNhanVien());
+
                 }
             }
 
         });
+        BtnUpdate.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int manv = Integer.parseInt(MaNV_TF.getText());
+                String tenNV = TenNV_TF.getText();
+                String sdt = SDT_TF.getText();
+                String email = Email_Tf.getText();
+                java.util.Date NgaySinh = jDateChooser1.getDate();
+                 String gioiTinh=GioiTinh_TF.getSelectedItem().toString().toLowerCase();
+                int GioiTinh = gioiTinh.equals("nam")? 1: 0;
+                checkRegex();
+                if(NVBUS.edit(new NhanVienDTO(manv, tenNV, GioiTinh, NgaySinh, sdt, email)) == true){
+                    JOptionPane.showMessageDialog(null, "Update thành công");
+                    popupDialog.dispose();
+                    NVGUI.loadData(NVBUS.getAllNhanVien());
+                }
+            }
+            
+        });
+        
     }
+    private   JDialog popupDialog;
     private javax.swing.JTextField Email_Tf;
-    private javax.swing.JTextField GioiTinh_TF;
+    private javax.swing.JComboBox GioiTinh_TF;
     private javax.swing.JTextField MaNV_TF;
     private javax.swing.JPanel PanelBottom;
     private javax.swing.JPanel PanelCenter;

@@ -42,7 +42,8 @@ public class NhanVienDAO implements DAO_Interface<NhanVienDTO> {
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setString(1, t.getHoTen());
             psm.setInt(2, t.getGioiTinh());
-            psm.setDate(3, (java.sql.Date) t.getNgaySinh());
+            Timestamp timestamp = new Timestamp(t.getNgaySinh().getTime());
+            psm.setTimestamp(3, timestamp);
             psm.setString(4, t.getSDT());
             psm.setString(5, t.getEmail());
             psm.setInt(6, t.getManv());
