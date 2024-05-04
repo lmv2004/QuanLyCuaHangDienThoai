@@ -35,11 +35,11 @@ import java.awt.event.ActionListener;
 public class WarrantyDialog extends javax.swing.JPanel implements ActionListener {
 
     public WarrantyDTO warranty;
-    
+
     private JLabel titlePage;
-    
+
     private Warranty JPWarranty;
-    
+
     private InputForm maSanPham;
     private InputForm maBaoHanh;
     private InputForm tenKhachHang;
@@ -56,7 +56,7 @@ public class WarrantyDialog extends javax.swing.JPanel implements ActionListener
     }
 
     public WarrantyDialog(Warranty JPWarranty, java.awt.Frame parent, boolean modal, String title, String type) {
-//        super(parent, modal);
+        // super(parent, modal);
         this.JPWarranty = JPWarranty;
         initComponents(title, type);
     }
@@ -69,14 +69,14 @@ public class WarrantyDialog extends javax.swing.JPanel implements ActionListener
     }
 
     public void initComponents(String title, String type) {
-        this.setSize(500,500);
-        this.setLayout(new BorderLayout(0,0));
+        this.setSize(500, 500);
+        this.setLayout(new BorderLayout(0, 0));
 
         // Title
         JPanel JPanelTop = new JPanel();
         titlePage = new JLabel(title.toUpperCase());
         titlePage.setFont(new Font(FlatRobotoFont.FAMILY, 1, 18));
-        titlePage.setForeground(new Color(26,33,220));
+        titlePage.setForeground(new Color(26, 33, 220));
 
         JPanelTop.setLayout(new FlowLayout());
         JPanelTop.add(titlePage);
@@ -101,22 +101,22 @@ public class WarrantyDialog extends javax.swing.JPanel implements ActionListener
         btnadd.addActionListener((ActionListener) this);
         btnupdate.addActionListener((ActionListener) this);
 
-
         switch (type) {
             case "add":
-            JPanelBottom.add(btnadd);
-            break;
-            
+                JPanelBottom.add(btnadd);
+                break;
+
             case "update":
-            JPanelBottom.add(btnupdate);
-            initInfo();
-            break;
+                JPanelBottom.add(btnupdate);
+                initInfo();
+                break;
 
             case "detail":
-            initInfo();
-            break;
+                initInfo();
+                break;
 
-            default: throw new AssertionError();
+            default:
+                throw new AssertionError();
         }
 
         this.add(JPanelTop, BorderLayout.NORTH);
@@ -135,22 +135,26 @@ public class WarrantyDialog extends javax.swing.JPanel implements ActionListener
     // Validation
     public boolean Validation() {
         if (maSanPham.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Mã sản phẩm không được rỗng", "Cảnh báo !", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mã sản phẩm không được rỗng", "Cảnh báo !",
+                    JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         if (maBaoHanh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Mã bảo hành không được rỗng", "Cảnh báo !", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Mã bảo hành không được rỗng", "Cảnh báo !",
+                    JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         if (tenKhachHang.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Tên khách hàng không được rỗng", "Cảnh báo !", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Tên khách hàng không được rỗng", "Cảnh báo !",
+                    JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
         if (yeuCauBaoHanh.getText().equals("")) {
-            JOptionPane.showMessageDialog(this, "Yêu cầu bảo hành không được rỗng", "Cảnh báo !", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Yêu cầu bảo hành không được rỗng", "Cảnh báo !",
+                    JOptionPane.WARNING_MESSAGE);
             return false;
         }
 
@@ -159,15 +163,23 @@ public class WarrantyDialog extends javax.swing.JPanel implements ActionListener
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == btnadd && Validation()) {
+        if (e.getSource() == btnadd && Validation()) {
             int maSanPham = Integer.parseInt(this.maSanPham.getText());
             int maBaoHanh = Integer.parseInt(this.maBaoHanh.getText());
             String tenKhachHang = this.tenKhachHang.getText();
             String yeuCauBaoHanh = this.yeuCauBaoHanh.getText();
+
+            JPWarranty.loadData(JPWarranty.warrantyBUS.getAll());
             
-            
+        } else if (e.getSource() == btnupdate && Validation()) {
+            int maSanPham = Integer.parseInt(this.maSanPham.getText());
+            int maBaoHanh = Integer.parseInt(this.maBaoHanh.getText());
+            String tenKhachHang = this.tenKhachHang.getText();
+            String yeuCauBaoHanh = this.yeuCauBaoHanh.getText();
+
+            JPWarranty.loadData(JPWarranty.warrantyBUS.getAll());
+        }
     }
-}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -188,7 +200,6 @@ public class WarrantyDialog extends javax.swing.JPanel implements ActionListener
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 300, Short.MAX_VALUE));
     }// </editor-fold>//GEN-END:initComponents
-
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

@@ -17,7 +17,7 @@ public class PhieuDTO {
     private Date ThoiGian;
     private long TongTien;
     private int trangthai=1;
-    private NhanVienDTO NVDTO = new NhanVienDTO();
+    private ChiTietPhieuDTO ChiTiet;
 
     public PhieuDTO() {
     }
@@ -27,6 +27,14 @@ public class PhieuDTO {
         this.MNV = MNV;
         this.ThoiGian = ThoiGian;
         this.TongTien = TongTien;
+    }
+    
+    public PhieuDTO(int MaPhieu, int MNV, Date ThoiGian, long TongTien,ChiTietPhieuDTO ChiTiet) {
+        this.MaPhieu = MaPhieu;
+        this.MNV = MNV;
+        this.ThoiGian = ThoiGian;
+        this.TongTien = TongTien;
+        this.ChiTiet=ChiTiet;
     }
 
     public int getMaPhieu() {
@@ -69,12 +77,12 @@ public class PhieuDTO {
         this.trangthai = trangthai;
     }
 
-    public NhanVienDTO getNVDTO() {
-        return NVDTO;
+    public ChiTietPhieuDTO getChiTiet() {
+        return ChiTiet;
     }
 
-    public void setNVDTO(NhanVienDTO NVDTO) {
-        this.NVDTO = NVDTO;
+    public void setChiTiet(ChiTietPhieuDTO ChiTiet) {
+        this.ChiTiet = ChiTiet;
     }
     
     @Override

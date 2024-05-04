@@ -4,11 +4,17 @@
  */
 package GUI.Dialog;
 
+import BUS.AccountBUS;
+import BUS.CTPhieuNhapBUS;
 import BUS.NhaCungCapBUS;
+import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DTO.AccountDTO;
+import DTO.ChiTietPhieuDTO;
 import DTO.NhaCungCapDTO;
+import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
+import DTO.SoLuongSPDTO;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -21,6 +27,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author ACER
@@ -32,21 +42,26 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
      */
     SanPhamBUS SPBUS = new SanPhamBUS();
     NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
-    ArrayList<SanPhamDTO> listSP = SPBUS.getAll();
+    PhieuNhapBUS PNBUS = new PhieuNhapBUS();
+    ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
     ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
-    ArrayList<SanPhamDTO> listSPPN = new ArrayList<>();
+    ArrayList<SoLuongSPDTO> listSPPN = new ArrayList<>();
     DefaultTableModel model;
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
     AccountDTO myAcc;
-    
+    CTPhieuNhapBUS CTPNBUS = new CTPhieuNhapBUS();
+    long TongTien;
+
     public ThemPhieuNhap(java.awt.Frame parent, boolean modal, AccountDTO myAcc) {
         super(parent, modal);
         initComponents();
-        this.myAcc=myAcc;
+        this.myAcc = myAcc;
         loadData(listSP);
-        model = (DefaultTableModel)CTTbl.getModel();
+        model = (DefaultTableModel) CTTbl.getModel();
+        
+        setEvent();
     }
-    
+
     public void loadData(ArrayList<SanPhamDTO> listSP) {
         //data thông tin
         loadCbbNhaCungCap();
@@ -60,41 +75,76 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
             }
         });
         timer.start();
-        
+
         //data table sản phẩm
         DefaultTableModel tblModel = (DefaultTableModel) DSSPTbl.getModel();
         while (tblModel.getRowCount() > 0) {
             tblModel.removeRow(0);
         }
         for (SanPhamDTO x : listSP) {
-            tblModel.addRow(new Object[] {x.getMasp(),x.getTensp(),x.getSoluongton(),decimalFormat.format(x.getPBSPDTO().getGianhap())});
+            tblModel.addRow(new Object[]{x.getMasp(), x.getTensp(), x.getPBSPDTO().getMaphienbansp(), x.getSoluongton(), decimalFormat.format(x.getPBSPDTO().getGianhap())});
         }
         DSSPTbl.setModel(tblModel);
     }
-    
+
     public void loadCbbNhaCungCap() {
         for (NhaCungCapDTO x : listNCC) {
-            jComboBox1.addItem(x.getTenNCC());
+            cbbNCC.addItem(x.getTenNCC());
         }
     }
-    
+
     public void reloadSPPN() {
         DefaultTableModel tblModel = (DefaultTableModel) CTTbl.getModel();
         while (tblModel.getRowCount() > 0) {
             tblModel.removeRow(0);
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        int TongTien=0;
-        for (SanPhamDTO x : listSPPN) {
-            int ThanhTien=x.getPBSPDTO().getGianhap();
-            TongTien+=ThanhTien;
-            tblModel.addRow(new Object[] {x.getMasp(),x.getTensp(),1,decimalFormat.format(ThanhTien),"Xóa SP"});
+        TongTien = 0;
+        int i = 0;
+        try {
+            for (SoLuongSPDTO x : listSPPN) {
+                long ThanhTien =(long)x.getSP().getPBSPDTO().getGianhap() * x.getSL();
+                TongTien += (long)ThanhTien;
+                tblModel.addRow(new Object[]{x.getSP().getMasp(), x.getSP().getTensp(), x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), decimalFormat.format(x.getSP().getPBSPDTO().getGianhap()), decimalFormat.format(ThanhTien), "Xóa SP"});
+                i++;
+            }
+            CTTbl.setModel(tblModel);
+            TongTienLbl.setText(decimalFormat.format(TongTien)+" (VNĐ) ");
+        } catch (Exception e) {
+            System.out.println("loi cho nay");
         }
-        CTTbl.setModel(tblModel);
-        TongTienLbl.setText(decimalFormat.format(TongTien));
     }
     
-    
+    public void setEvent() {
+        CTTbl.getModel().addTableModelListener(new TableModelListener() {
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    int selectedRow = CTTbl.getSelectedRow();
+                    if (selectedRow >= 0) {
+                        Object temp = CTTbl.getValueAt(CTTbl.getSelectedRow(), 3);
+                        if (temp != null) {
+                            try {
+                                int temp2 = Integer.parseInt(temp.toString());
+                                if (temp2 <= 0) {
+                                    JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
+                                    CTTbl.changeSelection(selectedRow, 3, false, false);
+                                    CTTbl.setValueAt(listSPPN.get(selectedRow).getSL(), selectedRow, 3);
+                                    return;
+                                }
+                                listSPPN.get(selectedRow).setSL(temp2);
+                                reloadSPPN();
+                            } catch (Exception ev) {
+                                JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
+                                CTTbl.changeSelection(selectedRow, 3, false, false);
+                                CTTbl.setValueAt(listSPPN.get(selectedRow).getSL(), selectedRow, 3);
+                            }
+
+                        }
+                    }
+                }
+            }
+        });
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,7 +161,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         nv = new javax.swing.JLabel();
         tg = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbbNCC = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -148,14 +198,14 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "Số lượng tồn", "Giá nhập"
+                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng tồn", "Giá nhập (VNĐ)"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -204,14 +254,14 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "Số lượng nhập", "Giá nhập", "Thành tiền", ""
+                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng nhập", "Giá nhập", "Thành tiền (VNĐ)", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, false
+                false, false, false, true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -220,6 +270,16 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        CTTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CTTblMouseClicked(evt);
+            }
+        });
+        CTTbl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CTTblKeyPressed(evt);
             }
         });
         jScrollPane2.setViewportView(CTTbl);
@@ -250,6 +310,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         jPanel3.add(jLabel7);
 
         TongTienLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TongTienLbl.setText("0 (VNĐ)");
         jPanel3.add(TongTienLbl);
 
         CancelBtn.setBackground(new java.awt.Color(255, 51, 51));
@@ -263,6 +324,11 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
         AddBtn.setBackground(java.awt.Color.blue);
         AddBtn.setText("Thêm");
+        AddBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddBtnActionPerformed(evt);
+            }
+        });
         jPanel3.add(AddBtn);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -290,7 +356,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
                                             .addComponent(nv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(104, 808, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbbNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -316,7 +382,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -332,16 +398,80 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn hủy?") == 0) {
+            this.dispose();
+        }
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void DSSPTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DSSPTblMouseClicked
         // TODO add your handling code here:
         int index = DSSPTbl.getSelectedRow();
-        if(index>=0) {
-            listSPPN.add(listSP.get(index));
+        if (index >= 0) {
+            for (SoLuongSPDTO x : listSPPN) {
+                if (listSP.get(index).equals(x.getSP())) {
+                    JOptionPane.showMessageDialog(null, "Bạn đã thêm sản phẩm này rồi");
+                    return;
+                }
+            }
+            listSPPN.add(new SoLuongSPDTO(listSP.get(index), 1));
             reloadSPPN();
         }
     }//GEN-LAST:event_DSSPTblMouseClicked
+
+    private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thêm phiếu nhập?") == 0) {
+            //check data
+            if(listSPPN.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Phiếu nhập rỗng!");
+                return;
+            }
+            //insert vào database
+            
+            int MaNCC = listNCC.get(cbbNCC.getSelectedIndex()).getMaNCC();
+            int MaNV = myAcc.getMaNV();
+            for(SoLuongSPDTO x : listSPPN) {
+                if(CTPNBUS.add(new ChiTietPhieuDTO(55, x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), x.getSP().getPBSPDTO().getGianhap(), 1))==false) {
+                    JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
+                    return;
+                }
+            }
+            if(PNBUS.add(new PhieuNhapDTO(MaNCC, 55, MaNV, new Date(), TongTien))==false) {
+                JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "Thêm thành công", "Thành công", JOptionPane.OK_OPTION);
+            this.dispose();
+        }
+    }//GEN-LAST:event_AddBtnActionPerformed
+
+    private void CTTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CTTblMouseClicked
+        // TODO add your handling code here:
+        if (CTTbl.getSelectedColumn() == CTTbl.getColumnCount() - 1) {
+            listSPPN.remove(CTTbl.getSelectedRow());
+            reloadSPPN();
+        }
+    }//GEN-LAST:event_CTTblMouseClicked
+
+    private void CTTblKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CTTblKeyPressed
+        // TODO add your handling code here:
+        int selectedRow = CTTbl.getSelectedRow();
+        System.out.println("selected row = " + selectedRow);
+        if (selectedRow >= 0 && selectedRow < CTTbl.getRowCount()) {
+            Object temp = CTTbl.getValueAt(CTTbl.getSelectedRow(), 3);
+            if (temp != null) {
+                int temp2 = Integer.parseInt(temp.toString());
+                if (temp2 <= 0) {
+                    JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
+                    CTTbl.setValueAt(listSPPN.get(selectedRow).getSL(), selectedRow, 3);
+                    return;
+                }
+                listSPPN.get(selectedRow).setSL(temp2);
+                System.out.println(listSPPN.toString());
+                reloadSPPN();
+            }
+        }
+    }//GEN-LAST:event_CTTblKeyPressed
 
     /**
      * @param args the command line arguments
@@ -353,7 +483,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     private javax.swing.JButton CancelBtn;
     private javax.swing.JTable DSSPTbl;
     private javax.swing.JLabel TongTienLbl;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbbNCC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;

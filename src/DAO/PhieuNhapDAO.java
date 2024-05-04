@@ -42,7 +42,8 @@ public class PhieuNhapDAO implements DAO_Interface<PhieuNhapDTO> {
             String sql = "INSERT INTO phieunhap VALUES(? , ? , ? , ? , ? , 1);";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, t.getMaPhieu());
-            pst.setDate(2, (java.sql.Date) t.getThoiGian());
+            Timestamp timestamp = new Timestamp(t.getThoiGian().getTime());
+            pst.setTimestamp(2, timestamp);
             pst.setInt(3, t.getNCC());
             pst.setInt(4, t.getMNV());
             pst.setLong(5, t.getTongTien());

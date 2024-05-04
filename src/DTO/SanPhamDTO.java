@@ -278,6 +278,9 @@ public class SanPhamDTO {
         if (this.masp != other.masp) {
             return false;
         }
+        if (!Objects.equals(this.PBSPDTO, other.PBSPDTO)) {
+            return false;
+        }
         if (this.xuatxu != other.xuatxu) {
             return false;
         }

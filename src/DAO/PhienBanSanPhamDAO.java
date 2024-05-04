@@ -159,6 +159,8 @@ public class PhienBanSanPhamDAO implements DAO_Interface<PhienBanSanPhamDTO>{
                 int mausac = rs.getInt("mausac");
                 int rom = rs.getInt("rom");
                 int gianhap = rs.getInt("gianhap");
+                int i=0;
+                System.out.println("stt "+ i++ + gianhap);
                 int giaxuat = rs.getInt("giaxuat");
                 int soluongton = rs.getInt("soluongton");
                 ketqua.add(new PhienBanSanPhamDTO(maphienbansp,masp,ram,rom,mausac,gianhap,giaxuat,soluongton));

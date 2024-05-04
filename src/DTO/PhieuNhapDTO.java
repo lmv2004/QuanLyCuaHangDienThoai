@@ -26,6 +26,11 @@ public class PhieuNhapDTO extends PhieuDTO{
         super(MaPhieu, MNV, ThoiGian, TongTien);
         this.NCC = NCC;
     }
+    
+    public PhieuNhapDTO(int NCC, int MaPhieu, int MNV, Date ThoiGian, long TongTien,ChiTietPhieuDTO ChiTiet) {
+        super(MaPhieu, MNV, ThoiGian, TongTien,ChiTiet);
+        this.NCC = NCC;
+    }
 
     public int getNCC() {
         return NCC;
