@@ -152,7 +152,6 @@
                     <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
                       <Connection code="new FlatSVGIcon(&quot;img/customer.svg&quot;,50,50)" type="code"/>
                     </Property>
-                    <Property name="text" type="java.lang.String" value="Kh&#xe1;ch h&#xe0;ng t&#x1eeb; tr&#x1b0;&#x1edb;c &#x111;&#x1ebf;n nay"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -259,6 +258,7 @@
                         </Column>
                       </TableColumnModel>
                     </Property>
+                    <Property name="enabled" type="boolean" value="false"/>
                     <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                       <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                     </Property>
@@ -384,7 +384,10 @@
                 </Component>
                 <Component class="javax.swing.JTextField" name="jTextField1">
                   <Events>
+                    <EventHandler event="focusLost" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField1FocusLost"/>
+                    <EventHandler event="mouseReleased" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField1MouseReleased"/>
                     <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+                    <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="jTextField1KeyPressed"/>
                   </Events>
                 </Component>
                 <Component class="javax.swing.JLabel" name="jLabel5">
@@ -500,6 +503,7 @@
                             </Column>
                           </TableColumnModel>
                         </Property>
+                        <Property name="enabled" type="boolean" value="false"/>
                         <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                           <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                         </Property>
@@ -718,6 +722,9 @@
                       </Layout>
                     </Container>
                     <Container class="javax.swing.JScrollPane" name="jScrollPane8">
+                      <Properties>
+                        <Property name="enabled" type="boolean" value="false"/>
+                      </Properties>
 
                       <Layout class="org.netbeans.modules.form.compat2.layouts.support.JScrollPaneSupportLayout"/>
                       <SubComponents>
@@ -924,6 +931,7 @@
                                 </Column>
                               </TableColumnModel>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>
@@ -1137,6 +1145,7 @@
                                 </Column>
                               </TableColumnModel>
                             </Property>
+                            <Property name="enabled" type="boolean" value="false"/>
                             <Property name="tableHeader" type="javax.swing.table.JTableHeader" editor="org.netbeans.modules.form.editors2.JTableHeaderEditor">
                               <TableHeader reorderingAllowed="true" resizingAllowed="true"/>
                             </Property>

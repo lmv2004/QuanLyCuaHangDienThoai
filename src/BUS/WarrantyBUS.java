@@ -57,7 +57,7 @@ public class WarrantyBUS {
         while (model.getRowCount() > 0) {
             model.removeRow(0);
         }
-
+        
         int i = 1;
         for (WarrantyDTO warranty : data) {
             Vector vector = new Vector();

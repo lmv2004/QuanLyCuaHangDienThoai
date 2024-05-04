@@ -23,6 +23,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.beans.PropertyChangeEvent;
@@ -34,6 +35,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -434,7 +437,6 @@ public class ThongKe extends javax.swing.JPanel {
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel1.setIcon(new FlatSVGIcon("img/customer.svg",50,50));
-        jLabel1.setText("Khách hàng từ trước đến nay");
 
         javax.swing.GroupLayout jPanel7Layout = new javax.swing.GroupLayout(jPanel7);
         jPanel7.setLayout(jPanel7Layout);
@@ -497,6 +499,7 @@ public class ThongKe extends javax.swing.JPanel {
                 "Ngày", "Vốn", "Doanh thu", "Lợi nhuận"
             }
         ));
+        jTable1.setEnabled(false);
         jScrollPane1.setViewportView(jTable1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 450, 1180, 240));
@@ -507,9 +510,24 @@ public class ThongKe extends javax.swing.JPanel {
 
         jLabel4.setText("Tìm kiếm sản phẩm");
 
+        jTextField1.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                jTextField1FocusLost(evt);
+            }
+        });
+        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                jTextField1MouseReleased(evt);
+            }
+        });
         jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jTextField1ActionPerformed(evt);
+            }
+        });
+        jTextField1.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                jTextField1KeyPressed(evt);
             }
         });
 
@@ -597,6 +615,7 @@ public class ThongKe extends javax.swing.JPanel {
                 "Mã Sp", "Tên sản phẩm", "Tồn đầu kì", "Nhập trong kì", "Xuất trong kì", "Tồn cuối kì"
             }
         ));
+        jTable2.setEnabled(false);
         jScrollPane2.setViewportView(jTable2);
         if (jTable2.getColumnModel().getColumnCount() > 0) {
             jTable2.getColumnModel().getColumn(0).setPreferredWidth(1);
@@ -729,6 +748,8 @@ public class ThongKe extends javax.swing.JPanel {
             .addGap(0, 300, Short.MAX_VALUE)
         );
 
+        jScrollPane8.setEnabled(false);
+
         jTable5.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -823,6 +844,7 @@ public class ThongKe extends javax.swing.JPanel {
                 "Tháng", "Chi phí", "Doanh thu", "Lợi nhuận"
             }
         ));
+        jTable6.setEnabled(false);
         jScrollPane6.setViewportView(jTable6);
 
         javax.swing.GroupLayout jPanel13Layout = new javax.swing.GroupLayout(jPanel13);
@@ -930,6 +952,7 @@ public class ThongKe extends javax.swing.JPanel {
                 "Ngày", "Chi phí", "Doanh thu", "Lợi nhuận"
             }
         ));
+        jTable7.setEnabled(false);
         jScrollPane7.setViewportView(jTable7);
 
         javax.swing.GroupLayout jPanel14Layout = new javax.swing.GroupLayout(jPanel14);
@@ -1229,9 +1252,20 @@ public class ThongKe extends javax.swing.JPanel {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String tensp = jTextField1.getText();
         Date time_start = jDateChooser5.getDate();
-        Date time_end = jDateChooser6.getDate();      
-        listTonKho = new ThongKeBUS().filterTonKho(tensp, time_start, time_end); 
-        loadDataTonKho(listTonKho);
+        Date time_end = jDateChooser6.getDate();
+        
+        if (!tensp.equals("") && !time_start.equals(null) && !time_end.equals(null)) {
+            if (time_start.getTime() < time_end.getTime()) {
+                listTonKho = new ThongKeBUS().filterTonKho(tensp, time_start, time_end);
+                loadDataTonKho(listTonKho);
+            } else {
+                JOptionPane.showMessageDialog(this, "Ngày bắt đầu phải bé hơn ngày kết thúc");
+            }
+        }  else {
+            JOptionPane.showMessageDialog(this, "Vui lòng nhập đủ dữ liệu");
+        }
+        
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1271,6 +1305,34 @@ public class ThongKe extends javax.swing.JPanel {
         jDateChooser3.setCalendar(null);
         jDateChooser4.setCalendar(null);
     }//GEN-LAST:event_jButton6ActionPerformed
+
+    private void jTextField1MouseReleased(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseReleased
+        
+    }//GEN-LAST:event_jTextField1MouseReleased
+
+    private void jTextField1FocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField1FocusLost
+       
+    }//GEN-LAST:event_jTextField1FocusLost
+
+    private void jTextField1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jTextField1KeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String tensp = jTextField1.getText();
+
+            if (tensp.isEmpty()) {
+                JOptionPane.showMessageDialog(ThongKe.this, "Vui lòng nhập tên sản phẩm.");
+                return;
+            }
+
+            // Allow spaces and potentially Vietnamese characters
+            Pattern pattern = Pattern.compile("^[a-zA-Z]+$");  // Adjust for Vietnamese characters
+            Matcher matcher = pattern.matcher(tensp);
+
+            if (!matcher.matches()) {
+                JOptionPane.showMessageDialog(ThongKe.this, "Tên sản phẩm chỉ được chứa chữ cái (có thể có dấu) và khoảng trắng.");
+                jTextField1.setText("");
+            }
+        }
+    }//GEN-LAST:event_jTextField1KeyPressed
     
     
 
