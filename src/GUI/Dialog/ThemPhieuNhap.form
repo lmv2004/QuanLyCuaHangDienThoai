@@ -193,7 +193,7 @@
                     <Column editable="false" title="T&#xea;n SP" type="java.lang.String"/>
                     <Column editable="false" title="M&#xe3; PBSP" type="java.lang.Integer"/>
                     <Column editable="false" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng t&#x1ed3;n" type="java.lang.Integer"/>
-                    <Column editable="false" title="Gi&#xe1; nh&#x1ead;p" type="java.lang.Integer"/>
+                    <Column editable="false" title="Gi&#xe1; nh&#x1ead;p (VN&#x110;)" type="java.lang.Integer"/>
                   </Table>
                 </Property>
               </Properties>
@@ -255,13 +255,14 @@
                     <Column editable="false" title="M&#xe3; PBSP" type="java.lang.Integer"/>
                     <Column editable="true" title="S&#x1ed1; l&#x1b0;&#x1ee3;ng nh&#x1ead;p" type="java.lang.Object"/>
                     <Column editable="false" title="Gi&#xe1; nh&#x1ead;p" type="java.lang.Integer"/>
-                    <Column editable="false" title="Th&#xe0;nh ti&#x1ec1;n" type="java.lang.Integer"/>
+                    <Column editable="false" title="Th&#xe0;nh ti&#x1ec1;n (VN&#x110;)" type="java.lang.Integer"/>
                     <Column editable="false" title="" type="java.lang.String"/>
                   </Table>
                 </Property>
               </Properties>
               <Events>
                 <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="CTTblMouseClicked"/>
+                <EventHandler event="keyPressed" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="CTTblKeyPressed"/>
               </Events>
             </Component>
           </SubComponents>
@@ -285,6 +286,7 @@
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Segoe UI" size="14" style="1"/>
             </Property>
+            <Property name="text" type="java.lang.String" value="0 (VN&#x110;)"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="CancelBtn">

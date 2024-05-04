@@ -9,6 +9,7 @@ import BUS.SanPhamBUS;
 import DTO.AccountDTO;
 import DTO.NhaCungCapDTO;
 import DTO.SanPhamDTO;
+import DTO.SoLuongSPDTO;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
@@ -38,8 +39,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
     ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
     ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
-    ArrayList<SanPhamDTO> listSPPN = new ArrayList<>();
-    ArrayList<Integer> soluongnhap = new ArrayList<>();
+    ArrayList<SoLuongSPDTO> listSPPN = new ArrayList<>();
     DefaultTableModel model;
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
     AccountDTO myAcc;
@@ -50,26 +50,8 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         this.myAcc = myAcc;
         loadData(listSP);
         model = (DefaultTableModel) CTTbl.getModel();
-
-        model.addTableModelListener(new TableModelListener() {
-            @Override
-            public void tableChanged(TableModelEvent e) {
-                int selectedRow = CTTbl.getSelectedRow();
-                if (selectedRow >= 0 && selectedRow < CTTbl.getRowCount()) {
-                    Object temp = CTTbl.getValueAt(CTTbl.getSelectedRow(), 3);
-                    if (temp != null) {
-                        int temp2 = Integer.parseInt(temp.toString());
-                        if (temp2 <= 0) {
-                            JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
-                            return;
-                        }
-                        soluongnhap.set(selectedRow, temp2);
-                        reloadSPPN();
-                    }
-                }
-            }
-        });
-
+        
+        setEvent();
     }
 
     public void loadData(ArrayList<SanPhamDTO> listSP) {
@@ -109,20 +91,51 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
             tblModel.removeRow(0);
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        int TongTien = 0;
+        long TongTien = 0;
         int i = 0;
         try {
-            for (SanPhamDTO x : listSPPN) {
-                int ThanhTien = x.getPBSPDTO().getGianhap() * soluongnhap.get(i);
-                TongTien += ThanhTien;
-                tblModel.addRow(new Object[]{x.getMasp(), x.getTensp(), x.getPBSPDTO().getMaphienbansp(), soluongnhap.get(i), decimalFormat.format(x.getPBSPDTO().getGianhap()), decimalFormat.format(ThanhTien), "Xóa SP"});
+            for (SoLuongSPDTO x : listSPPN) {
+                long ThanhTien =(long)x.getSP().getPBSPDTO().getGianhap() * x.getSL();
+                TongTien += (long)ThanhTien;
+                tblModel.addRow(new Object[]{x.getSP().getMasp(), x.getSP().getTensp(), x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), decimalFormat.format(x.getSP().getPBSPDTO().getGianhap()), decimalFormat.format(ThanhTien), "Xóa SP"});
                 i++;
             }
             CTTbl.setModel(tblModel);
-            TongTienLbl.setText(decimalFormat.format(TongTien));
+            TongTienLbl.setText(decimalFormat.format(TongTien)+" (VNĐ) ");
         } catch (Exception e) {
             System.out.println("loi cho nay");
         }
+    }
+    
+    public void setEvent() {
+        CTTbl.getModel().addTableModelListener(new TableModelListener() {
+            public void tableChanged(TableModelEvent e) {
+                if (e.getType() == TableModelEvent.UPDATE) {
+                    int selectedRow = CTTbl.getSelectedRow();
+                    if (selectedRow >= 0) {
+                        Object temp = CTTbl.getValueAt(CTTbl.getSelectedRow(), 3);
+                        if (temp != null) {
+                            try {
+                                int temp2 = Integer.parseInt(temp.toString());
+                                if (temp2 <= 0) {
+                                    JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
+                                    CTTbl.changeSelection(selectedRow, 3, false, false);
+                                    CTTbl.setValueAt(listSPPN.get(selectedRow).getSL(), selectedRow, 3);
+                                    return;
+                                }
+                                listSPPN.get(selectedRow).setSL(temp2);
+                                reloadSPPN();
+                            } catch (Exception ev) {
+                                JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
+                                CTTbl.changeSelection(selectedRow, 3, false, false);
+                                CTTbl.setValueAt(listSPPN.get(selectedRow).getSL(), selectedRow, 3);
+                            }
+
+                        }
+                    }
+                }
+            }
+        });
     }
 
     /**
@@ -177,7 +190,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng tồn", "Giá nhập"
+                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng tồn", "Giá nhập (VNĐ)"
             }
         ) {
             Class[] types = new Class [] {
@@ -233,7 +246,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng nhập", "Giá nhập", "Thành tiền", ""
+                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng nhập", "Giá nhập", "Thành tiền (VNĐ)", ""
             }
         ) {
             Class[] types = new Class [] {
@@ -254,6 +267,11 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         CTTbl.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 CTTblMouseClicked(evt);
+            }
+        });
+        CTTbl.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                CTTblKeyPressed(evt);
             }
         });
         jScrollPane2.setViewportView(CTTbl);
@@ -284,6 +302,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         jPanel3.add(jLabel7);
 
         TongTienLbl.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        TongTienLbl.setText("0 (VNĐ)");
         jPanel3.add(TongTienLbl);
 
         CancelBtn.setBackground(new java.awt.Color(255, 51, 51));
@@ -380,14 +399,13 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         // TODO add your handling code here:
         int index = DSSPTbl.getSelectedRow();
         if (index >= 0) {
-            for (SanPhamDTO x : listSPPN) {
-                if (listSP.get(index).equals(x)) {
+            for (SoLuongSPDTO x : listSPPN) {
+                if (listSP.get(index).equals(x.getSP())) {
                     JOptionPane.showMessageDialog(null, "Bạn đã thêm sản phẩm này rồi");
                     return;
                 }
             }
-            listSPPN.add(listSP.get(index));
-            soluongnhap.add(1);
+            listSPPN.add(new SoLuongSPDTO(listSP.get(index), 1));
             reloadSPPN();
         }
     }//GEN-LAST:event_DSSPTblMouseClicked
@@ -408,6 +426,26 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
             reloadSPPN();
         }
     }//GEN-LAST:event_CTTblMouseClicked
+
+    private void CTTblKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_CTTblKeyPressed
+        // TODO add your handling code here:
+        int selectedRow = CTTbl.getSelectedRow();
+        System.out.println("selected row = " + selectedRow);
+        if (selectedRow >= 0 && selectedRow < CTTbl.getRowCount()) {
+            Object temp = CTTbl.getValueAt(CTTbl.getSelectedRow(), 3);
+            if (temp != null) {
+                int temp2 = Integer.parseInt(temp.toString());
+                if (temp2 <= 0) {
+                    JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
+                    CTTbl.setValueAt(listSPPN.get(selectedRow).getSL(), selectedRow, 3);
+                    return;
+                }
+                listSPPN.get(selectedRow).setSL(temp2);
+                System.out.println(listSPPN.toString());
+                reloadSPPN();
+            }
+        }
+    }//GEN-LAST:event_CTTblKeyPressed
 
     /**
      * @param args the command line arguments
