@@ -374,7 +374,7 @@
                   </Group>
                   <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
                   <Component id="ThanhToanBtn" min="-2" pref="34" max="-2" attributes="0"/>
-                  <EmptySpace pref="220" max="32767" attributes="0"/>
+                  <EmptySpace pref="236" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

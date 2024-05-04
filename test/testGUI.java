@@ -1,5 +1,7 @@
 
+import BUS.KhachHangBUS;
 import BUS.SanPhamBUS;
+import DTO.KhachHangDTO;
 import DTO.SanPhamDTO;
 import GUI.BanHangGUI;
 import java.util.ArrayList;
@@ -13,5 +15,10 @@ public class testGUI {
 //            System.out.println(sanpham+"\n");
 //        }
 //        System.out.println(listsp.size());
+//KhachHangBUS KHBUS=new KhachHangBUS();
+//ArrayList<KhachHangDTO> list=KHBUS.getAllKhachHang();
+//for(KhachHangDTO kh:list){
+//    System.out.println(kh+"\n");
+//}
     }
 }
