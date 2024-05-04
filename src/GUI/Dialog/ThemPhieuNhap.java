@@ -4,10 +4,15 @@
  */
 package GUI.Dialog;
 
+import BUS.AccountBUS;
+import BUS.CTPhieuNhapBUS;
 import BUS.NhaCungCapBUS;
+import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DTO.AccountDTO;
+import DTO.ChiTietPhieuDTO;
 import DTO.NhaCungCapDTO;
+import DTO.PhieuNhapDTO;
 import DTO.SanPhamDTO;
 import DTO.SoLuongSPDTO;
 import java.text.DecimalFormat;
@@ -37,12 +42,15 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
      */
     SanPhamBUS SPBUS = new SanPhamBUS();
     NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
+    PhieuNhapBUS PNBUS = new PhieuNhapBUS();
     ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
     ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
     ArrayList<SoLuongSPDTO> listSPPN = new ArrayList<>();
     DefaultTableModel model;
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
     AccountDTO myAcc;
+    CTPhieuNhapBUS CTPNBUS = new CTPhieuNhapBUS();
+    long TongTien;
 
     public ThemPhieuNhap(java.awt.Frame parent, boolean modal, AccountDTO myAcc) {
         super(parent, modal);
@@ -81,7 +89,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
     public void loadCbbNhaCungCap() {
         for (NhaCungCapDTO x : listNCC) {
-            jComboBox1.addItem(x.getTenNCC());
+            cbbNCC.addItem(x.getTenNCC());
         }
     }
 
@@ -91,7 +99,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
             tblModel.removeRow(0);
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        long TongTien = 0;
+        TongTien = 0;
         int i = 0;
         try {
             for (SoLuongSPDTO x : listSPPN) {
@@ -153,7 +161,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         nv = new javax.swing.JLabel();
         tg = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        cbbNCC = new javax.swing.JComboBox<>();
         jPanel1 = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
@@ -348,7 +356,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
                                             .addComponent(nv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGap(104, 808, Short.MAX_VALUE))
                                     .addGroup(layout.createSequentialGroup()
-                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbbNCC, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(0, 0, Short.MAX_VALUE))))
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -374,7 +382,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
-                    .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbbNCC, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -413,8 +421,26 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
         // TODO add your handling code here:
         if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thêm phiếu nhập?") == 0) {
+            //check data
+            if(listSPPN.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Phiếu nhập rỗng!");
+                return;
+            }
             //insert vào database
-
+            
+            int MaNCC = listNCC.get(cbbNCC.getSelectedIndex()).getMaNCC();
+            int MaNV = myAcc.getMaNV();
+            for(SoLuongSPDTO x : listSPPN) {
+                if(CTPNBUS.add(new ChiTietPhieuDTO(55, x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), x.getSP().getPBSPDTO().getGianhap(), 1))==false) {
+                    JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
+                    return;
+                }
+            }
+            if(PNBUS.add(new PhieuNhapDTO(MaNCC, 55, MaNV, new Date(), TongTien))==false) {
+                JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
+                return;
+            }
+            JOptionPane.showMessageDialog(null, "Thêm thành công", "Thành công", JOptionPane.OK_OPTION);
             this.dispose();
         }
     }//GEN-LAST:event_AddBtnActionPerformed
@@ -457,7 +483,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     private javax.swing.JButton CancelBtn;
     private javax.swing.JTable DSSPTbl;
     private javax.swing.JLabel TongTienLbl;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> cbbNCC;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
