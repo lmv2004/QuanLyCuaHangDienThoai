@@ -61,7 +61,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
         
         //đỏ dữ liệu
         this.myAcc = myAcc;
-        lblName.setText(this.myAcc.getTaiKhoan().toUpperCase());
+        lblName.setText(new BUS.NhanVienBUS().getNameByID(this.myAcc.getMaNV()).toUpperCase());
         lblVitri.setText("ADMIN");
     }
 

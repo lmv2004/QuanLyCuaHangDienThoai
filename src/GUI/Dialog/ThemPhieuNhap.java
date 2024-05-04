@@ -18,6 +18,8 @@ import javax.swing.table.TableCellRenderer;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 /**
  *
  * @author ACER
@@ -46,6 +48,15 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     public void loadData(ArrayList<SanPhamDTO> listSP) {
         //data thông tin
         loadCbbNhaCungCap();
+        //thời gian
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                tg.setText(sdf.format(new Date()));
+            }
+        });
+        timer.start();
         
         //data table sản phẩm
         DefaultTableModel tblModel = (DefaultTableModel) DSSPTbl.getModel();
