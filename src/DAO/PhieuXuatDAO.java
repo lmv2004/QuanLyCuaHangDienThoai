@@ -143,7 +143,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
     }
 
     
-    public PhieuXuatDTO selectById(int ID) {
+    public PhieuXuatDTO selectByID(int ID) {
         PhieuXuatDTO ketqua = null;
         try {
             Connection con = JDBCConnection.getJDBCConnection();

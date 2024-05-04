@@ -1,60 +1,62 @@
 package GUI;
 
+import BUS.CTPhieuXuatBUS;
 import BUS.KhachHangBUS;
+import BUS.PhienBanSanPhamBUS;
 import BUS.PhieuXuatBUS;
 import BUS.SanPhamBUS;
+import DTO.ChiTietPhieuDTO;
 import DTO.KhachHangDTO;
 import DTO.PhieuXuatDTO;
 import DTO.SanPhamDTO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import static java.lang.System.currentTimeMillis;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import javax.swing.*;
 import java.util.ArrayList;
 import javax.swing.table.*;
 
-import java.sql.Timestamp;
 
 public class BanHangGUI extends javax.swing.JPanel {
 
     DefaultTableModel modelSPBan, modelGiohang;
     PhieuXuatBUS PXBUS = new PhieuXuatBUS();
     ArrayList<PhieuXuatDTO> ListPX = PXBUS.getAll();
+    CTPhieuXuatBUS CTPXBUS= new CTPhieuXuatBUS();
     KhachHangBUS KHBUS = new KhachHangBUS();
     ArrayList<KhachHangDTO> ListKH = KHBUS.getAllKhachHang();
     SanPhamBUS SPBUS = new SanPhamBUS();
     ArrayList<SanPhamDTO> ListSP = SPBUS.getAllSanPhamAttribute();
+    PhienBanSanPhamBUS PBSP = new PhienBanSanPhamBUS();
     DecimalFormat dfThapPhan = new DecimalFormat("0.00");
     DecimalFormat dfGiaTien = new DecimalFormat("###,###,### VNĐ");
     ArrayList<Integer> ClickCounts;
-
+   
     public BanHangGUI() {
         initComponents();
         //function.placeHolder(SearchTf, "Tìm kiếm...");
         modelSPBan = (DefaultTableModel) SPBanTable.getModel();
         modelGiohang = (DefaultTableModel) GioHangTable.getModel();
-        loaddata();
+        loaddata(ListSP);
         designColumsTabelSPBan(SPBanTable);
         designColumsTabelSPBan(GioHangTable);
         TrangThaiBanDauAttribute();
     }
 
     // tải data len table
-    public void loaddata() {
-        for (SanPhamDTO sp : ListSP) {
+    public void loaddata(ArrayList<SanPhamDTO> arrayList) {
+        for (SanPhamDTO sp : arrayList) {
             modelSPBan.addRow(new Object[]{
                 sp.getMasp(),
                 sp.getTensp(),
-                sp.getSoluongton(),
+                sp.getPBSPDTO().getSoluongton(),
                 sp.getPBSPDTO().getGiaxuat(),
                 sp.getMSDTO().getTenmau(),
                 "Xem chi tiết"
             });
         }
-       
         SPBanTable.setModel(modelSPBan);
         ClickCounts = new ArrayList<>(SPBanTable.getRowCount());
         for (int i = 0; i < SPBanTable.getRowCount(); i++) {
@@ -461,16 +463,15 @@ public class BanHangGUI extends javax.swing.JPanel {
                     rowData[column] = modelSPBan.getValueAt(row, column);
                 }
                 updateDetailPanel(rowData);
-            } 
-             // thực hiện  chức năng mua hàng
+            } // thực hiện  chức năng mua hàng
             else if (col < 5) {
-                 
+
                 // khi nào tạo hóa đơn thì mới được mua hàng
                 if (TaoHD_Btn.isEnabled() == false) {
                     int clickCount = ClickCounts.get(row);
                     clickCount++;
-                    ClickCounts.set(row, clickCount);                 
-                    int Updatevalue = (int) SPBanTable.getModel().getValueAt(row, 2);                
+                    ClickCounts.set(row, clickCount);
+                    int Updatevalue = (int) SPBanTable.getModel().getValueAt(row, 2);
                     if (Updatevalue > 0) {
                         SPBanTable.setValueAt((Updatevalue - 1), row, 2);
                         int masp = (int) SPBanTable.getModel().getValueAt(row, 0);
@@ -496,6 +497,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                                 rowData[2] = clickCount;
                             }
                             CheckGiohang(rowData);
+
                         }
                         PrintTongtien();
                     } else {
@@ -549,35 +551,46 @@ public class BanHangGUI extends javax.swing.JPanel {
         TenKH_TF.setEnabled(true);
         SDT_TF.setEnabled(true);
         int MaHD = ListPX.size();
-        for (PhieuXuatDTO px : ListPX) {
-            if (px.getMaPhieu() == MaHD) {
-                MaHD++;
+        while (true) {            
+            if(PXBUS.getID(MaHD)!=null){
+            MaHD++;
             }
+            else break;
         }
-        MaHD_TF.setText(MaHD + "");
-
+        
+        MaHD_TF.setText(MaHD+"");
     }//GEN-LAST:event_TaoHD_BtnActionPerformed
 
     private void ThanhToanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThanhToanBtnActionPerformed
         // Lấy dữ liệu từ giỏ hàng và thông tin KH để tạo Hóa đơn trong database
-        int maHD=Integer.parseInt(MaHD_TF.getText());        
-         LocalDateTime localDateTime = LocalDateTime.now();
-         java.sql.Date ngayMua = java.sql.Date.valueOf(localDateTime.toLocalDate());              
-         String SDT=SDT_TF.getText().trim();
-         String TenKH=TenKH_TF.getText().trim();
-         int MaKH=0;
-         for(KhachHangDTO kh:ListKH){
-             if(kh.getSDT().equals(SDT) && kh.getTenKhachHang().equals(TenKH)){
-                 MaKH=kh.getMaKhachHang();
-             }
-         }
-          String tongTienStr = DisplayTongTienLabel.getText().replaceAll("[,VNĐ]","").trim();
-         int TongTien=Integer.parseInt(tongTienStr);
-         
-         if(PXBUS.add(new PhieuXuatDTO(MaKH, maHD, 1, ngayMua, TongTien))==true){
-             JOptionPane.showMessageDialog(null, "Mua hàng thành công!");
-             resetAttribute();
-         }
+        int maHD = Integer.parseInt(MaHD_TF.getText());
+        LocalDateTime localDateTime = LocalDateTime.now();
+        java.sql.Date ngayMua = java.sql.Date.valueOf(localDateTime.toLocalDate());
+        String SDT = SDT_TF.getText().trim();
+        String TenKH = TenKH_TF.getText().trim();
+        int MaKH = 0;
+        for (KhachHangDTO kh : ListKH) {
+            if (kh.getSDT().equals(SDT) && kh.getTenKhachHang().equals(TenKH)) {
+                MaKH = kh.getMaKhachHang();
+            }
+        }
+        String tongTienStr = DisplayTongTienLabel.getText().replaceAll("[,VNĐ]", "").trim();
+        int TongTien = Integer.parseInt(tongTienStr);
+        
+        // add vào database Phiếu xuất
+        if (PXBUS.add(new PhieuXuatDTO(MaKH, maHD, 1, ngayMua, TongTien)) == true) {
+            JOptionPane.showMessageDialog(null, "Mua hàng thành công!");
+            //CTPXBUS.add(new ChiTietPhieuDTO(maHD, , SOMEBITS, TongTien))
+            for (int i = 0; i < ListSP.size(); i++) {
+                int soLuongBan = Integer.parseInt(SPBanTable.getModel().getValueAt(i, 2).toString());
+                ListSP.get(i).getPBSPDTO().setSoluongton(soLuongBan);
+            }
+            // cập nhật lại số lượng bên table Phiên bản sp
+            PBSP.updateSLTon(ListSP);
+            loaddata(ListSP);
+
+            resetAttribute();
+        }
     }//GEN-LAST:event_ThanhToanBtnActionPerformed
 
     private void HuyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HuyBtnActionPerformed
@@ -655,13 +668,13 @@ public class BanHangGUI extends javax.swing.JPanel {
 
                 LocalDateTime localDateTime = LocalDateTime.now();
                 java.sql.Date ngayThamGia = java.sql.Date.valueOf(localDateTime.toLocalDate());
-                
+
                 for (KhachHangDTO Kh : ListKH) {
                     if (Kh.getMaKhachHang() == MaKH) {
                         MaKH++;
                     }
                 }
-                if(KHBUS.add(new KhachHangDTO(MaKH, tenKh, "", SDT, 1, ngayThamGia))==true){
+                if (KHBUS.add(new KhachHangDTO(MaKH, tenKh, "", SDT, 1, ngayThamGia)) == true) {
                     JOptionPane.showMessageDialog(null, "thêm khách hàng thành công");
                     TenKH_TF.setEnabled(false);
                     SDT_TF.setEnabled(false);
@@ -677,8 +690,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         int giaban = Integer.parseInt(rowData[3].toString());
         for (SanPhamDTO sp : ListSP) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
-                displayAdditionalDetails(sp);
-                System.out.println(sp);
+                displayAdditionalDetails(sp);              
                 break;
             }
         }
@@ -759,7 +771,8 @@ public class BanHangGUI extends javax.swing.JPanel {
         for (SanPhamDTO sp : ListSP) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
                 addGiohang(sp, count);
-                break;
+                
+                
             }
         }
     }
@@ -806,7 +819,9 @@ public class BanHangGUI extends javax.swing.JPanel {
             DisplayTongTienLabel.setText("0 VNĐ");
         }
     }
-
+    private void getSPTableGioHang(){
+        
+    }
     private void TraLaiTien() {
 
         if (KhachDua_TF.getText().isEmpty()) {

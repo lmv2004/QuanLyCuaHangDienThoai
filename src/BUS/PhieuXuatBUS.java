@@ -15,7 +15,7 @@ import javax.swing.table.DefaultTableModel;
 
 public class PhieuXuatBUS {
     static PhieuXuatDAO PXDAO=new PhieuXuatDAO();
-
+    
     public PhieuXuatBUS() {
     }
     public ArrayList<PhieuXuatDTO> getAll(){
@@ -27,5 +27,7 @@ public class PhieuXuatBUS {
         }
         return false;
     }
-    
+    public PhieuXuatDTO getID(int ID){
+        return PXDAO.selectByID(ID);
+    }
 }

@@ -18,6 +18,13 @@ public class ChiTietPhieuDTO {
     public ChiTietPhieuDTO() {
     }
 
+    public ChiTietPhieuDTO(int MaPhieu, int MPBSP, int SoLuong, long DonGia) {
+        this.MaPhieu = MaPhieu;
+        this.MPBSP = MPBSP;
+        this.SoLuong = SoLuong;
+        this.DonGia = DonGia;
+    }
+
     public ChiTietPhieuDTO(int MaPhieu, int MPBSP, int SoLuong, long DonGia, int hinhthuc) {
         this.MaPhieu = MaPhieu;
         this.MPBSP = MPBSP;

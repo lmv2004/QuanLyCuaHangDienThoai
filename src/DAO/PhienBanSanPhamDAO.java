@@ -3,6 +3,7 @@ package DAO;
 
 import DTO.ChiTietSanPhamDTO;
 import DTO.PhienBanSanPhamDTO;
+import DTO.SanPhamDTO;
 import java.sql.*;
 import java.util.ArrayList;
 public class PhienBanSanPhamDAO implements DAO_Interface<PhienBanSanPhamDTO>{
@@ -85,7 +86,7 @@ public class PhienBanSanPhamDAO implements DAO_Interface<PhienBanSanPhamDTO>{
             Connection conn=JDBCConnection.getJDBCConnection();
             String sql="UPDATE phienbansanpham"
                     +" SET soluongton=?"
-                    +" WHERE maphienbansp=?";
+                    +" WHERE maphienbansp=? ";
             PreparedStatement psm=conn.prepareStatement(sql);
            
             psm.setInt(1, soLuongThayDoi);
@@ -96,6 +97,29 @@ public class PhienBanSanPhamDAO implements DAO_Interface<PhienBanSanPhamDTO>{
             e.printStackTrace();
         }
         SanPhamDAO.getInstance().updateSoLuongTon(pbsp.getMasp(), soluong);
+        return ketqua;
+    }
+    public int updateSLTonAfterThanhToan(ArrayList<SanPhamDTO> Sp){
+        int ketqua=0;
+        for(int i=0;i<Sp.size();i++){
+             try {
+            Connection conn=JDBCConnection.getJDBCConnection();
+            String sql="UPDATE phienbansanpham"
+                    +" SET soluongton=?"
+                    +" WHERE maphienbansp=? and masp=?";
+            PreparedStatement psm=conn.prepareStatement(sql);
+           
+            psm.setInt(1, Sp.get(i).getPBSPDTO().getSoluongton());
+            psm.setInt(2, Sp.get(i).getPBSPDTO().getMaphienbansp());
+            psm.setInt(3, Sp.get(i).getPBSPDTO().getMasp());
+            ketqua=psm.executeUpdate();
+            JDBCConnection.closeConection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+            SanPhamDAO.getInstance().updateSoLuongTon(Sp.get(i).getMasp(), Sp.get(i).getPBSPDTO().getSoluongton());
+        }
+        
         return ketqua;
     }
     @Override
