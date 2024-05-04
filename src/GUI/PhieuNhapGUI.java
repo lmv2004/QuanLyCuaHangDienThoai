@@ -3,6 +3,7 @@ package GUI;
 import BUS.NhaCungCapBUS;
 import BUS.NhanVienBUS;
 import BUS.PhieuNhapBUS;
+import DTO.AccountDTO;
 import DTO.NhanVienDTO;
 import DTO.NhaCungCapDTO;
 import DTO.PhieuNhapDTO;
@@ -31,10 +32,11 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
     private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
     private ArrayList<PhieuNhapDTO> listPNFilter = new ArrayList<>();
+    AccountDTO myAcc;
 
-    public PhieuNhapGUI() {
+    public PhieuNhapGUI(AccountDTO myAcc) {
         initComponents();
-        
+        this.myAcc=myAcc;
         loadData(listPN);
         loadCbbFilter();
         loadCbbNhanVien();
@@ -104,7 +106,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         toolBar.getAddBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GUI.Dialog.ThemPhieuNhap(null,true).setVisible(true);
+                new GUI.Dialog.ThemPhieuNhap(null,true,myAcc).setVisible(true);
             }
             
         });
@@ -112,14 +114,14 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         toolBar.getEditBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GUI.Dialog.ThemPhieuNhap(null,true).setVisible(true);
+                new GUI.Dialog.ThemPhieuNhap(null,true,myAcc).setVisible(true);
             }
             
         });
         toolBar.getDetailBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                new GUI.Dialog.ThemPhieuNhap(null,true).setVisible(true);
+                new GUI.Dialog.ThemPhieuNhap(null,true,myAcc).setVisible(true);
             }
             
         });

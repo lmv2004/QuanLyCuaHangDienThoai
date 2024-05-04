@@ -6,6 +6,7 @@ package GUI.Dialog;
 
 import BUS.NhaCungCapBUS;
 import BUS.SanPhamBUS;
+import DTO.AccountDTO;
 import DTO.NhaCungCapDTO;
 import DTO.SanPhamDTO;
 import java.text.DecimalFormat;
@@ -36,11 +37,12 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     ArrayList<SanPhamDTO> listSPPN = new ArrayList<>();
     DefaultTableModel model;
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
+    AccountDTO myAcc;
     
-    public ThemPhieuNhap(java.awt.Frame parent, boolean modal) {
+    public ThemPhieuNhap(java.awt.Frame parent, boolean modal, AccountDTO myAcc) {
         super(parent, modal);
         initComponents();
-        
+        this.myAcc=myAcc;
         loadData(listSP);
         model = (DefaultTableModel)CTTbl.getModel();
     }
@@ -48,6 +50,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     public void loadData(ArrayList<SanPhamDTO> listSP) {
         //data thông tin
         loadCbbNhaCungCap();
+        nv.setText(new BUS.NhanVienBUS().getNameByID(myAcc.getMaNV()));
         //thời gian
         Timer timer = new Timer(1000, new ActionListener() {
             @Override
@@ -75,16 +78,20 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         }
     }
     
-    public void reloadSPPN(ArrayList<SanPhamDTO> listSP) {
+    public void reloadSPPN() {
         DefaultTableModel tblModel = (DefaultTableModel) CTTbl.getModel();
         while (tblModel.getRowCount() > 0) {
             tblModel.removeRow(0);
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        for (SanPhamDTO x : listSP) {
-            tblModel.addRow(new Object[] {x.getMasp(),x.getTensp(),x.getSoluongton(),decimalFormat.format(x.getPBSPDTO().getGianhap()),"Xóa SP"});
+        int TongTien=0;
+        for (SanPhamDTO x : listSPPN) {
+            int ThanhTien=x.getPBSPDTO().getGianhap();
+            TongTien+=ThanhTien;
+            tblModel.addRow(new Object[] {x.getMasp(),x.getTensp(),1,decimalFormat.format(ThanhTien),"Xóa SP"});
         }
-        DSSPTbl.setModel(tblModel);
+        CTTbl.setModel(tblModel);
+        TongTienLbl.setText(decimalFormat.format(TongTien));
     }
     
     
@@ -271,19 +278,22 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(layout.createSequentialGroup()
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(tg, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
-                                                .addComponent(nv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                            .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                    .addComponent(jPanel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                            .addComponent(tg, javax.swing.GroupLayout.DEFAULT_SIZE, 76, Short.MAX_VALUE)
+                                            .addComponent(nv, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(104, 808, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 240, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 0, Short.MAX_VALUE))))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 936, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addGap(0, 39, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -328,9 +338,9 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         // TODO add your handling code here:
         int index = DSSPTbl.getSelectedRow();
         if(index>=0) {
-            model.addRow(new Object[] {listSP.get(index).getMasp(),listSP.get(index).getTensp(),1,decimalFormat.format(listSP.get(index).getPBSPDTO().getGianhap()),decimalFormat.format(listSP.get(index).getPBSPDTO().getGianhap()),"Xóa SP"});
+            listSPPN.add(listSP.get(index));
+            reloadSPPN();
         }
-        CTTbl.setModel(model);
     }//GEN-LAST:event_DSSPTblMouseClicked
 
     /**

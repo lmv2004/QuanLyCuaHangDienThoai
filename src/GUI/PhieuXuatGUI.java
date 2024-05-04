@@ -7,6 +7,7 @@ package GUI;
 import BUS.KhachHangBUS;
 import BUS.NhanVienBUS;
 import BUS.PhieuXuatBUS;
+import DTO.AccountDTO;
 import DTO.KhachHangDTO;
 import DTO.NhanVienDTO;
 import DTO.PhieuXuatDTO;
@@ -28,9 +29,8 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
     private ArrayList<KhachHangDTO> listKH = KHBUS.getAllKhachHang();
     private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
     
-    
-    public PhieuXuatGUI() {
-        super();
+    public PhieuXuatGUI(AccountDTO myAcc) {
+        super(myAcc);
         toolBar.getAddBtn().setVisible(false);
         repaint();
         revalidate();
