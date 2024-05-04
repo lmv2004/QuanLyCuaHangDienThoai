@@ -147,14 +147,15 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         XuatXuDTO xuatxu;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT Distinct sp.masp,sp.tensp ,sp.hinhanh ,sp.chipxuly,dlram.kichthuocram ,dlrom.kichthuocrom ,sp.dungluongpin,sp.kichthuocman,sp.camerasau,sp.cameratruoc,hdh.tenhedieuhanh ,sp.phienbanhdh,th.tenthuonghieu,xx.tenxuatxu,ms.tenmau,pbsp.giaxuat,sp.soluongton"
+            String sql = "SELECT Distinct sp.masp,sp.tensp ,sp.hinhanh ,sp.chipxuly,dlram.kichthuocram ,dlrom.kichthuocrom ,sp.dungluongpin,sp.kichthuocman,sp.camerasau,sp.cameratruoc,hdh.tenhedieuhanh ,sp.phienbanhdh,th.tenthuonghieu,xx.tenxuatxu,ms.tenmau,pbsp.giaxuat,sp.soluongton,pbsp.gianhap,pbsp.maphienbansp"
                     + " FROM sanpham sp,phienbansanpham pbsp,dungluongram dlram,dungluongrom dlrom,hedieuhanh hdh,thuonghieu th,xuatxu xx,mausac ms"
                     + " WHERE sp.hedieuhanh=hdh.mahedieuhanh && sp.thuonghieu=th.mathuonghieu && sp.masp=pbsp.masp && sp.xuatxu=xx.maxuatxu "
                     + " && pbsp.rom=dlrom.madlrom && pbsp.ram=dlram.madlram && pbsp.mausac=ms.mamau";
             PreparedStatement psm=conn.prepareStatement(sql);
             ResultSet rs=psm.executeQuery();
             while(rs.next()){
-               PBSP=new PhienBanSanPhamDTO(rs.getInt(16));
+               PBSP=new PhienBanSanPhamDTO(rs.getInt("pbsp.maphienbansp"), rs.getInt("sp.masp"), rs.getInt("dlram.kichthuocram"), rs.getInt("dlrom.kichthuocrom"), 0, rs.getInt("pbsp.gianhap"), rs.getInt("pbsp.giaxuat"), rs.getInt("sp.soluongton"));
+               //int maphienbansp, int masp, int ram, int rom, int mausac, int gianhap, int giaxuat, int soluongton
                DLRam=new DungLuongRamDTO(rs.getInt(5));
                DLRom=new DungLuongRomDTO(rs.getInt(6));
                HDH=new HeDieuHanhDTO(rs.getString(11));

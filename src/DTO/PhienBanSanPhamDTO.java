@@ -15,8 +15,9 @@ public class PhienBanSanPhamDTO {
      public PhienBanSanPhamDTO() {
     }
 
-    public PhienBanSanPhamDTO(int giaxuat) {
+    public PhienBanSanPhamDTO(int giaxuat,int gianhap) {
         this.giaxuat = giaxuat;
+        this.gianhap=gianhap;
     }
 
     public PhienBanSanPhamDTO(int maphienbansp, int masp, int ram, int rom, int mausac, int gianhap, int giaxuat, int soluongton) {

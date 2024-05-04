@@ -21,6 +21,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.event.TableModelEvent;
+import javax.swing.event.TableModelListener;
+import javax.swing.table.TableModel;
+
 /**
  *
  * @author ACER
@@ -32,21 +36,42 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
      */
     SanPhamBUS SPBUS = new SanPhamBUS();
     NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
-    ArrayList<SanPhamDTO> listSP = SPBUS.getAll();
+    ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
     ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
     ArrayList<SanPhamDTO> listSPPN = new ArrayList<>();
+    ArrayList<Integer> soluongnhap = new ArrayList<>();
     DefaultTableModel model;
     DecimalFormat decimalFormat = new DecimalFormat("#,###");
     AccountDTO myAcc;
-    
+
     public ThemPhieuNhap(java.awt.Frame parent, boolean modal, AccountDTO myAcc) {
         super(parent, modal);
         initComponents();
-        this.myAcc=myAcc;
+        this.myAcc = myAcc;
         loadData(listSP);
-        model = (DefaultTableModel)CTTbl.getModel();
+        model = (DefaultTableModel) CTTbl.getModel();
+
+        model.addTableModelListener(new TableModelListener() {
+            @Override
+            public void tableChanged(TableModelEvent e) {
+                int selectedRow = CTTbl.getSelectedRow();
+                if (selectedRow >= 0 && selectedRow < CTTbl.getRowCount()) {
+                    Object temp = CTTbl.getValueAt(CTTbl.getSelectedRow(), 3);
+                    if (temp != null) {
+                        int temp2 = Integer.parseInt(temp.toString());
+                        if (temp2 <= 0) {
+                            JOptionPane.showMessageDialog(null, "Số lượng nhập không hợp lệ");
+                            return;
+                        }
+                        soluongnhap.set(selectedRow, temp2);
+                        reloadSPPN();
+                    }
+                }
+            }
+        });
+
     }
-    
+
     public void loadData(ArrayList<SanPhamDTO> listSP) {
         //data thông tin
         loadCbbNhaCungCap();
@@ -60,41 +85,45 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
             }
         });
         timer.start();
-        
+
         //data table sản phẩm
         DefaultTableModel tblModel = (DefaultTableModel) DSSPTbl.getModel();
         while (tblModel.getRowCount() > 0) {
             tblModel.removeRow(0);
         }
         for (SanPhamDTO x : listSP) {
-            tblModel.addRow(new Object[] {x.getMasp(),x.getTensp(),x.getSoluongton(),decimalFormat.format(x.getPBSPDTO().getGianhap())});
+            tblModel.addRow(new Object[]{x.getMasp(), x.getTensp(), x.getPBSPDTO().getMaphienbansp(), x.getSoluongton(), decimalFormat.format(x.getPBSPDTO().getGianhap())});
         }
         DSSPTbl.setModel(tblModel);
     }
-    
+
     public void loadCbbNhaCungCap() {
         for (NhaCungCapDTO x : listNCC) {
             jComboBox1.addItem(x.getTenNCC());
         }
     }
-    
+
     public void reloadSPPN() {
         DefaultTableModel tblModel = (DefaultTableModel) CTTbl.getModel();
         while (tblModel.getRowCount() > 0) {
             tblModel.removeRow(0);
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
-        int TongTien=0;
-        for (SanPhamDTO x : listSPPN) {
-            int ThanhTien=x.getPBSPDTO().getGianhap();
-            TongTien+=ThanhTien;
-            tblModel.addRow(new Object[] {x.getMasp(),x.getTensp(),1,decimalFormat.format(ThanhTien),"Xóa SP"});
+        int TongTien = 0;
+        int i = 0;
+        try {
+            for (SanPhamDTO x : listSPPN) {
+                int ThanhTien = x.getPBSPDTO().getGianhap() * soluongnhap.get(i);
+                TongTien += ThanhTien;
+                tblModel.addRow(new Object[]{x.getMasp(), x.getTensp(), x.getPBSPDTO().getMaphienbansp(), soluongnhap.get(i), decimalFormat.format(x.getPBSPDTO().getGianhap()), decimalFormat.format(ThanhTien), "Xóa SP"});
+                i++;
+            }
+            CTTbl.setModel(tblModel);
+            TongTienLbl.setText(decimalFormat.format(TongTien));
+        } catch (Exception e) {
+            System.out.println("loi cho nay");
         }
-        CTTbl.setModel(tblModel);
-        TongTienLbl.setText(decimalFormat.format(TongTien));
     }
-    
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -148,14 +177,14 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "Số lượng tồn", "Giá nhập"
+                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng tồn", "Giá nhập"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, false, false
+                false, false, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -204,14 +233,14 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             },
             new String [] {
-                "Mã SP", "Tên SP", "Số lượng nhập", "Giá nhập", "Thành tiền", ""
+                "Mã SP", "Tên SP", "Mã PBSP", "Số lượng nhập", "Giá nhập", "Thành tiền", ""
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.Integer.class, java.lang.Object.class, java.lang.Integer.class, java.lang.Integer.class, java.lang.String.class
             };
             boolean[] canEdit = new boolean [] {
-                false, false, true, false, false, false
+                false, false, false, true, false, false, false
             };
 
             public Class getColumnClass(int columnIndex) {
@@ -220,6 +249,11 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
+            }
+        });
+        CTTbl.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                CTTblMouseClicked(evt);
             }
         });
         jScrollPane2.setViewportView(CTTbl);
@@ -263,6 +297,11 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
         AddBtn.setBackground(java.awt.Color.blue);
         AddBtn.setText("Thêm");
+        AddBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AddBtnActionPerformed(evt);
+            }
+        });
         jPanel3.add(AddBtn);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -332,16 +371,43 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
     private void CancelBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CancelBtnActionPerformed
         // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn hủy?") == 0) {
+            this.dispose();
+        }
     }//GEN-LAST:event_CancelBtnActionPerformed
 
     private void DSSPTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_DSSPTblMouseClicked
         // TODO add your handling code here:
         int index = DSSPTbl.getSelectedRow();
-        if(index>=0) {
+        if (index >= 0) {
+            for (SanPhamDTO x : listSPPN) {
+                if (listSP.get(index).equals(x)) {
+                    JOptionPane.showMessageDialog(null, "Bạn đã thêm sản phẩm này rồi");
+                    return;
+                }
+            }
             listSPPN.add(listSP.get(index));
+            soluongnhap.add(1);
             reloadSPPN();
         }
     }//GEN-LAST:event_DSSPTblMouseClicked
+
+    private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
+        // TODO add your handling code here:
+        if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn thêm phiếu nhập?") == 0) {
+            //insert vào database
+
+            this.dispose();
+        }
+    }//GEN-LAST:event_AddBtnActionPerformed
+
+    private void CTTblMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_CTTblMouseClicked
+        // TODO add your handling code here:
+        if (CTTbl.getSelectedColumn() == CTTbl.getColumnCount() - 1) {
+            listSPPN.remove(CTTbl.getSelectedRow());
+            reloadSPPN();
+        }
+    }//GEN-LAST:event_CTTblMouseClicked
 
     /**
      * @param args the command line arguments
