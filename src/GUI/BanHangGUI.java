@@ -54,12 +54,14 @@ public class BanHangGUI extends javax.swing.JPanel {
                 "Xem chi tiết"
             });
         }
-
+       
         SPBanTable.setModel(modelSPBan);
         ClickCounts = new ArrayList<>(SPBanTable.getRowCount());
         for (int i = 0; i < SPBanTable.getRowCount(); i++) {
             ClickCounts.add(0);
         }
+        SPBanTable.repaint();
+        SPBanTable.validate();
     }
 
     // chỉnh kích cỡ của cột table SP Bán
@@ -454,21 +456,21 @@ public class BanHangGUI extends javax.swing.JPanel {
             int col = SPBanTable.columnAtPoint(evt.getPoint());
             // kiểm tra xem có phải là cột xem chi tiết không
             if (col == 5) {
-                TableModel TM = SPBanTable.getModel();
-                Object[] rowData = new Object[TM.getColumnCount()];
-                for (int column = 0; column < TM.getColumnCount(); column++) {
-                    rowData[column] = TM.getValueAt(row, column);
+                Object[] rowData = new Object[modelSPBan.getColumnCount()];
+                for (int column = 0; column < modelSPBan.getColumnCount(); column++) {
+                    rowData[column] = modelSPBan.getValueAt(row, column);
                 }
                 updateDetailPanel(rowData);
-            } // thực hiện  chức năng mua hàng
+            } 
+             // thực hiện  chức năng mua hàng
             else if (col < 5) {
+                 
                 // khi nào tạo hóa đơn thì mới được mua hàng
                 if (TaoHD_Btn.isEnabled() == false) {
                     int clickCount = ClickCounts.get(row);
                     clickCount++;
-                    ClickCounts.set(row, clickCount);
-                    int Updatevalue = (int) SPBanTable.getModel().getValueAt(row, 2);
-
+                    ClickCounts.set(row, clickCount);                 
+                    int Updatevalue = (int) SPBanTable.getModel().getValueAt(row, 2);                
                     if (Updatevalue > 0) {
                         SPBanTable.setValueAt((Updatevalue - 1), row, 2);
                         int masp = (int) SPBanTable.getModel().getValueAt(row, 0);
@@ -676,7 +678,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         for (SanPhamDTO sp : ListSP) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
                 displayAdditionalDetails(sp);
-
+                System.out.println(sp);
                 break;
             }
         }
