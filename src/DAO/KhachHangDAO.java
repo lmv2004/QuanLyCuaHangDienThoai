@@ -40,36 +40,49 @@ public class KhachHangDAO implements DAO_Interface<KhachHangDTO> {
         return kq;
     }
 
-    @Override
-    public int update(KhachHangDTO t) {
-        int kq = 0;
+  @Override
+public int update(KhachHangDTO t) {
+    int kq = 0;
+    Connection con = null;
+    PreparedStatement pst = null;
+    try {
+        con = JDBCConnection.getJDBCConnection();
+        String sql = "UPDATE khachhang SET tenkhachhang=?, diachi=?, sdt=?, trangthai=?, ngaythamgia=? WHERE makh=?";
+
+        pst = con.prepareStatement(sql);
+        pst.setString(1, t.getTenKhachHang());
+        pst.setString(2, t.getDiaChi());
+        pst.setString(3, t.getSDT());
+        pst.setInt(4, t.getTrangThai());
+        java.util.Date utilDate = t.getNgayThamGia();
+        java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+        pst.setDate(5, sqlDate);
+        pst.setInt(6, t.getMaKhachHang());
+
+        // Thực thi câu lệnh SQL
+        kq = pst.executeUpdate();
+
+        System.out.println("Bạn đã thực thi");
+        System.out.println("Có " + kq + " dòng được cập nhật");
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        // Đảm bảo đóng PreparedStatement và Connection sau khi sử dụng
         try {
-            Connection con = JDBCConnection.getJDBCConnection();
-            String sql = "UPDATE khachhang"
-                    + " tenkhachhang=? , diachi=? , sdt=? , trangthai=? ,  ngaythamgia=?"
-                    + " WHERE makh=?";
-            PreparedStatement pst = con.prepareStatement(sql);
-            pst.setString(1, t.getTenKhachHang());
-            pst.setString(2, t.getDiaChi());
-            pst.setString(3, t.getSDT());
-            pst.setInt(4, t.getTrangThai());
-            java.util.Date utilDate = t.getNgayThamGia();
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            pst.setDate(5, sqlDate);
-            pst.setInt(6, t.getMaKhachHang());
-
-            // Thực thi câu lệnh SQL
-            kq = pst.executeUpdate();
-
-            System.out.println("bạn đã thực thi");
-            System.out.println("có " + kq + " dòng được cập nhật");
-
-            JDBCConnection.closeConection(con);
+            if (pst != null) {
+                pst.close();
+            }
+            if (con != null) {
+                con.close();
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return kq;
     }
+    return kq;
+}
+
+
 
     @Override
     public int delete(KhachHangDTO t) {
