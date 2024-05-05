@@ -18,13 +18,12 @@ import javax.swing.*;
 import java.util.ArrayList;
 import javax.swing.table.*;
 
-
 public class BanHangGUI extends javax.swing.JPanel {
 
     DefaultTableModel modelSPBan, modelGiohang;
     PhieuXuatBUS PXBUS = new PhieuXuatBUS();
     ArrayList<PhieuXuatDTO> ListPX = PXBUS.getAll();
-    CTPhieuXuatBUS CTPXBUS= new CTPhieuXuatBUS();
+    CTPhieuXuatBUS CTPXBUS = new CTPhieuXuatBUS();
     KhachHangBUS KHBUS = new KhachHangBUS();
     ArrayList<KhachHangDTO> ListKH = KHBUS.getAllKhachHang();
     SanPhamBUS SPBUS = new SanPhamBUS();
@@ -33,7 +32,8 @@ public class BanHangGUI extends javax.swing.JPanel {
     DecimalFormat dfThapPhan = new DecimalFormat("0.00");
     DecimalFormat dfGiaTien = new DecimalFormat("###,###,### VNĐ");
     ArrayList<Integer> ClickCounts;
-   ArrayList<SanPhamDTO> listSPcart=new ArrayList<>();
+    ArrayList<SanPhamDTO> listSPcart = new ArrayList<>();
+
     public BanHangGUI() {
         initComponents();
         //function.placeHolder(SearchTf, "Tìm kiếm...");
@@ -99,7 +99,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         PanelBanHang = new javax.swing.JPanel();
         TinhTienPanel2 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
-        searchMaSP_TF = new javax.swing.JTextField();
+        searchTenSP_TF = new javax.swing.JTextField();
         SPBanPanel = new javax.swing.JPanel();
         jLabel14 = new javax.swing.JLabel();
         jScrollPane5 = new javax.swing.JScrollPane();
@@ -148,7 +148,13 @@ public class BanHangGUI extends javax.swing.JPanel {
         setPreferredSize(new java.awt.Dimension(1200, 725));
 
         jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel13.setText("MaSP:");
+        jLabel13.setText("Tên SP:");
+
+        searchTenSP_TF.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyPressed(java.awt.event.KeyEvent evt) {
+                searchTenSP_TFKeyPressed(evt);
+            }
+        });
 
         SPBanPanel.setBackground(new java.awt.Color(255, 255, 255));
         SPBanPanel.setOpaque(false);
@@ -358,18 +364,18 @@ public class BanHangGUI extends javax.swing.JPanel {
                             .addComponent(SDT_TF)))
                     .addGroup(PanelThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(PanelThanhToanLayout.createSequentialGroup()
-                            .addGap(32, 32, 32)
-                            .addComponent(TaoHD_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
-                            .addComponent(HuyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGroup(PanelThanhToanLayout.createSequentialGroup()
                             .addGroup(PanelThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 79, Short.MAX_VALUE))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(PanelThanhToanLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addComponent(KhachDua_TF, javax.swing.GroupLayout.DEFAULT_SIZE, 172, Short.MAX_VALUE)
-                                .addComponent(TraLai_TF)))))
+                                .addComponent(TraLai_TF)))
+                        .addGroup(PanelThanhToanLayout.createSequentialGroup()
+                            .addGap(32, 32, 32)
+                            .addComponent(TaoHD_Btn, javax.swing.GroupLayout.PREFERRED_SIZE, 96, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                            .addComponent(HuyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap())
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelThanhToanLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -405,7 +411,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                     .addComponent(HuyBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31)
                 .addComponent(ThanhToanBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(220, Short.MAX_VALUE))
+                .addContainerGap(236, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -416,7 +422,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                 .addContainerGap()
                 .addComponent(jLabel13)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(searchMaSP_TF, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchTenSP_TF, javax.swing.GroupLayout.PREFERRED_SIZE, 205, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(539, 539, 539)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -436,7 +442,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel13)
-                        .addComponent(searchMaSP_TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(searchTenSP_TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(jLabel2)
                         .addComponent(MaHD_TF, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -551,60 +557,84 @@ public class BanHangGUI extends javax.swing.JPanel {
         //TenKH_TF.setEnabled(true);
         SDT_TF.setEnabled(true);
         int MaHD = ListPX.size();
-        while (true) {            
-            if(PXBUS.getID(MaHD)!=null){
-            MaHD++;
+        while (true) {
+            if (PXBUS.getID(MaHD) != null) {
+                MaHD++;
+            } else {
+                break;
             }
-            else break;
         }
-        
-        MaHD_TF.setText(MaHD+"");
+
+        MaHD_TF.setText(MaHD + "");
     }//GEN-LAST:event_TaoHD_BtnActionPerformed
 
     private void ThanhToanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThanhToanBtnActionPerformed
         // Lấy dữ liệu từ giỏ hàng và thông tin KH để tạo Hóa đơn trong database
-        int maHD = Integer.parseInt(MaHD_TF.getText());
-        LocalDateTime localDateTime = LocalDateTime.now();
-        java.sql.Date ngayMua = java.sql.Date.valueOf(localDateTime.toLocalDate());
-        String SDT = SDT_TF.getText().trim();
-        String TenKH = TenKH_TF.getText().trim();
-        int MaKH = 0;
-        for (KhachHangDTO kh : ListKH) {
-            if (kh.getSDT().equals(SDT) && kh.getTenKhachHang().equals(TenKH)) {
-                MaKH = kh.getMaKhachHang();
+        if (TraLai_TF.getText().isEmpty()) {
+            
+            JOptionPane.showMessageDialog(null, "Vui lòng nhập xong số tiền khách đưa thì nhấn ENTER!");
+            KhachDua_TF.requestFocus();
+        } else {
+            int maHD = Integer.parseInt(MaHD_TF.getText());
+            LocalDateTime localDateTime = LocalDateTime.now();
+            java.sql.Date ngayMua = java.sql.Date.valueOf(localDateTime.toLocalDate());
+            String SDT = SDT_TF.getText().trim();
+            String TenKH = TenKH_TF.getText().trim();
+            int MaKH = 0;
+            for (KhachHangDTO kh : ListKH) {
+                if (kh.getSDT().equals(SDT) && kh.getTenKhachHang().equals(TenKH)) {
+                    MaKH = kh.getMaKhachHang();
+                }
             }
-        }
-        String tongTienStr = DisplayTongTienLabel.getText().replaceAll("[,VNĐ]", "").trim();
-        int TongTien = Integer.parseInt(tongTienStr); 
-        // add vào database Phiếu xuất
-        if (PXBUS.add(new PhieuXuatDTO(MaKH, maHD, 1, ngayMua, TongTien)) == true) {
-            JOptionPane.showMessageDialog(null, "Mua hàng thành công!");
-            //CTPXBUS.add(new ChiTietPhieuDTO(maHD, , SOMEBITS, TongTien))
-            for (int i = 0; i < ListSP.size(); i++) {
-                int soLuongBan = Integer.parseInt(SPBanTable.getModel().getValueAt(i, 2).toString());
-                ListSP.get(i).getPBSPDTO().setSoluongton(soLuongBan);
-            }
-            // đưa vào database chi tiết Sản phẩm
-            getSLSPTableGioHang();
-             for(SanPhamDTO SPcart:listSPcart){
-               int MaPBSP=SPcart.getPBSPDTO().getMaphienbansp();
-               int SL=SPcart.getPBSPDTO().getSoluongton();
-               int donGia=SPcart.getPBSPDTO().getGiaxuat();
-               if(CTPXBUS.add(new ChiTietPhieuDTO(maHD, MaPBSP, SL, donGia))){
-                   System.out.println("them chi tiet thanh cong!");
-               };
-            }
-            // cập nhật lại số lượng bên table Phiên bản sp
-            PBSP.updateSLTon(ListSP);
-            loaddata(ListSP);
+            String tongTienStr = DisplayTongTienLabel.getText().replaceAll("[,VNĐ]", "").trim();
+            int TongTien = Integer.parseInt(tongTienStr);
+            // add vào database Phiếu xuất
+            if (PXBUS.add(new PhieuXuatDTO(MaKH, maHD, 1, ngayMua, TongTien)) == true) {
+                JOptionPane.showMessageDialog(null, "Mua hàng thành công!");
+                //CTPXBUS.add(new ChiTietPhieuDTO(maHD, , SOMEBITS, TongTien))
+                for (int i = 0; i < ListSP.size(); i++) {
+                    int soLuongBan = Integer.parseInt(SPBanTable.getModel().getValueAt(i, 2).toString());
+                    ListSP.get(i).getPBSPDTO().setSoluongton(soLuongBan);
+                }
+                // đưa vào database chi tiết Sản phẩm
+                getSLSPTableGioHang();
+                for (SanPhamDTO SPcart : listSPcart) {
+                    int MaPBSP = SPcart.getPBSPDTO().getMaphienbansp();
+                    int SL = SPcart.getPBSPDTO().getSoluongton();
+                    int donGia = SPcart.getPBSPDTO().getGiaxuat();
+                    if (CTPXBUS.add(new ChiTietPhieuDTO(maHD, MaPBSP, SL, donGia))) {
+                        System.out.println("them chi tiet thanh cong!");
+                    };
+                }
+                // cập nhật lại số lượng bên table Phiên bản sp
+                PBSP.updateSLTon(ListSP);
+                loaddata(ListSP);
 
-            resetAttribute();
+                resetAttribute();
+            }
         }
+
     }//GEN-LAST:event_ThanhToanBtnActionPerformed
 
     private void HuyBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HuyBtnActionPerformed
-        resetAttribute();
+
         TrangThaiBanDauAttribute();
+        for (int i = 0; i < GioHangTable.getRowCount(); i++) {
+            int masp = (int) GioHangTable.getModel().getValueAt(i, 0);
+            String tenSp = (String) GioHangTable.getModel().getValueAt(i, 1);
+            int giaban = (int) GioHangTable.getModel().getValueAt(i, 3);
+            String mausac = (String) GioHangTable.getModel().getValueAt(i, 4);
+            int rowIndex = findRowIntable(SPBanTable, masp, tenSp, giaban, mausac);
+            if (rowIndex != -1) {
+                int soLuongMua = (int) GioHangTable.getModel().getValueAt(i, 2);
+                int soLuongCon = (int) SPBanTable.getModel().getValueAt(rowIndex, 2);
+
+                SPBanTable.setValueAt(soLuongCon + soLuongMua, rowIndex, 2);
+            }
+
+            listSPcart.remove(i);
+        }
+        resetAttribute();
     }//GEN-LAST:event_HuyBtnActionPerformed
     // xử lí sự kiện cho Table Giỏ Hàng
     private void GioHangTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GioHangTableMouseClicked
@@ -648,17 +678,17 @@ public class BanHangGUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "SĐT sai định dạng(10 con số và không có kí tự)");
                 SDT_TF.requestFocus();
             } else {
-                    KhachHangDTO kh=KHBUS.getBySDT(SDT);
-                    if (kh!=null) {
-                        TenKH_TF.setText(kh.getTenKhachHang());
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Khách hàng mới");
-                        TenKH_TF.setEnabled(true);
-                        TenKH_TF.setText("");
-                        TenKH_TF.requestFocus();
-                        TenKH_TFKeyPressed(evt);
-                    }
-                
+                KhachHangDTO kh = KHBUS.getBySDT(SDT);
+                if (kh != null) {
+                    TenKH_TF.setText(kh.getTenKhachHang());
+                } else {
+                    JOptionPane.showMessageDialog(null, "Khách hàng mới");
+                    TenKH_TF.setEnabled(true);
+                    TenKH_TF.setText("");
+                    TenKH_TF.requestFocus();
+                    TenKH_TFKeyPressed(evt);
+                }
+
             }
         }
     }//GEN-LAST:event_SDT_TFKeyPressed
@@ -692,6 +722,21 @@ public class BanHangGUI extends javax.swing.JPanel {
         }
     }//GEN-LAST:event_TenKH_TFKeyPressed
 
+    private void searchTenSP_TFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTenSP_TFKeyPressed
+        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+            String txt = searchTenSP_TF.getText();
+            for (int i = 0; i < SPBanTable.getRowCount(); i++) {
+                String tenSP = (String) SPBanTable.getModel().getValueAt(i, 1);
+                if (tenSP.contains(txt)) {
+
+                    SPBUS.search(txt);
+                }
+            }
+        }
+
+
+    }//GEN-LAST:event_searchTenSP_TFKeyPressed
+
     //Kiểm tra value có giống trong ArrayList không để đưa vào Panel chi tiết Sản phẩm
     private void updateDetailPanel(Object[] rowData) {
         int masp = Integer.parseInt(rowData[0].toString());
@@ -699,7 +744,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         int giaban = Integer.parseInt(rowData[3].toString());
         for (SanPhamDTO sp : ListSP) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
-                displayAdditionalDetails(sp);              
+                displayAdditionalDetails(sp);
                 break;
             }
         }
@@ -779,7 +824,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         int count = Integer.parseInt(rowdata[2].toString());
         for (SanPhamDTO sp : ListSP) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
-                addGiohang(sp, count);     
+                addGiohang(sp, count);
                 listSPcart.add(sp);
             }
         }
@@ -827,13 +872,15 @@ public class BanHangGUI extends javax.swing.JPanel {
             DisplayTongTienLabel.setText("0 VNĐ");
         }
     }
+
     // hàm lấy số Lượng của table Giỏ hàng để gán vào SL tồn
-    private void getSLSPTableGioHang(){
-        for(int i=0;i<GioHangTable.getRowCount();i++){
-          int SL=(int) GioHangTable.getModel().getValueAt(i, 2);
-          listSPcart.get(i).getPBSPDTO().setSoluongton(SL);
+    private void getSLSPTableGioHang() {
+        for (int i = 0; i < GioHangTable.getRowCount(); i++) {
+            int SL = (int) GioHangTable.getModel().getValueAt(i, 2);
+            listSPcart.get(i).getPBSPDTO().setSoluongton(SL);
         }
     }
+
     private void TraLaiTien() {
 
         if (KhachDua_TF.getText().isEmpty()) {
@@ -887,6 +934,6 @@ public class BanHangGUI extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JScrollPane jScrollPane5;
-    private javax.swing.JTextField searchMaSP_TF;
+    private javax.swing.JTextField searchTenSP_TF;
     // End of variables declaration//GEN-END:variables
 }

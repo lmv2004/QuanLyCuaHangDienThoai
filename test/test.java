@@ -68,13 +68,13 @@ public class test {
         // System.out.println(pd.selecAll().toString());
 
         // Account Test
-        System.out.println("============ This is Account test ============");
-        DAO.AccountDAO ad = new DAO.AccountDAO();
-        System.out.println("Insert Test");
-        DTO.AccountDTO A_Test_1 = new DTO.AccountDTO(6, "test", "test".toCharArray(), 1);
-        ad.insert(A_Test_1);
-
-        System.out.println(ad.selecAll().toString());
+//        System.out.println("============ This is Account test ============");
+//        DAO.AccountDAO ad = new DAO.AccountDAO();
+//        System.out.println("Insert Test");
+//        DTO.AccountDTO A_Test_1 = new DTO.AccountDTO(6, "test", "test".toCharArray(), 1);
+//        ad.insert(A_Test_1);
+//
+//        System.out.println(ad.selecAll().toString());
 
     }
 }
