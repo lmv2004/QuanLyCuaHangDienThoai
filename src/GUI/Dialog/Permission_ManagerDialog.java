@@ -120,21 +120,21 @@ public class Permission_ManagerDialog extends javax.swing.JPanel {
         }
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == btnadd && Validation()) {
-            int maNhomQuyen = per.getMaNhomQuyen();
-            String tenNhomQuyen = tenDangNhap.txtForm.getText();
-            jpper.perBUS.add(new PermissionManagerDTO(maNhomQuyen, tenNhomQuyen, 1));
-            jpper.loadData(jpper.list);
-        }
+    // public void actionPerformed(ActionEvent e) {
+    //     if (e.getSource() == btnadd && Validation()) {
+    //         int maNhomQuyen = per.getMaNhomQuyen();
+    //         String tenNhomQuyen = tenDangNhap.txtForm.getText();
+    //         jpper.perBUS.add(new PermissionManagerDTO(maNhomQuyen, tenNhomQuyen));
+    //         jpper.loadData(jpper.list);
+    //     }
 
-        if (e.getSource() == btnupdate && Validation()) {
-            int maNhomQuyen = per.getMaNhomQuyen();
-            String tenNhomQuyen = tenDangNhap.txtForm.getText();
-            jpper.perBUS.update(new PermissionManagerDTO(maNhomQuyen, tenNhomQuyen, 1));
-            jpper.loadData(jpper.list);
-        }
-    }
+    //     if (e.getSource() == btnupdate && Validation()) {
+    //         int maNhomQuyen = per.getMaNhomQuyen();
+    //         String tenNhomQuyen = tenDangNhap.txtForm.getText();
+    //         jpper.perBUS.update(new PermissionManagerDTO(maNhomQuyen, tenNhomQuyen));
+    //         jpper.loadData(jpper.list);
+    //     }
+    // }
 
     /**
      * This method is called from within the constructor to initialize the form.
