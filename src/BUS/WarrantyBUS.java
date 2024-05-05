@@ -147,6 +147,30 @@ public class WarrantyBUS {
             default:
                 throw new AssertionError();
         }
+<<<<<<< HEAD
+        
+        int i = 1;
+        for (WarrantyDTO warranty : data) {
+            Vector vector = new Vector();
+            vector.add(i);
+            vector.add(warranty.getMaSanPham());
+            vector.add(warranty.getMaBaoHanh());
+            vector.add(warranty.getTenKhachHang());
+            vector.add(warranty.getYeuCauBaoHanh());
+            vector.add(warranty.getTrangThai());
+            vector.add(warranty.getNgayBaoHanh());
+        }
+
+        tbl.setModel(model);
+        tbl.repaint();
+        tbl.revalidate();
+    }
+
+    // TODO: implement search
+    // public ArrayList<WarrantyDTO> search(String type, String keyword) {
+        
+    // }
+=======
 
         return result;
 }
@@ -155,4 +179,5 @@ public class WarrantyBUS {
 // public ArrayList<WarrantyDTO> search(String type, String keyword) {
 
 // }
+>>>>>>> c6c2b8249210a6347397ce0820f3ac9d04e85812
 }

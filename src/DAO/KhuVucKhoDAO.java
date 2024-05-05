@@ -131,7 +131,8 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             // bước 2
             
             String sql = "Select * "
-                    + " from khuvuckho";
+                    + " from khuvuckho"
+                    + " Where trangthai = 1";
             
             PreparedStatement pst = con.prepareStatement(sql);
             
@@ -205,7 +206,7 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
         int result = -1;
         try {
             Connection con = (Connection) JDBCConnection.getJDBCConnection();
-            String sql = "SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'quanlikhohang' AND   TABLE_NAME   = 'khuvuckho'";
+            String sql = "SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'qlchdienthoai' AND   TABLE_NAME   = 'khuvuckho'";
             PreparedStatement pst = (PreparedStatement) con.prepareStatement(sql);
             ResultSet rs2 = pst.executeQuery();
             if (!rs2.isBeforeFirst()) {
