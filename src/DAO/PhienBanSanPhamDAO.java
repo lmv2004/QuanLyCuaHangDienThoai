@@ -79,26 +79,26 @@ public class PhienBanSanPhamDAO implements DAO_Interface<PhienBanSanPhamDTO>{
         return ketqua;
     }
     public int updateSoLuongTon(int maphienban,int soluong){
-        PhienBanSanPhamDTO pbsp=this.selectById(maphienban);
-        int soLuongThayDoi=pbsp.getSoluongton()+soluong;
-          int ketqua=0;
+        int soLuongThayDoi=new BUS.PhienBanSanPhamBUS().getSoLuong(maphienban)+soluong;
+        int ketqua=0;
         try {
             Connection conn=JDBCConnection.getJDBCConnection();
             String sql="UPDATE phienbansanpham"
                     +" SET soluongton=?"
                     +" WHERE maphienbansp=? ";
             PreparedStatement psm=conn.prepareStatement(sql);
-           
             psm.setInt(1, soLuongThayDoi);
-            psm.setInt(2, pbsp.getMaphienbansp());
+            psm.setInt(2, maphienban);
             ketqua=psm.executeUpdate();
             JDBCConnection.closeConection(conn);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        SanPhamDAO.getInstance().updateSoLuongTon(pbsp.getMasp(), soluong);
+        //SanPhamDAO.getInstance().updateSoLuongTon(pbsp.getMasp(), soluong);
         return ketqua;
     }
+    
+    
     public int updateSLTonAfterThanhToan(ArrayList<SanPhamDTO> Sp){
         int ketqua=0;
         for(int i=0;i<Sp.size();i++){

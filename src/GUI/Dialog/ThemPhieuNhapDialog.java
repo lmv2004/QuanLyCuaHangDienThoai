@@ -7,6 +7,7 @@ package GUI.Dialog;
 import BUS.AccountBUS;
 import BUS.CTPhieuNhapBUS;
 import BUS.NhaCungCapBUS;
+import BUS.PhienBanSanPhamBUS;
 import BUS.PhieuNhapBUS;
 import BUS.SanPhamBUS;
 import DTO.AccountDTO;
@@ -73,7 +74,7 @@ public class ThemPhieuNhapDialog extends javax.swing.JDialog {
             tblModel.removeRow(0);
         }
         for (SanPhamDTO x : listSP) {
-            tblModel.addRow(new Object[]{x.getMasp(), x.getTensp(), x.getPBSPDTO().getMaphienbansp(), x.getSoluongton(), decimalFormat.format(x.getPBSPDTO().getGianhap())});
+            tblModel.addRow(new Object[]{x.getMasp(), x.getTensp(), x.getPBSPDTO().getMaphienbansp(), x.getPBSPDTO().getSoluongton(), decimalFormat.format(x.getPBSPDTO().getGianhap())});
         }
         DSSPTbl.setModel(tblModel);
     }
@@ -440,11 +441,14 @@ public class ThemPhieuNhapDialog extends javax.swing.JDialog {
                 return;
             }
             for(SoLuongSPDTO x : listSPPN) {
-                if(CTPNBUS.add(new ChiTietPhieuDTO(ID, x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), x.getSP().getPBSPDTO().getGianhap(), 1))==false) {
+                if(CTPNBUS.add(new ChiTietPhieuDTO(ID, x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), x.getSP().getPBSPDTO().getGianhap(), 1))==false
+                        || new PhienBanSanPhamBUS().nhapHang(x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL())==false) {
                     JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
                     return;
                 }
             }
+            //mỗi sp sẽ có các phiên bản khác nhau, tổng số lượng các phiên bản sẽ là số lượng tồn của sản phẩm
+            
             JOptionPane.showMessageDialog(null, "Thêm thành công", "Thành công", JOptionPane.OK_OPTION);
             this.dispose();
         }

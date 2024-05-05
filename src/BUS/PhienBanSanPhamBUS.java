@@ -49,4 +49,11 @@ public class PhienBanSanPhamBUS {
     public PhienBanSanPhamDTO getSanPham(int MPBSP) {
         return pbspDAO.selectById(MPBSP);
     }
+    
+    public boolean nhapHang(int MPB, int SL) {
+        if(pbspDAO.updateSoLuongTon(MPB, SL)>0) {
+            return true;
+        }
+        return false;
+    }
 }
