@@ -255,6 +255,13 @@ public class NhanVienDialog extends javax.swing.JPanel {
             Email_Tf.requestFocus();
             return false;
         }
+        java.util.Date NgaySinh = jDateChooser1.getDate();
+        LocalDateTime localDateTime = LocalDateTime.now();
+       java.sql.Date ngayHienTai= java.sql.Date.valueOf(localDateTime.toLocalDate());
+       if(ngayHienTai.getTime()<NgaySinh.getTime()){
+           JOptionPane.showMessageDialog(null, "Ngày sinh không được lớn hơn hiện tại");
+           return false;
+       }
         return true;
     }
 
