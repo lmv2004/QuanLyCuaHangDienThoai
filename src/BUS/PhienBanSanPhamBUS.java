@@ -45,4 +45,8 @@ public class PhienBanSanPhamBUS {
     public int updateSLTon(ArrayList<SanPhamDTO> sp){
         return pbspDAO.updateSLTonAfterThanhToan(sp);
     }
+    
+    public PhienBanSanPhamDTO getSanPham(int MPBSP) {
+        return pbspDAO.selectById(MPBSP);
+    }
 }

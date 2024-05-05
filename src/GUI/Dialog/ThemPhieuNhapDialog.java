@@ -35,24 +35,24 @@ import javax.swing.table.TableModel;
  *
  * @author ACER
  */
-public class ThemPhieuNhap extends javax.swing.JDialog {
+public class ThemPhieuNhapDialog extends javax.swing.JDialog {
 
     /**
-     * Creates new form ThemPhieuNhap
+     * Creates new form ThemPhieuNhapDialog
      */
-    SanPhamBUS SPBUS = new SanPhamBUS();
-    NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
-    PhieuNhapBUS PNBUS = new PhieuNhapBUS();
-    ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
-    ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
-    ArrayList<SoLuongSPDTO> listSPPN = new ArrayList<>();
-    DefaultTableModel model;
-    DecimalFormat decimalFormat = new DecimalFormat("#,###");
-    AccountDTO myAcc;
-    CTPhieuNhapBUS CTPNBUS = new CTPhieuNhapBUS();
-    long TongTien;
+    protected SanPhamBUS SPBUS = new SanPhamBUS(); 
+    protected NhaCungCapBUS NCCBUS = new NhaCungCapBUS();
+    protected PhieuNhapBUS PNBUS = new PhieuNhapBUS();
+    protected ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
+    protected ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
+    protected ArrayList<SoLuongSPDTO> listSPPN = new ArrayList<>();
+    protected DefaultTableModel model;
+    protected DecimalFormat decimalFormat = new DecimalFormat("#,###");
+    protected AccountDTO myAcc;
+    protected CTPhieuNhapBUS CTPNBUS = new CTPhieuNhapBUS();
+    protected long TongTien;
 
-    public ThemPhieuNhap(java.awt.Frame parent, boolean modal, AccountDTO myAcc) {
+    public ThemPhieuNhapDialog(java.awt.Frame parent, boolean modal, AccountDTO myAcc) {
         super(parent, modal);
         initComponents();
         this.myAcc = myAcc;
@@ -66,15 +66,6 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         //data thông tin
         loadCbbNhaCungCap();
         nv.setText(new BUS.NhanVienBUS().getNameByID(myAcc.getMaNV()));
-        //thời gian
-        Timer timer = new Timer(1000, new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
-                tg.setText(sdf.format(new Date()));
-            }
-        });
-        timer.start();
 
         //data table sản phẩm
         DefaultTableModel tblModel = (DefaultTableModel) DSSPTbl.getModel();
@@ -116,6 +107,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     }
     
     public void setEvent() {
+        //nhập số lượng nhập hàng
         CTTbl.getModel().addTableModelListener(new TableModelListener() {
             public void tableChanged(TableModelEvent e) {
                 if (e.getType() == TableModelEvent.UPDATE) {
@@ -144,6 +136,16 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
                 }
             }
         });
+        
+        //thời gian
+        Timer timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                tg.setText(sdf.format(new Date()));
+            }
+        });
+        timer.start();
     }
 
     /**
@@ -155,7 +157,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        titleLbl = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
         nv = new javax.swing.JLabel();
@@ -178,10 +180,10 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 255));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Thêm phiếu nhập");
+        titleLbl.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        titleLbl.setForeground(new java.awt.Color(0, 0, 255));
+        titleLbl.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        titleLbl.setText("Thêm phiếu nhập");
 
         jLabel2.setText("Nhân viên nhập:");
 
@@ -339,7 +341,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(titleLbl, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -371,7 +373,7 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(titleLbl)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(nv, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -476,9 +478,26 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
         }
     }//GEN-LAST:event_CTTblKeyPressed
 
+    
     /**
      * @param args the command line arguments
      */
+
+    public JButton getAddBtn() {
+        return AddBtn;
+    }
+
+    public void setAddBtn(JButton AddBtn) {
+        this.AddBtn = AddBtn;
+    }
+
+    public JLabel getTitleLbl() {
+        return titleLbl;
+    }
+
+    public void setTitleLbl(JLabel titleLbl) {
+        this.titleLbl = titleLbl;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddBtn;
@@ -487,7 +506,6 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     private javax.swing.JTable DSSPTbl;
     private javax.swing.JLabel TongTienLbl;
     private javax.swing.JComboBox<String> cbbNCC;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -501,5 +519,6 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel nv;
     private javax.swing.JLabel tg;
+    private javax.swing.JLabel titleLbl;
     // End of variables declaration//GEN-END:variables
 }

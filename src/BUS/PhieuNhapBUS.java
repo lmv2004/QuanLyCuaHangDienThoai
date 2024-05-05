@@ -98,4 +98,6 @@ public class PhieuNhapBUS {
     public int getID() {
         return PNDAO.getAutoIncrement();
     }
+    
+    
 }
