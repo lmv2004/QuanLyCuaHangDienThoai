@@ -545,7 +545,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                         if (rowIndex != -1) {
                             int soLuongMua = (int) GioHangTable.getModel().getValueAt(rowSelect, 2);
                             int soLuongCon = (int) SPBanTable.getModel().getValueAt(rowIndex, 2);
-
+                            ClickCounts.set(rowIndex, 0);
                             SPBanTable.setValueAt(soLuongCon + soLuongMua, rowIndex, 2);
                         }
                     }
