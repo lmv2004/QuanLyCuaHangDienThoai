@@ -11,11 +11,14 @@ import DTO.PhieuXuatDTO;
 import DTO.SanPhamDTO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.text.DecimalFormat;
 import java.time.LocalDateTime;
 import javax.swing.*;
 import java.util.ArrayList;
+import javax.swing.event.MouseInputAdapter;
 import javax.swing.table.*;
 
 public class BanHangGUI extends javax.swing.JPanel {
@@ -33,6 +36,7 @@ public class BanHangGUI extends javax.swing.JPanel {
     DecimalFormat dfGiaTien = new DecimalFormat("###,###,### VNĐ");
     ArrayList<Integer> ClickCounts;
     ArrayList<SanPhamDTO> listSPcart = new ArrayList<>();
+    ArrayList<SanPhamDTO> listSPSearch;
 
     public BanHangGUI() {
         initComponents();
@@ -42,11 +46,15 @@ public class BanHangGUI extends javax.swing.JPanel {
         loaddata(ListSP);
         designColumsTabelSPBan(SPBanTable);
         designColumsTabelSPBan(GioHangTable);
+        eventTable();
         TrangThaiBanDauAttribute();
     }
 
     // tải data len table
     public void loaddata(ArrayList<SanPhamDTO> arrayList) {
+        while (modelSPBan.getRowCount() > 0) {
+            modelSPBan.removeRow(0);
+        }
         for (SanPhamDTO sp : arrayList) {
             modelSPBan.addRow(new Object[]{
                 sp.getMasp(),
@@ -64,6 +72,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         }
         SPBanTable.repaint();
         SPBanTable.validate();
+
     }
 
     // chỉnh kích cỡ của cột table SP Bán
@@ -196,11 +205,6 @@ public class BanHangGUI extends javax.swing.JPanel {
         SPBanTable.setSelectionBackground(new java.awt.Color(0, 204, 204));
         SPBanTable.setShowGrid(false);
         SPBanTable.setShowHorizontalLines(true);
-        SPBanTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                SPBanTableMouseClicked(evt);
-            }
-        });
         jScrollPane5.setViewportView(SPBanTable);
 
         javax.swing.GroupLayout SPBanPanelLayout = new javax.swing.GroupLayout(SPBanPanel);
@@ -242,11 +246,6 @@ public class BanHangGUI extends javax.swing.JPanel {
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
                 return canEdit [columnIndex];
-            }
-        });
-        GioHangTable.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                GioHangTableMouseClicked(evt);
             }
         });
         jScrollPane3.setViewportView(GioHangTable);
@@ -457,64 +456,111 @@ public class BanHangGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
     // xử lí sự kiện cho table Bán Sản Phẩm
-    private void SPBanTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_SPBanTableMouseClicked
 
-        int row = SPBanTable.getSelectedRow();
-        if (row >= 0) {
-            int col = SPBanTable.columnAtPoint(evt.getPoint());
-            // kiểm tra xem có phải là cột xem chi tiết không
-            if (col == 5) {
-                Object[] rowData = new Object[modelSPBan.getColumnCount()];
-                for (int column = 0; column < modelSPBan.getColumnCount(); column++) {
-                    rowData[column] = modelSPBan.getValueAt(row, column);
-                }
-                updateDetailPanel(rowData);
-            } // thực hiện  chức năng mua hàng
-            else if (col < 5) {
-
-                // khi nào tạo hóa đơn thì mới được mua hàng
-                if (TaoHD_Btn.isEnabled() == false) {
-                    int clickCount = ClickCounts.get(row);
-                    clickCount++;
-                    ClickCounts.set(row, clickCount);
-                    int Updatevalue = (int) SPBanTable.getModel().getValueAt(row, 2);
-                    if (Updatevalue > 0) {
-                        SPBanTable.setValueAt((Updatevalue - 1), row, 2);
-                        int masp = (int) SPBanTable.getModel().getValueAt(row, 0);
-                        String tenSp = (String) SPBanTable.getModel().getValueAt(row, 1);
-                        int giaban = (int) SPBanTable.getModel().getValueAt(row, 3);
-                        String mausac = (String) SPBanTable.getModel().getValueAt(row, 4);
-                        int rowIndex = findRowIntable(GioHangTable, masp, tenSp, giaban, mausac);
-                        // cập nhật số lượng  đã mua khi nhấn nhiều lần vào 1 dòng của table bán Sản phẩm
-                        if (rowIndex != -1) {
-                            int ClickCount2 = (int) GioHangTable.getModel().getValueAt(rowIndex, 2) + 1;
-                            GioHangTable.setValueAt(ClickCount2, rowIndex, 2);
-                            int countSP = (int) GioHangTable.getModel().getValueAt(rowIndex, 2);
-                            int donGia = (int) GioHangTable.getModel().getValueAt(rowIndex, 3);
-                            GioHangTable.setValueAt(countSP * donGia, rowIndex, 5);
-                        } // Lấy sản phẩm mới của table bán Sản Phẩm đem vào giỏ hàng
-                        else {
-                            int colCount = SPBanTable.getColumnCount();
-                            Object[] rowData = new Object[colCount];
-                            for (int column = 0; column < colCount; column++) {
-                                rowData[column] = SPBanTable.getValueAt(row, column);
-                            }
-                            if (colCount > 2) {
-                                rowData[2] = clickCount;
-                            }
-                            CheckGiohang(rowData);
-
+    private void eventTable() {
+        SPBanTable.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = SPBanTable.getSelectedRow();
+                if (row >= 0) {
+                    int col = SPBanTable.columnAtPoint(e.getPoint());
+                    // kiểm tra xem có phải là cột xem chi tiết không
+                    if (col == 5) {
+                        Object[] rowData = new Object[modelSPBan.getColumnCount()];
+                        for (int column = 0; column < modelSPBan.getColumnCount(); column++) {
+                            rowData[column] = modelSPBan.getValueAt(row, column);
                         }
-                        PrintTongtien();
-                    } else {
-                        JOptionPane.showMessageDialog(null, "Mặt hàng hiện tại đã hết!");
+                        // xét trường hợp có sử dụng tìm kiếm
+                        if (!searchTenSP_TF.getText().equals("")) {
+                            updateDetailPanel(rowData, listSPSearch);
+                        } else {
+                            updateDetailPanel(rowData, ListSP);
+                        }
+
+                    } // thực hiện  chức năng mua hàng
+                    else if (col < 5) {
+
+                        // khi nào tạo hóa đơn thì mới được mua hàng
+                        if (TaoHD_Btn.isEnabled() == false) {
+                            int clickCount = ClickCounts.get(row);
+                            clickCount++;
+                            ClickCounts.set(row, clickCount);
+                            int Updatevalue = (int) SPBanTable.getModel().getValueAt(row, 2);
+                            if (Updatevalue > 0) {
+                                SPBanTable.setValueAt((Updatevalue - 1), row, 2);
+                                int masp = (int) SPBanTable.getModel().getValueAt(row, 0);
+                                String tenSp = (String) SPBanTable.getModel().getValueAt(row, 1);
+                                int giaban = (int) SPBanTable.getModel().getValueAt(row, 3);
+                                String mausac = (String) SPBanTable.getModel().getValueAt(row, 4);
+                                int rowIndex = findRowIntable(GioHangTable, masp, tenSp, giaban, mausac);
+                                // cập nhật số lượng  đã mua khi nhấn nhiều lần vào 1 dòng của table bán Sản phẩm
+                                if (rowIndex != -1) {
+                                    int ClickCount2 = (int) GioHangTable.getModel().getValueAt(rowIndex, 2) + 1;
+                                    GioHangTable.setValueAt(ClickCount2, rowIndex, 2);
+                                    int countSP = (int) GioHangTable.getModel().getValueAt(rowIndex, 2);
+                                    int donGia = (int) GioHangTable.getModel().getValueAt(rowIndex, 3);
+                                    GioHangTable.setValueAt(countSP * donGia, rowIndex, 5);
+                                } // Lấy sản phẩm mới của table bán Sản Phẩm đem vào giỏ hàng
+                                else {
+                                    int colCount = SPBanTable.getColumnCount();
+                                    Object[] rowData = new Object[colCount];
+                                    for (int column = 0; column < colCount; column++) {
+                                        rowData[column] = SPBanTable.getValueAt(row, column);
+                                    }
+                                    if (colCount > 2) {
+                                        rowData[2] = clickCount;
+                                    }
+                                    //xét 2 trường hợp có sử dụng search và không sử dụng search
+                                    if (!searchTenSP_TF.getText().equals("")) {
+                                        CheckGiohang(rowData, listSPSearch);
+                                    } else {
+                                        CheckGiohang(rowData, ListSP);
+                                    }
+
+                                }
+                                PrintTongtien();
+                            } else {
+                                JOptionPane.showMessageDialog(null, "Mặt hàng hiện tại đã hết!");
+                            }
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Chưa tạo hóa đơn nên không thể mua hàng!");
+                        }
                     }
-                } else {
-                    JOptionPane.showMessageDialog(null, "Chưa tạo hóa đơn nên không thể mua hàng!");
                 }
             }
-        }
-    }//GEN-LAST:event_SPBanTableMouseClicked
+
+        });
+        GioHangTable.addMouseListener(new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int rowSelect = GioHangTable.getSelectedRow();
+                if (rowSelect >= 0) {
+                    int columnSelect = GioHangTable.columnAtPoint(e.getPoint());
+                    if (columnSelect == 6) {
+                        int masp = (int) GioHangTable.getModel().getValueAt(rowSelect, 0);
+                        String tenSp = (String) GioHangTable.getModel().getValueAt(rowSelect, 1);
+                        int giaban = (int) GioHangTable.getModel().getValueAt(rowSelect, 3);
+                        String mausac = (String) GioHangTable.getModel().getValueAt(rowSelect, 4);
+                        int rowIndex = findRowIntable(SPBanTable, masp, tenSp, giaban, mausac);
+                        if (rowIndex != -1) {
+                            int soLuongMua = (int) GioHangTable.getModel().getValueAt(rowSelect, 2);
+                            int soLuongCon = (int) SPBanTable.getModel().getValueAt(rowIndex, 2);
+
+                            SPBanTable.setValueAt(soLuongCon + soLuongMua, rowIndex, 2);
+                        }
+                    }
+                    modelGiohang.removeRow(rowSelect);
+                    listSPcart.remove(rowSelect);
+                    PrintTongtien();
+
+                }
+                GioHangTable.setModel(modelGiohang);
+                TraLaiTien();
+            }
+
+        });
+    }
+
     private void TrangThaiBanDauAttribute() {
         MaHD_TF.setEnabled(false);
         KhachDua_TF.setEnabled(false);
@@ -571,7 +617,7 @@ public class BanHangGUI extends javax.swing.JPanel {
     private void ThanhToanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThanhToanBtnActionPerformed
         // Lấy dữ liệu từ giỏ hàng và thông tin KH để tạo Hóa đơn trong database
         if (TraLai_TF.getText().isEmpty()) {
-            
+
             JOptionPane.showMessageDialog(null, "Vui lòng nhập xong số tiền khách đưa thì nhấn ENTER!");
             KhachDua_TF.requestFocus();
         } else {
@@ -636,32 +682,6 @@ public class BanHangGUI extends javax.swing.JPanel {
         }
         resetAttribute();
     }//GEN-LAST:event_HuyBtnActionPerformed
-    // xử lí sự kiện cho Table Giỏ Hàng
-    private void GioHangTableMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_GioHangTableMouseClicked
-        int rowSelect = GioHangTable.getSelectedRow();
-        if (rowSelect >= 0) {
-            int columnSelect = GioHangTable.columnAtPoint(evt.getPoint());
-            if (columnSelect == 6) {
-                int masp = (int) GioHangTable.getModel().getValueAt(rowSelect, 0);
-                String tenSp = (String) GioHangTable.getModel().getValueAt(rowSelect, 1);
-                int giaban = (int) GioHangTable.getModel().getValueAt(rowSelect, 3);
-                String mausac = (String) GioHangTable.getModel().getValueAt(rowSelect, 4);
-                int rowIndex = findRowIntable(SPBanTable, masp, tenSp, giaban, mausac);
-                if (rowIndex != -1) {
-                    int soLuongMua = (int) GioHangTable.getModel().getValueAt(rowSelect, 2);
-                    int soLuongCon = (int) SPBanTable.getModel().getValueAt(rowIndex, 2);
-
-                    SPBanTable.setValueAt(soLuongCon + soLuongMua, rowIndex, 2);
-                }
-            }
-            modelGiohang.removeRow(rowSelect);
-            listSPcart.remove(rowSelect);
-            PrintTongtien();
-            TraLaiTien();
-        }
-        GioHangTable.setModel(modelGiohang);
-
-    }//GEN-LAST:event_GioHangTableMouseClicked
 
     private void KhachDua_TFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_KhachDua_TFKeyPressed
         if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
@@ -723,26 +743,21 @@ public class BanHangGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_TenKH_TFKeyPressed
 
     private void searchTenSP_TFKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_searchTenSP_TFKeyPressed
-        if (evt.getKeyCode() == KeyEvent.VK_ENTER) {
+        if (searchTenSP_TF.getText().isEmpty()) {
+            loaddata(ListSP);
+        } else {
             String txt = searchTenSP_TF.getText();
-            for (int i = 0; i < SPBanTable.getRowCount(); i++) {
-                String tenSP = (String) SPBanTable.getModel().getValueAt(i, 1);
-                if (tenSP.contains(txt)) {
-
-                    SPBUS.search(txt);
-                }
-            }
+            listSPSearch = SPBUS.search(txt);
+            loaddata(listSPSearch);
         }
-
-
     }//GEN-LAST:event_searchTenSP_TFKeyPressed
 
     //Kiểm tra value có giống trong ArrayList không để đưa vào Panel chi tiết Sản phẩm
-    private void updateDetailPanel(Object[] rowData) {
+    private void updateDetailPanel(Object[] rowData, ArrayList<SanPhamDTO> arr) {
         int masp = Integer.parseInt(rowData[0].toString());
         String mauSac = rowData[4].toString();
         int giaban = Integer.parseInt(rowData[3].toString());
-        for (SanPhamDTO sp : ListSP) {
+        for (SanPhamDTO sp : arr) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
                 displayAdditionalDetails(sp);
                 break;
@@ -817,15 +832,17 @@ public class BanHangGUI extends javax.swing.JPanel {
     }
 
     // Kiểm tra value trước khi đưa vào bảng Giỏ hàng
-    private void CheckGiohang(Object[] rowdata) {
+    private void CheckGiohang(Object[] rowdata, ArrayList<SanPhamDTO> arr) {
         int masp = Integer.parseInt(rowdata[0].toString());
         String mauSac = rowdata[4].toString();
         int giaban = Integer.parseInt(rowdata[3].toString());
         int count = Integer.parseInt(rowdata[2].toString());
-        for (SanPhamDTO sp : ListSP) {
+
+        for (SanPhamDTO sp : arr) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
                 addGiohang(sp, count);
                 listSPcart.add(sp);
+                break;
             }
         }
     }

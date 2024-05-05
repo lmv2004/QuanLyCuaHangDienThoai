@@ -8,7 +8,7 @@ public class SanPhamBUS {
     private final SanPhamDAO SPDAO = new SanPhamDAO();
     private final PhienBanSanPhamBUS pbspBUS = new PhienBanSanPhamBUS();
     private ArrayList<SanPhamDTO> listSp = new ArrayList<>();
-
+    
     public SanPhamBUS() {
         listSp = SPDAO.selecAll();
     }
@@ -72,9 +72,9 @@ public class SanPhamBUS {
     public ArrayList<SanPhamDTO> search(String text){
         ArrayList<SanPhamDTO> ketqua=new ArrayList<>();
         text=text.toLowerCase();
-        for(SanPhamDTO sp:listSp){
+        for(SanPhamDTO sp:SPDAO.getAllSanPhamFullThongTin()){
             if(sp.getTensp().toLowerCase().contains(text)){
-                System.out.println(sp);
+                //System.out.println(sp);
                 ketqua.add(sp);
             }
         }
