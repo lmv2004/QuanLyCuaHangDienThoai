@@ -430,15 +430,18 @@ public class ThemPhieuNhap extends javax.swing.JDialog {
             
             int MaNCC = listNCC.get(cbbNCC.getSelectedIndex()).getMaNCC();
             int MaNV = myAcc.getMaNV();
+            
+            
+            int ID = PNBUS.add(new PhieuNhapDTO(MaNCC, 0, MaNV, new Date(), TongTien));
+            if(ID==0) {
+                JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
+                return;
+            }
             for(SoLuongSPDTO x : listSPPN) {
-                if(CTPNBUS.add(new ChiTietPhieuDTO(55, x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), x.getSP().getPBSPDTO().getGianhap(), 1))==false) {
+                if(CTPNBUS.add(new ChiTietPhieuDTO(ID, x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), x.getSP().getPBSPDTO().getGianhap(), 1))==false) {
                     JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
                     return;
                 }
-            }
-            if(PNBUS.add(new PhieuNhapDTO(MaNCC, 55, MaNV, new Date(), TongTien))==false) {
-                JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!!");
-                return;
             }
             JOptionPane.showMessageDialog(null, "Thêm thành công", "Thành công", JOptionPane.OK_OPTION);
             this.dispose();

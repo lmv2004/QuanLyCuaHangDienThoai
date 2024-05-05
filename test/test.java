@@ -11,17 +11,17 @@ import java.util.Base64;
 public class test {
     public static void main(String[] args) {
         // Testing if connection to the db is working
-        JDBCConnection j = new JDBCConnection();
-        if (j.getJDBCConnection() != null) {
-            System.out.println("Database connected successfully!");
-            System.out.println("========================================");
-        } else {
-            System.out.println("Error connecting to the database!");
-            System.out.println("========================================");
-        }
-
-        // Phiếu Nhập Test
-        System.out.println("============ This is Phieunhap test ============");
+//        JDBCConnection j = new JDBCConnection();
+//        if (j.getJDBCConnection() != null) {
+//            System.out.println("Database connected successfully!");
+//            System.out.println("========================================");
+//        } else {
+//            System.out.println("Error connecting to the database!");
+//            System.out.println("========================================");
+//        }
+//
+//        // Phiếu Nhập Test
+//        System.out.println("============ This is Phieunhap test ============");
         // DTO.PhieuNhapDTO pn = new DTO.PhieuNhapDTO(1, 76, 1,new
         // Timestamp(System.currentTimeMillis()), 12000,1);
         // DAO.PhieuNhapDAO pnd = new DAO.PhieuNhapDAO();

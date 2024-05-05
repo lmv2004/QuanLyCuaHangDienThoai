@@ -147,7 +147,6 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         XuatXuDTO xuatxu;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-
             String SQL = "SELECT DISTINCT * "
                     + "FROM sanpham sp "
                     + "Right JOIN phienbansanpham pbsp ON sp.masp = pbsp.masp "
