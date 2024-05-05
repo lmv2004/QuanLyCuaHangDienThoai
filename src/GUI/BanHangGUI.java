@@ -545,7 +545,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                         if (rowIndex != -1) {
                             int soLuongMua = (int) GioHangTable.getModel().getValueAt(rowSelect, 2);
                             int soLuongCon = (int) SPBanTable.getModel().getValueAt(rowIndex, 2);
-
+                            ClickCounts.set(rowIndex, 0);
                             SPBanTable.setValueAt(soLuongCon + soLuongMua, rowIndex, 2);
                         }
                     }
@@ -555,7 +555,7 @@ public class BanHangGUI extends javax.swing.JPanel {
 
                 }
                 GioHangTable.setModel(modelGiohang);
-                TraLaiTien();
+                
             }
 
         });
@@ -617,10 +617,14 @@ public class BanHangGUI extends javax.swing.JPanel {
     private void ThanhToanBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ThanhToanBtnActionPerformed
         // Lấy dữ liệu từ giỏ hàng và thông tin KH để tạo Hóa đơn trong database
         if (TraLai_TF.getText().isEmpty()) {
-
-            JOptionPane.showMessageDialog(null, "Vui lòng nhập xong số tiền khách đưa thì nhấn ENTER!");
+            TraLaiTien();
             KhachDua_TF.requestFocus();
-        } else {
+        } else if(SDT_TF.getText().isEmpty()){
+            JOptionPane.showMessageDialog(null, "Nhập thông tin Khách hàng trước khi thanh toán!");
+                 SDT_TF.requestFocus();
+        }
+            
+        else {
             int maHD = Integer.parseInt(MaHD_TF.getText());
             LocalDateTime localDateTime = LocalDateTime.now();
             java.sql.Date ngayMua = java.sql.Date.valueOf(localDateTime.toLocalDate());
