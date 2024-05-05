@@ -16,6 +16,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
 import java.text.SimpleDateFormat;
+import javax.swing.JButton;
+import javax.swing.JLabel;
 
 /**
  *
@@ -26,12 +28,13 @@ public class ChiTietPhieuXuatDialog extends javax.swing.JDialog {
     /**
      * Creates new form ThemPhieuXuatDialog
      */
-    private PhieuXuatDTO PX;
+    protected PhieuXuatDTO PX;
     CTPhieuXuatBUS CTPXBUS = new CTPhieuXuatBUS();
     SanPhamBUS SPBUS = new SanPhamBUS();
     PhienBanSanPhamBUS PBSPBUS = new PhienBanSanPhamBUS();
     ArrayList<SoLuongSPDTO> listSPPX = new ArrayList<>();
     DefaultTableModel model;
+    long TongTien;
 
     public ChiTietPhieuXuatDialog(java.awt.Frame parent, boolean modal, PhieuXuatDTO PX) {
         super(parent, modal);
@@ -39,6 +42,7 @@ public class ChiTietPhieuXuatDialog extends javax.swing.JDialog {
         initComponents();
         model = (DefaultTableModel) CTTbl.getModel();
         loadData();
+        AddBtn.setVisible(false);
     }
 
 
@@ -81,7 +85,27 @@ public class ChiTietPhieuXuatDialog extends javax.swing.JDialog {
         //load KH
         cbbKH.addItem(new BUS.KhachHangBUS().getNameByID(PX.getMKH()));
     }
-    
+    public void reloadSPPX() {
+        DefaultTableModel tblModel = (DefaultTableModel) CTTbl.getModel();
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+        }
+        DecimalFormat decimalFormat = new DecimalFormat("#,###");
+        TongTien = 0;
+        int i = 0;
+        try {
+            for (SoLuongSPDTO x : listSPPX) {
+                long ThanhTien =(long)x.getSP().getPBSPDTO().getGiaxuat() * x.getSL();
+                TongTien += (long)ThanhTien;
+                tblModel.addRow(new Object[]{x.getSP().getMasp(), x.getSP().getTensp(), x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), decimalFormat.format(x.getSP().getPBSPDTO().getGiaxuat()), decimalFormat.format(ThanhTien)});
+                i++;
+            }
+            CTTbl.setModel(tblModel);
+            TongTienLbl.setText(decimalFormat.format(TongTien)+" (VNĐ) ");
+        } catch (Exception e) {
+            System.out.println("loi cho nay");
+        }
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -105,6 +129,7 @@ public class ChiTietPhieuXuatDialog extends javax.swing.JDialog {
         jPanel3 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
         TongTienLbl = new javax.swing.JLabel();
+        ExitBtn = new javax.swing.JButton();
         AddBtn = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -169,13 +194,17 @@ public class ChiTietPhieuXuatDialog extends javax.swing.JDialog {
         TongTienLbl.setText("0 (VNĐ)");
         jPanel3.add(TongTienLbl);
 
-        AddBtn.setBackground(java.awt.Color.blue);
-        AddBtn.setText("Thoát");
-        AddBtn.addActionListener(new java.awt.event.ActionListener() {
+        ExitBtn.setBackground(java.awt.Color.red);
+        ExitBtn.setText("Thoát");
+        ExitBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AddBtnActionPerformed(evt);
+                ExitBtnActionPerformed(evt);
             }
         });
+        jPanel3.add(ExitBtn);
+
+        AddBtn.setBackground(new java.awt.Color(51, 51, 255));
+        AddBtn.setText("Sửa");
         jPanel3.add(AddBtn);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -238,19 +267,37 @@ public class ChiTietPhieuXuatDialog extends javax.swing.JDialog {
         setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
-    private void AddBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddBtnActionPerformed
+    private void ExitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitBtnActionPerformed
         this.dispose();
-    }//GEN-LAST:event_AddBtnActionPerformed
+    }//GEN-LAST:event_ExitBtnActionPerformed
 
+    
     
     /**
      * @param args the command line arguments
      */
 
+    public JButton getAddBtn() {
+        return ExitBtn;
+    }
+
+    public void setAddBtn(JButton AddBtn) {
+        this.ExitBtn = AddBtn;
+    }
+
+    public JLabel getTitleLbl() {
+        return titleLbl;
+    }
+
+    public void setTitleLbl(JLabel titleLbl) {
+        this.titleLbl = titleLbl;
+    }
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton AddBtn;
+    protected javax.swing.JButton AddBtn;
     private javax.swing.JTable CTTbl;
+    private javax.swing.JButton ExitBtn;
     private javax.swing.JLabel TongTienLbl;
     private javax.swing.JComboBox<String> cbbKH;
     private javax.swing.JLabel jLabel2;

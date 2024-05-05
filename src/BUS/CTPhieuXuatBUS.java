@@ -19,4 +19,10 @@ public class CTPhieuXuatBUS {
         return CTPXDAO.selecAllByID(ID);
     }
 
+    public boolean delete(ChiTietPhieuDTO CT) {
+        if(CTPXDAO.delete(CT)>0) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -30,4 +30,17 @@ public class PhieuXuatBUS {
     public PhieuXuatDTO getID(int ID){
         return PXDAO.selectByID(ID);
     }
+    
+    public boolean delete(PhieuXuatDTO phieuXuat) {
+        if(PXDAO.delete(phieuXuat)!=0) {
+            return true;
+        }
+        return false;
+    }
+    public boolean edit(PhieuXuatDTO phieuXuatEdited) {
+        if(PXDAO.update(phieuXuatEdited)!=0) {
+            return true;
+        }
+        return false;
+    }
 }

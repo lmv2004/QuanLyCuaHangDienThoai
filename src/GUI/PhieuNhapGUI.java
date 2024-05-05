@@ -548,8 +548,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private javax.swing.JMenuItem details;
     private javax.swing.JButton detroyFilterBtn;
     private javax.swing.JMenuItem edit;
-    private com.toedter.calendar.JDateChooser jDateChooser1;
-    private com.toedter.calendar.JDateChooser jDateChooser2;
+    protected com.toedter.calendar.JDateChooser jDateChooser1;
+    protected com.toedter.calendar.JDateChooser jDateChooser2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -559,10 +559,10 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JSlider jSlider1;
-    private javax.swing.JSlider jSlider2;
-    private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
+    protected javax.swing.JSlider jSlider1;
+    protected javax.swing.JSlider jSlider2;
+    protected javax.swing.JTextField jTextField4;
+    protected javax.swing.JTextField jTextField5;
     protected javax.swing.JLabel labelNCC;
     protected javax.swing.JLabel labelNV;
     private javax.swing.JMenuItem remove;

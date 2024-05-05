@@ -17,6 +17,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Iterator;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -116,6 +118,117 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
             }
 
         });
+        
+        
+        
+        ActionListener[] actionListeners2 = toolBar.getRemoveBtn().getActionListeners();
+        for (ActionListener listener : actionListeners2) {
+            toolBar.getRemoveBtn().removeActionListener(listener);
+        }
+        toolBar.getRemoveBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn hủy phiếu?") == 0) {
+                    int index = tblDSPN.getSelectedRow();
+                    if (index < 0) {
+                        JOptionPane.showMessageDialog(null, "Bạn chưa chọn phiếu xuất");
+                        return;
+                    }
+                    PXBUS.delete(listPX.get(tblDSPN.getSelectedRow()));
+                    listPX.remove(tblDSPN.getSelectedRow());
+                    loadDataPX(listPX);
+                    JOptionPane.showMessageDialog(null, "Hủy phiếu xuất thành công!");
+                }
+            }
+
+        });
+        
+        ActionListener[] actionListeners3 = toolBar.getEditBtn().getActionListeners();
+        for (ActionListener listener : actionListeners3) {
+            toolBar.getEditBtn().removeActionListener(listener);
+        }
+        toolBar.getEditBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = tblDSPN.getSelectedRow();
+                if (index < 0) {
+                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn phiếu xuất");
+                    return;
+                }
+                new GUI.Dialog.SuaPhieuXuatDialog(null, true, myAcc, listPX.get(index)).setVisible(true);
+            }
+        });
+    }
+    
+    ArrayList<PhieuXuatDTO> listPXFilter;
+    Iterator<PhieuXuatDTO> iterator10;
+    @Override
+    public void eventFilter() {
+        listPXFilter = new ArrayList<>(listPX);
+        iterator10 = listPXFilter.iterator();
+        int KH = cbbNCC.getSelectedIndex();
+        int MNV = cbbNVN.getSelectedIndex();
+
+        if (KH != 0) {
+            while (iterator10.hasNext()) {
+                PhieuXuatDTO PX = iterator10.next();
+                if (listKH.get(KH - 1).getMaKhachHang() != PX.getMKH()) {
+                    iterator10.remove();
+                }
+            }
+        }
+        if (MNV != 0) {
+            Iterator<PhieuXuatDTO> iterator2 = listPXFilter.iterator();
+            while (iterator2.hasNext()) {
+                PhieuXuatDTO PX = iterator2.next();
+                if (listNV.get(MNV - 1).getManv() != PX.getMNV()) {
+                    iterator2.remove();
+                }
+            }
+        }
+        if (filterByDate() == false) {
+            return;
+        }
+        filterByPrice();
+        //final
+        loadDataPX(listPXFilter);
+    }
+
+    @Override
+    public boolean filterByDate() {
+        Iterator<PhieuXuatDTO> iterator3 = listPXFilter.iterator();
+        Date begin = jDateChooser1.getDate();
+        Date end = jDateChooser2.getDate();
+        if (begin != null && end != null) {
+            if (begin.compareTo(end) >= 0) {
+                JOptionPane.showMessageDialog(null, "Ngày bắt đầu phải trước ngày kết thúc");
+                jDateChooser1.setDate(null);
+                jDateChooser2.setDate(null);
+                return false;
+            }
+            while (iterator3.hasNext()) {
+                PhieuXuatDTO PX = iterator3.next();
+                //date1.compareto(date2) > 0   ->   date1 > date2
+                if (PX.getThoiGian().compareTo(begin) < 0 || PX.getThoiGian().compareTo(end) > 0) {
+                    iterator3.remove();
+                }
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public void filterByPrice() {
+        Iterator<PhieuXuatDTO> iterator4 = listPXFilter.iterator();
+        if (jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty()) {
+            return;
+        }
+        while (iterator4.hasNext()) {
+            PhieuXuatDTO PX = iterator4.next();
+            if (PX.getTongTien() < priceB || PX.getTongTien() > priceE) {
+                iterator4.remove();
+            }
+        }
     }
 
     /**
