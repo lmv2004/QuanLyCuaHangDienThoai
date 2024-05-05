@@ -33,7 +33,7 @@ public class BanHangGUI extends javax.swing.JPanel {
     DecimalFormat dfThapPhan = new DecimalFormat("0.00");
     DecimalFormat dfGiaTien = new DecimalFormat("###,###,### VNĐ");
     ArrayList<Integer> ClickCounts;
-   
+   ArrayList<SanPhamDTO> listSPcart=new ArrayList<>();
     public BanHangGUI() {
         initComponents();
         //function.placeHolder(SearchTf, "Tìm kiếm...");
@@ -479,7 +479,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                         int giaban = (int) SPBanTable.getModel().getValueAt(row, 3);
                         String mausac = (String) SPBanTable.getModel().getValueAt(row, 4);
                         int rowIndex = findRowIntable(GioHangTable, masp, tenSp, giaban, mausac);
-                        // cập nhật số lượng  đã mua khi nhấn nhiều lần vào 1 dòng cảu table bán Sản phẩm
+                        // cập nhật số lượng  đã mua khi nhấn nhiều lần vào 1 dòng của table bán Sản phẩm
                         if (rowIndex != -1) {
                             int ClickCount2 = (int) GioHangTable.getModel().getValueAt(rowIndex, 2) + 1;
                             GioHangTable.setValueAt(ClickCount2, rowIndex, 2);
@@ -548,7 +548,7 @@ public class BanHangGUI extends javax.swing.JPanel {
         HuyBtn.setEnabled(true);
         ThanhToanBtn.setEnabled(true);
         KhachDua_TF.setEnabled(true);
-        TenKH_TF.setEnabled(true);
+        //TenKH_TF.setEnabled(true);
         SDT_TF.setEnabled(true);
         int MaHD = ListPX.size();
         while (true) {            
@@ -575,8 +575,7 @@ public class BanHangGUI extends javax.swing.JPanel {
             }
         }
         String tongTienStr = DisplayTongTienLabel.getText().replaceAll("[,VNĐ]", "").trim();
-        int TongTien = Integer.parseInt(tongTienStr);
-        
+        int TongTien = Integer.parseInt(tongTienStr); 
         // add vào database Phiếu xuất
         if (PXBUS.add(new PhieuXuatDTO(MaKH, maHD, 1, ngayMua, TongTien)) == true) {
             JOptionPane.showMessageDialog(null, "Mua hàng thành công!");
@@ -584,6 +583,16 @@ public class BanHangGUI extends javax.swing.JPanel {
             for (int i = 0; i < ListSP.size(); i++) {
                 int soLuongBan = Integer.parseInt(SPBanTable.getModel().getValueAt(i, 2).toString());
                 ListSP.get(i).getPBSPDTO().setSoluongton(soLuongBan);
+            }
+            // đưa vào database chi tiết Sản phẩm
+            getSLSPTableGioHang();
+             for(SanPhamDTO SPcart:listSPcart){
+               int MaPBSP=SPcart.getPBSPDTO().getMaphienbansp();
+               int SL=SPcart.getPBSPDTO().getSoluongton();
+               int donGia=SPcart.getPBSPDTO().getGiaxuat();
+               if(CTPXBUS.add(new ChiTietPhieuDTO(maHD, MaPBSP, SL, donGia))){
+                   System.out.println("them chi tiet thanh cong!");
+               };
             }
             // cập nhật lại số lượng bên table Phiên bản sp
             PBSP.updateSLTon(ListSP);
@@ -616,6 +625,7 @@ public class BanHangGUI extends javax.swing.JPanel {
                 }
             }
             modelGiohang.removeRow(rowSelect);
+            listSPcart.remove(rowSelect);
             PrintTongtien();
             TraLaiTien();
         }
@@ -638,18 +648,17 @@ public class BanHangGUI extends javax.swing.JPanel {
                 JOptionPane.showMessageDialog(null, "SĐT sai định dạng(10 con số và không có kí tự)");
                 SDT_TF.requestFocus();
             } else {
-                for (KhachHangDTO Kh : ListKH) {
-                    if (Kh.getSDT().equals(SDT)) {
-                        TenKH_TF.setText(Kh.getTenKhachHang());
-                        break;
+                    KhachHangDTO kh=KHBUS.getBySDT(SDT);
+                    if (kh!=null) {
+                        TenKH_TF.setText(kh.getTenKhachHang());
                     } else {
                         JOptionPane.showMessageDialog(null, "Khách hàng mới");
+                        TenKH_TF.setEnabled(true);
                         TenKH_TF.setText("");
                         TenKH_TF.requestFocus();
                         TenKH_TFKeyPressed(evt);
-                        break;
                     }
-                }
+                
             }
         }
     }//GEN-LAST:event_SDT_TFKeyPressed
@@ -770,9 +779,8 @@ public class BanHangGUI extends javax.swing.JPanel {
         int count = Integer.parseInt(rowdata[2].toString());
         for (SanPhamDTO sp : ListSP) {
             if (sp.getMasp() == masp && sp.getPBSPDTO().getGiaxuat() == giaban && sp.getMSDTO().getTenmau() == mauSac) {
-                addGiohang(sp, count);
-                
-                
+                addGiohang(sp, count);     
+                listSPcart.add(sp);
             }
         }
     }
@@ -819,8 +827,12 @@ public class BanHangGUI extends javax.swing.JPanel {
             DisplayTongTienLabel.setText("0 VNĐ");
         }
     }
-    private void getSPTableGioHang(){
-        
+    // hàm lấy số Lượng của table Giỏ hàng để gán vào SL tồn
+    private void getSLSPTableGioHang(){
+        for(int i=0;i<GioHangTable.getRowCount();i++){
+          int SL=(int) GioHangTable.getModel().getValueAt(i, 2);
+          listSPcart.get(i).getPBSPDTO().setSoluongton(SL);
+        }
     }
     private void TraLaiTien() {
 
