@@ -63,7 +63,7 @@ public class ChiTietPhieuNhapDialog extends javax.swing.JDialog {
         ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
         for (ChiTietPhieuDTO x : CTPN) {//maphienbansp sl
             for (SanPhamDTO y : listSP) {
-                if (PBSPBUS.getSanPham(x.getMPBSP()).getMasp() == y.getMasp()) {
+                if (PBSPBUS.getSanPham(x.getMPBSP()).getMasp() == y.getMasp() && x.getMPBSP()==y.getPBSPDTO().getMaphienbansp()) {
                     listSPPN.add(new SoLuongSPDTO(y, x.getSoLuong()));
                     break;
                 }

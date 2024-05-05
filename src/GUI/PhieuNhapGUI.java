@@ -155,6 +155,20 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
             }
 
         });
+        toolBar.getRefreshBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                eventRefresh();
+            }
+            
+        });
+    }
+    
+    public void eventRefresh() {
+        removeAll();
+        add(new PhieuNhapGUI(myAcc));
+        repaint();
+        revalidate();
     }
 
     /**

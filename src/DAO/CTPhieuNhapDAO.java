@@ -65,10 +65,11 @@ public class CTPhieuNhapDAO implements DAO_Interface<ChiTietPhieuDTO>{
         int ketqua = 0;
         try {
             Connection con = JDBCConnection.getJDBCConnection();
-            String sql = String.format("Delete from ctphieunhap WHERE maphieunhap=%s and maphienbansp=%s", t.getMaPhieu(),t.getMPBSP());
+            String sql = "Delete from ctphieunhap WHERE maphieunhap=? and maphienbansp=?";
             PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, t.getMaPhieu());
+            pst.setInt(2, t.getMPBSP());
             ketqua = pst.executeUpdate();
-            System.out.println("success! Affected rows: "+ketqua);
             JDBCConnection.closeConection(con);
         } catch (SQLException ex) {
             ex.printStackTrace();

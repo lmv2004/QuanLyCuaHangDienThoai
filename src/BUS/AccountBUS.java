@@ -20,7 +20,6 @@ public class AccountBUS {
     }
     public AccountDTO check(String tk, char[] mk) {
         for(AccountDTO x : getAll()) {
-            System.out.println(tk + " == " + x.getTaiKhoan() +"  &&  "+ String.copyValueOf(mk)+" == "+ String.copyValueOf(x.getMatKhau()));
             if(tk.equals(x.getTaiKhoan()) && String.copyValueOf(mk).equals(String.copyValueOf(x.getMatKhau()))) {
                 return x;
             }

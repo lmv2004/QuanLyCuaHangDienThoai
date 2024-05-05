@@ -23,4 +23,18 @@ public class CTPhieuNhapBUS {
         if(CTPNDAO.insert(CT)!=0) return true;
         return false;
     }
+    
+    public boolean edit(ChiTietPhieuDTO CT) {
+        if(CTPNDAO.update(CT)>0) {
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean delete(ChiTietPhieuDTO CT) {
+        if(CTPNDAO.delete(CT)>0) {
+            return true;
+        }
+        return false;
+    }
 }

@@ -27,6 +27,7 @@ public class SuaPhieuNhapDialog extends ThemPhieuNhapDialog {
     CTPhieuNhapBUS CTPNBUS = new CTPhieuNhapBUS();
     SanPhamBUS SPBUS = new SanPhamBUS();
     PhienBanSanPhamBUS PBSPBUS = new PhienBanSanPhamBUS();
+    ArrayList<SoLuongSPDTO> listSPPNCu;
 
     public SuaPhieuNhapDialog(Frame parent, boolean modal, AccountDTO myAcc, PhieuNhapDTO PN) {
         super(parent, modal, myAcc);
@@ -42,12 +43,13 @@ public class SuaPhieuNhapDialog extends ThemPhieuNhapDialog {
         ArrayList<SanPhamDTO> listSP = SPBUS.getAllSanPhamAttribute();
         for (ChiTietPhieuDTO x : CTPN) {//maphienbansp sl
             for (SanPhamDTO y : listSP) {
-                if (PBSPBUS.getSanPham(x.getMPBSP()).getMasp() == y.getMasp()) {
+                if (PBSPBUS.getSanPham(x.getMPBSP()).getMasp() == y.getMasp() && x.getMPBSP() == y.getPBSPDTO().getMaphienbansp()) {
                     super.listSPPN.add(new SoLuongSPDTO(y, x.getSoLuong()));
                     break;
                 }
             }
         }
+        listSPPNCu = new ArrayList<>(listSPPN);
         reloadSPPN();
     }
 
@@ -64,12 +66,33 @@ public class SuaPhieuNhapDialog extends ThemPhieuNhapDialog {
     private void actionEditBtn() {
         if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn sửa?") == 0) {
             //todo edit database
-            
+            if (listSPPN.isEmpty()) {
+                JOptionPane.showMessageDialog(null, "Phiếu nhập rỗng");
+                return;
+            }
+            // xóa toàn bộ ct phiếu nhập cũ
+            for (SoLuongSPDTO x : listSPPNCu) {
+                if (CTPNBUS.delete(new ChiTietPhieuDTO(PN.getMaPhieu(), x.getSP().getPBSPDTO().getMaphienbansp(), 0, 0, 1)) == false) {
+                    JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!! xóa pn cũ");
+                    return;
+                }
+            }
+            //thêm ct phiếu nhập mới
+            for (SoLuongSPDTO x : listSPPN) {
+                if (CTPNBUS.add(new ChiTietPhieuDTO(PN.getMaPhieu(), x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL(), x.getSP().getPBSPDTO().getGianhap(), 1)) == false
+                        || new PhienBanSanPhamBUS().nhapHang(x.getSP().getPBSPDTO().getMaphienbansp(), x.getSL()) == false) {
+                    JOptionPane.showMessageDialog(null, "Có lỗi xảy ra!!! thêm pn mới");
+                    return;
+                }
+            }
+            reloadSPPN();
+            PN.setTongTien(TongTien);
+            PNBUS.edit(PN);
             JOptionPane.showMessageDialog(null, "Sửa thành công");
             this.dispose();
         }
     }
-    
+
     public static void removeAllListeners(JButton button) {
         // Lấy danh sách bộ lắng nghe sự kiện của button
         ActionListener[] listeners = button.getActionListeners();
