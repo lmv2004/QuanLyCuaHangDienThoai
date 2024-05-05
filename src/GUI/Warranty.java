@@ -22,6 +22,9 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.DefaultComboBoxModel;
 import java.awt.event.ActionEvent;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -32,7 +35,7 @@ public class Warranty extends javax.swing.JPanel {
     public final WarrantyBUS warrantyBUS = new WarrantyBUS();
     public ArrayList<WarrantyDTO> WarrantyList = warrantyBUS.getAll();
     public WarrantyDTO warranty;
-
+    JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(this);
     /**
      * Creates new form Warranty
      */
@@ -104,24 +107,55 @@ public class Warranty extends javax.swing.JPanel {
             
             @Override
             public void actionPerformed(ActionEvent e) {
-                new WarrantyDialog();
+               // WarrantyDialog(Warranty JPWarranty, java.awt.Frame parent, boolean modal, String title, String type)
+                WarrantyDialog dialog = new WarrantyDialog(Warranty.this,owner,true,"Thêm bảo hành","add");
+                System.out.println("Hello");
             }
         });
     }
 
     // Load update function
     public void loadUpdate() {
-
+        toolBar.getEditBtn().addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              
+              if(getIndexRow() != -1){
+               WarrantyDialog dialog = new WarrantyDialog(Warranty.this,owner,true,"Thêm bảo hành","update",WarrantyList.get(getIndexRow()));
+              } else {
+                  JOptionPane.showMessageDialog(Warranty.this, "VUi lòng chọn dỏng trong bảng");
+              }
+             
+            }
+        });
     }
 
     // Load delete function
     public void loadDelete() {
-
+        toolBar.getRemoveBtn().addActionListener(new java.awt.event.ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               
+            }
+        
+        });
     }
 
     // Load detail function
     public void loadDetail() {
-
+        toolBar.getDetailBtn().addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+              
+              if(getIndexRow() != -1){
+               WarrantyDialog dialog = new WarrantyDialog(Warranty.this,owner,true,"Thêm bảo hành","detail",WarrantyList.get(getIndexRow()));
+               
+              } else {
+                  JOptionPane.showMessageDialog(Warranty.this, "VUi lòng chọn dỏng trong bảng");
+              }
+             
+            }
+        });
     }
 
     public void loadRefresh() {
@@ -133,6 +167,12 @@ public class Warranty extends javax.swing.JPanel {
             }
         });
     }
+    
+     public int getIndexRow(){
+         int i = List_Warranty.getSelectedRow();
+         return i;
+     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.

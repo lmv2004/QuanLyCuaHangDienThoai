@@ -126,4 +126,15 @@ public class SanPhamBUS {
     return result;
 }
 
+    public ArrayList<SanPhamDTO> search(String text){
+        ArrayList<SanPhamDTO> ketqua=new ArrayList<>();
+        text=text.toLowerCase();
+        for(SanPhamDTO sp:SPDAO.getAllSanPhamFullThongTin()){
+            if(sp.getTensp().toLowerCase().contains(text)){
+                //System.out.println(sp);
+                ketqua.add(sp);
+            }
+        }
+        return ketqua;
+    }
 }

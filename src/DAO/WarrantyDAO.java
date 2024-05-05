@@ -116,7 +116,7 @@ public class WarrantyDAO implements DAO_Interface<WarrantyDTO> {
             ResultSet rs = pst.executeQuery(); // execute the query
 
             while (rs.next()) { // loop through the result set
-                int MaSanPham = rs.getInt("masanpham"); // get the values from the result set
+                int MaSanPham = rs.getInt("masanpam"); // get the values from the result set
                 int MaBaoHanh = rs.getInt("mabaohanh");
                 String TenKhachHang = rs.getString("tenkhachhang");
                 String YeuCauBaoHanh = rs.getString("yeucaubaohanh");
