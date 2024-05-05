@@ -730,10 +730,10 @@ CREATE TABLE IF NOT EXISTS `phienbansanpham` (
 DELETE FROM `phienbansanpham`;
 INSERT INTO `phienbansanpham` (`maphienbansp`, `masp`, `rom`, `ram`, `mausac`, `gianhap`, `giaxuat`, `soluongton`, `trangthai`) VALUES
 	(2, 1, 1, 1, 1, 5000000, 5500000, 5, 1),
-	(15, 1, 3, 4, 1, 6000000, 6500000, 0, 1),
+	(15, 1, 3, 4, 1, 6000000, 6500000, 6, 1),
 	(17, 2, 3, 5, 1, 7000000, 7800000, 3, 1),
 	(19, 3, 3, 3, 5, 15000000, 16500000, 1, 1),
-	(21, 3, 3, 3, 6, 15000000, 16500000, 0, 1),
+	(21, 3, 3, 3, 6, 15000000, 16500000, 5, 1),
 	(23, 3, 3, 3, 1, 15500000, 17000000, 5, 1),
 	(24, 4, 1, 1, 1, 2000000, 2890000, 3, 1),
 	(25, 4, 1, 1, 1, 2000000, 2890000, 0, 0),
@@ -914,19 +914,19 @@ CREATE TABLE IF NOT EXISTS `sanpham` (
 DELETE FROM `sanpham`;
 INSERT INTO `sanpham` (`masp`, `tensp`, `hinhanh`, `xuatxu`, `chipxuly`, `dungluongpin`, `kichthuocman`, `hedieuhanh`, `phienbanhdh`, `camerasau`, `cameratruoc`, `thoigianbaohanh`, `thuonghieu`, `khuvuckho`, `soluongton`, `trangthai`) VALUES
 	(1, 'Vivo Y22s', '92vivo-y22s-vang-thumb-600x600.jpg', 1, 'SnapDragon 680', 5000, 6.55, 1, 12, 'Chính 50 MP & Phụ 2 MP', '8 MP', 24, 1, 1, 5, 1),
-	(2, 'Samsung Galaxy A53 5G', '57samsung-galaxy-a53-cam-thumb-1-600x600.jpg', 1, 'Exynos 1280', 5000, 6.5, 1, 12, 'Chính 64 MP & Phụ 12 MP, 5 MP, 5 MP', '32 MP', 24, 3, 2, 3, 1),
+	(2, 'Samsung Galaxy A53 5G', '57samsung-galaxy-a53-cam-thumb-1-600x600.jpg', 1, 'Exynos 1280', 5000, 6.5, 1, 12, 'Chính 64 MP & Phụ 12 MP, 5 MP, 5 MP', '32 MP', 24, 13, 2, 3, 1),
 	(3, 'iPhone 13 mini', '997iphone-13-mini-pink-1-600x600.jpg', 1, ' Apple A15 Bionic', 2438, 5.4, 2, 15, '2 camera 12 MP', ' 12 MP', 36, 1, 1, 6, 0),
 	(4, 'Vivo Y02s', '74vivo-y02s-thumb-1-2-3-600x600.jpg', 1, 'MediaTek Helio P35', 5000, 6.51, 1, 12, '8 MP', ' 5 MP', 24, 10, 3, 14, 1),
-	(5, 'Samsung Galaxy A54 5G', '399samsung-galaxy-a54-5g-tim-thumb-600x600.jpg', 2, ' Exynos 1380 8 nhân', 5000, 6.4, 1, 12, 'Chính 50 MP & Phụ 12 MP, 5 MP', ' 32 MP', 24, 3, 3, 39, 1),
+	(5, 'Samsung Galaxy A54 5G', '399samsung-galaxy-a54-5g-tim-thumb-600x600.jpg', 2, ' Exynos 1380 8 nhân', 5000, 6.4, 1, 12, 'Chính 50 MP & Phụ 12 MP, 5 MP', ' 32 MP', 24, 13, 3, 39, 1),
 	(6, 'Samsung Galaxy A13', '337samsung-galaxy-a14-black-thumb-600x600.jpg', 1, 'Exynos 850', 5000, 6.6, 1, 12, 'Chính 50 MP & Phụ 5 MP, 2 MP, 2 MP', '8 MP', 24, 3, 2, 27, 1),
 	(7, 'Xiaomi Redmi Note 12', '717xiaomi-redmi-note-12-4g-mono-den-600x600.jpg', 1, ' Snapdragon 685 8 nhân', 5000, 6.67, 1, 12, 'Chính 50 MP & Phụ 8 MP, 2 MP', '13 MP', 24, 2, 4, 22, 1),
 	(8, 'Xiaomi Redmi 12C', '437xiaomi-redmi-12c-grey-thumb-600x600.jpg', 1, 'MediaTek Helio G85', 5000, 6.71, 1, 12, 'Chính 50 MP & Phụ QVGA', '5 MP', 24, 1, 1, 0, 1),
-	(9, 'Samsung Galaxy S20 FE', '286samsung-galaxy-s20-fan-edition-xanh-la-thumbnew-600x600.jpeg', 1, 'Snapdragon 865', 4500, 6.5, 1, 12, 'Chính 12 MP & Phụ 12 MP, 8 MP', '32 MP', 24, 3, 4, 6, 1),
+	(9, 'Samsung Galaxy S20 FE', '286samsung-galaxy-s20-fan-edition-xanh-la-thumbnew-600x600.jpeg', 1, 'Snapdragon 865', 4500, 6.5, 1, 12, 'Chính 12 MP & Phụ 12 MP, 8 MP', '32 MP', 24, 13, 4, 6, 1),
 	(10, 'Samsung Galaxy A23', '826samsung-galaxy-a23-cam-thumb-600x600.jpg', 1, 'Snapdragon 680', 5000, 6.6, 1, 12, 'Chính 50 MP & Phụ 5 MP, 2 MP, 2 MP', '8 MP', 24, 1, 1, 10, 1),
 	(11, 'Realme 10', '877realme-10-thumb-1-600x600.jpg', 1, 'MediaTek Helio G99', 5000, 6.4, 1, 12, 'Chính 50 MP & Phụ 2 MP', '16 MP', 24, 11, 1, 0, 1),
 	(12, 'Vivo Y21', '960vivo-y21-blue-01-600x600.jpg', 1, 'MediaTek Helio P35', 5000, 6.51, 1, 12, 'Chính 13 MP & Phụ 2 MP', '8 MP', 24, 10, 5, 11, 1),
-	(13, 'Samsung Galaxy S22+ 5G', '177Galaxy-S22-Ultra-Burgundy-600x600.jpg', 1, 'Snapdragon 8 Gen 1', 4500, 6.6, 1, 12, 'Chính 50 MP & Phụ 12 MP, 10 MP', '10 MP', 24, 3, 4, 20, 1),
-	(14, 'OPPO Reno6 Pro 5G', '203oppo-reno6-pro-grey-600x600.jpg', 1, 'Snapdragon 870 5G', 4500, 6.55, 1, 11, 'Chính 50 MP & Phụ 16 MP, 13 MP, 2 MP', '32 MP', 24, 3, 4, 7, 1),
+	(13, 'Samsung Galaxy S22+ 5G', '177Galaxy-S22-Ultra-Burgundy-600x600.jpg', 1, 'Snapdragon 8 Gen 1', 4500, 6.6, 1, 12, 'Chính 50 MP & Phụ 12 MP, 10 MP', '10 MP', 24, 13, 4, 20, 1),
+	(14, 'OPPO Reno6 Pro 5G', '203oppo-reno6-pro-grey-600x600.jpg', 1, 'Snapdragon 870 5G', 4500, 6.55, 1, 11, 'Chính 50 MP & Phụ 16 MP, 13 MP, 2 MP', '32 MP', 24, 13, 4, 7, 1),
 	(15, ' OPPO A95', '555oppo-a95-4g-bac-2-600x600.jpg', 1, 'Snapdragon 662', 5000, 6.43, 1, 11, 'Chính 48 MP & Phụ 2 MP, 2 MP', '16 MP', 24, 1, 1, 5, 1),
 	(17, 'Samsung Galaxy A53 5G S', '74319198933.jpg', 1, 'chip a', 5000, 5.6, 1, 12, 'msdf', 'dsfgfdg', 24, 1, 1, 5, 0);
 

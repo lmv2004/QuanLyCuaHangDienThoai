@@ -42,7 +42,9 @@ public class KhachHangBUS {
         }
         return null;
     }
-    
+    public KhachHangDTO getBySDT(String sdt){
+        return KHDao.SelectBySDT(sdt);
+    }
     public int getByID(int maKH) {
         int vitri = -1;
         for (int i = 0; i < DanhSachKH.size(); i++) {

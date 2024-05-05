@@ -147,12 +147,6 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         XuatXuDTO xuatxu;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-
-            String sql = "SELECT Distinct sp.masp,sp.tensp ,sp.hinhanh ,sp.chipxuly,dlram.kichthuocram ,dlrom.kichthuocrom ,sp.dungluongpin,sp.kichthuocman,sp.camerasau,sp.cameratruoc,hdh.tenhedieuhanh ,sp.phienbanhdh,th.tenthuonghieu,xx.tenxuatxu,ms.tenmau,pbsp.giaxuat,sp.soluongton,pbsp.gianhap,pbsp.maphienbansp"
-                    + " FROM sanpham sp,phienbansanpham pbsp,dungluongram dlram,dungluongrom dlrom,hedieuhanh hdh,thuonghieu th,xuatxu xx,mausac ms"
-                    + " WHERE sp.hedieuhanh=hdh.mahedieuhanh && sp.thuonghieu=th.mathuonghieu && sp.masp=pbsp.masp && sp.xuatxu=xx.maxuatxu "
-                    + " && pbsp.rom=dlrom.madlrom && pbsp.ram=dlram.madlram && pbsp.mausac=ms.mamau";
-
             String SQL = "SELECT DISTINCT * "
                     + "FROM sanpham sp "
                     + "Right JOIN phienbansanpham pbsp ON sp.masp = pbsp.masp "
@@ -199,7 +193,7 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         SanPhamDTO ketqua = null;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM sampham WHERE masp=?";
+            String sql = "SELECT * FROM sanpham WHERE masp=?";
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setInt(1, t);
             ResultSet rs = psm.executeQuery();
@@ -233,7 +227,7 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         ArrayList<SanPhamDTO> ketqua = new ArrayList<SanPhamDTO>();
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM sampham WHERE " + condition;
+            String sql = "SELECT * FROM sanpham WHERE " + condition;
             PreparedStatement psm = conn.prepareStatement(sql);
             ResultSet rs = psm.executeQuery();
             while (rs.next()) {
