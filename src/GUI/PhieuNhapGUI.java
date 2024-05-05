@@ -4,6 +4,7 @@ import BUS.NhaCungCapBUS;
 import BUS.NhanVienBUS;
 import BUS.PhieuNhapBUS;
 import DTO.AccountDTO;
+import DTO.KhachHangDTO;
 import DTO.NhanVienDTO;
 import DTO.NhaCungCapDTO;
 import DTO.PhieuNhapDTO;
@@ -36,6 +37,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private ArrayList<PhieuNhapDTO> listPN = PNBUS.getAllPhieuNhap();
     private ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
     private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
+    
+    protected ArrayList<KhachHangDTO> listKH = new BUS.KhachHangBUS().getAllKhachHang();
     AccountDTO myAcc;
     int priceB, priceE;
 
@@ -127,7 +130,6 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                 new GUI.Dialog.SuaPhieuNhapDialog(null, true, myAcc, listPN.get(index)).setVisible(true);
 
             }
-
         });
         toolBar.getDetailBtn().addActionListener(new ActionListener() {
             @Override

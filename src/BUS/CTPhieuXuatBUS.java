@@ -3,6 +3,7 @@ package BUS;
 
 import DAO.CTPhieuXuatDAO;
 import DTO.ChiTietPhieuDTO;
+import java.util.ArrayList;
 
 
 public class CTPhieuXuatBUS {
@@ -13,4 +14,9 @@ public class CTPhieuXuatBUS {
     public boolean add(ChiTietPhieuDTO t){
         return CTPXDAO.insert(t)!= 0;
     }
+    
+    public ArrayList<DTO.ChiTietPhieuDTO> getAllByID(int ID) {
+        return CTPXDAO.selecAllByID(ID);
+    }
+
 }

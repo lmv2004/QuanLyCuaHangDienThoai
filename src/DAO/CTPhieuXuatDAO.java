@@ -101,6 +101,27 @@ public class CTPhieuXuatDAO implements DAO_Interface<ChiTietPhieuDTO>{
         return ketqua;
     }
 
+    public ArrayList<ChiTietPhieuDTO> selecAllByID(int ID) {
+        ArrayList<ChiTietPhieuDTO> ketqua = new ArrayList<ChiTietPhieuDTO>();
+        try {
+            Connection con = JDBCConnection.getJDBCConnection();
+            String sql = "SELECT * FROM ctphieuxuat WHERE maphieuxuat="+ID;
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaPhieu = rs.getInt("maphieuxuat");
+                int MPBSP = rs.getInt("maphienbansp");
+                int SoLuong = rs.getInt("soluong");
+                Long DonGia = rs.getLong("dongia");
+                ketqua.add(new ChiTietPhieuDTO(MaPhieu, MPBSP, SoLuong, DonGia, 0));
+            }
+            JDBCConnection.closeConection(con);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ketqua;
+    }
+    
     @Override
     public ChiTietPhieuDTO selectById(ChiTietPhieuDTO t) {
         ChiTietPhieuDTO ketqua = null;
