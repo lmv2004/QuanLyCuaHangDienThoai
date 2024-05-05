@@ -131,7 +131,8 @@ public class KhuVucKhoDAO implements DAO_Interface<KhuVucKhoDTO>{
             // bước 2
             
             String sql = "Select * "
-                    + " from khuvuckho";
+                    + " from khuvuckho"
+                    + " Where trangthai = 1";
             
             PreparedStatement pst = con.prepareStatement(sql);
             

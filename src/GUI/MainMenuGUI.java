@@ -4,6 +4,7 @@
  */
 package GUI;
 
+import DTO.AccountDTO;
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -37,6 +38,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     ProductView SanPham;
     area khuVucKho;
     ArrayList<JButton> buttonList;
+    DTO.AccountDTO myAcc;
     
     public MainMenuGUI(DTO.AccountDTO myAcc) {
         initComponents();
@@ -58,9 +60,15 @@ public class MainMenuGUI extends javax.swing.JFrame {
         function.setBtnBefore(BanHangBtn);
         
         //đỏ dữ liệu
-        lblName.setText(myAcc.getTaiKhoan().toUpperCase());
+        this.myAcc = myAcc;
+        lblName.setText(new BUS.NhanVienBUS().getNameByID(this.myAcc.getMaNV()).toUpperCase());
         lblVitri.setText("ADMIN");
     }
+
+    public AccountDTO getMyAcc() {
+        return myAcc;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -442,7 +450,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private void PhieuNhapBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhieuNhapBtnActionPerformed
         // TODO add your handling code here:
         NoiDungPnl.removeAll();
-        phieuNhap=new PhieuNhapGUI();
+        phieuNhap=new PhieuNhapGUI(myAcc);
         NoiDungPnl.add(phieuNhap,BorderLayout.CENTER);
         NoiDungPnl.revalidate();
     }//GEN-LAST:event_PhieuNhapBtnActionPerformed
@@ -454,7 +462,7 @@ public class MainMenuGUI extends javax.swing.JFrame {
     private void PhieuXuatBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PhieuXuatBtnActionPerformed
         // TODO add your handling code here:
         NoiDungPnl.removeAll();
-        phieuXuat=new PhieuXuatGUI();
+        phieuXuat=new PhieuXuatGUI(myAcc);
         NoiDungPnl.add(phieuXuat,BorderLayout.CENTER);
         NoiDungPnl.repaint();
         NoiDungPnl.revalidate();

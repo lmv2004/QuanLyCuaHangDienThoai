@@ -1,37 +1,39 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package GUI;
 
 import BUS.NhanVienBUS;
 import DTO.NhanVienDTO;
+import GUI.Dialog.NhanVienDialog;
+
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author Vuong
- */
 public class NhanVienGUI extends javax.swing.JPanel {
 
-    /**
-     * Creates new form NhanVienGUI
-     */
     private NhanVienBUS NVBUS = new NhanVienBUS();
-    
-    
+    private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
+
     public NhanVienGUI() {
         initComponents();
-        loadData(NVBUS.getAllNhanVien());
+        loadData(listNV);
         loadCbb();
         addEvent();
+        toolBar.getDetailBtn().setVisible(false);
     }
-    
+
+    public int getIndexRow() {
+        int row = NhanVienTable.getSelectedRow();
+        return row;
+    }
+
     public void loadData(ArrayList<NhanVienDTO> listNV) {
         DefaultTableModel tblModel = (DefaultTableModel) NhanVienTable.getModel();
         //remove all row
@@ -39,32 +41,100 @@ public class NhanVienGUI extends javax.swing.JPanel {
             tblModel.removeRow(0);
         }
         for (NhanVienDTO x : listNV) {
-            tblModel.addRow(new Object[]{x.getManv(),x.getHoTen(),x.getGioiTinh()==1 ? "Nam" : "Nữ",x.getNgaySinh(),x.getSDT(),x.getEmail()});
+            tblModel.addRow(new Object[]{
+                x.getManv(),
+                x.getHoTen(),
+                x.getGioiTinh() == 1 ? "Nam" : "Nữ",
+                x.getNgaySinh(),
+                x.getSDT(),
+                x.getEmail()
+            });
         }
         NhanVienTable.setModel(tblModel);
+        NhanVienTable.repaint();
+        NhanVienTable.validate();
     }
 
-    
     public void loadCbb() {
         toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String[]{
-            "Tất cả", "Họ tên", "Giới tính", "SĐT", "Email"
+            "Tất cả", "Mã NV", "Họ tên", "Giới tính", "SĐT", "Email"
         }));
     }
-    
+
     public void addEvent() {
         toolBar.getFindBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                loadData(NVBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText()));
+                loadData(NVBUS.Search((String) toolBar.getCbbFilter().getSelectedItem(), toolBar.getTfSearch().getText()));
             }
-            
         });
+        toolBar.getTfSearch().addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
+
+            @Override
+            public void keyPressed(KeyEvent e) {
+                if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                    loadData(NVBUS.Search((String) toolBar.getCbbFilter().getSelectedItem(), toolBar.getTfSearch().getText()));
+                }
+            }
+
+            @Override
+            public void keyReleased(KeyEvent e) {
+            }
+
+        });
+        toolBar.getRefreshBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                loadData(NVBUS.getAllNhanVien());
+            }
+
+        });
+        toolBar.getAddBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                NhanVienDialog PanelDialog = new NhanVienDialog("add");
+            }
+        });
+        toolBar.getEditBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (getIndexRow() >= 0) {
+                    NhanVienDialog PanelDialog = new NhanVienDialog("update", listNV.get(getIndexRow()));
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn nhân viên có trong bảng!");
+                }
+            }
+        });
+        toolBar.getRemoveBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = getIndexRow();
+                if (index >= 0) {
+                    int input = JOptionPane.showConfirmDialog(null,
+                            "Bạn có chắc chắn muốn xóa Nhân Viên này?", "Xóa Nhân Viên",
+                            JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+                    if (input == 0) {
+                        int manv = Integer.parseInt(NhanVienTable.getValueAt(index, 0).toString());
+                        for (NhanVienDTO nv : listNV) {
+                            if (nv.getManv() == manv) {
+                                if (NVBUS.delete(nv)) {
+                                    JOptionPane.showMessageDialog(null, "Xóa thành công");
+                                    loadData(NVBUS.getAllNhanVien());
+                                }
+                            }
+                        }
+
+                    }
+                }
+            }
+
+        });
+
     }
-    /**
-     * This method is called from within the constructor to initialize the form.
-     * WARNING: Do NOT modify this code. The content of this method is always
-     * regenerated by the Form Editor.
-     */
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -274,6 +344,7 @@ public class NhanVienGUI extends javax.swing.JPanel {
                 return types [columnIndex];
             }
         });
+        NhanVienTable.setRowHeight(25);
         jScrollPane1.setViewportView(NhanVienTable);
 
         javax.swing.GroupLayout PanelTableLayout = new javax.swing.GroupLayout(PanelTable);
@@ -305,29 +376,30 @@ public class NhanVienGUI extends javax.swing.JPanel {
         );
     }// </editor-fold>//GEN-END:initComponents
 
+
     private void EditBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditBtnActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_EditBtnActionPerformed
 
     private void CatogoryCBBActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CatogoryCBBActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_CatogoryCBBActionPerformed
 
     private void SearchTFFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchTFFocusGained
-       if(SearchTF.getText().equals("Tìm Kiếm...")){
-           SearchTF.setText("");
-           SearchTF.setForeground(new Color(0,0,0));
-       }
+        if (SearchTF.getText().equals("Tìm Kiếm...")) {
+            SearchTF.setText("");
+            SearchTF.setForeground(new Color(0, 0, 0));
+        }
     }//GEN-LAST:event_SearchTFFocusGained
 
     private void SearchTFFocusLost(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SearchTFFocusLost
-        if(SearchTF.getText().equals("")){
-           SearchTF.setText("Tìm Kiếm...");
-           SearchTF.setForeground(new Color(153,153,153));
-       }
+        if (SearchTF.getText().equals("")) {
+            SearchTF.setText("Tìm Kiếm...");
+            SearchTF.setForeground(new Color(153, 153, 153));
+        }
     }//GEN-LAST:event_SearchTFFocusLost
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton AddBtn;
     private javax.swing.JComboBox<String> CatogoryCBB;
@@ -347,6 +419,5 @@ public class NhanVienGUI extends javax.swing.JPanel {
     private javax.swing.JScrollPane jScrollPane1;
     private GUI.toolBar toolBar;
     // End of variables declaration//GEN-END:variables
+
 }
-
-

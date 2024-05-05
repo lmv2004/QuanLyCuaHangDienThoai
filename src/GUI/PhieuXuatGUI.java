@@ -7,17 +7,14 @@ package GUI;
 import BUS.KhachHangBUS;
 import BUS.NhanVienBUS;
 import BUS.PhieuXuatBUS;
+import DTO.AccountDTO;
 import DTO.KhachHangDTO;
 import DTO.NhanVienDTO;
-import DTO.PhieuNhapDTO;
 import DTO.PhieuXuatDTO;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import javax.swing.DefaultComboBoxModel;
-import javax.swing.JLabel;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
 
 /**
  *
@@ -32,9 +29,12 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
     private ArrayList<KhachHangDTO> listKH = KHBUS.getAllKhachHang();
     private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
     
-    
-    public PhieuXuatGUI() {
-        super();
+    public PhieuXuatGUI(AccountDTO myAcc) {
+        super(myAcc);
+        toolBar.getAddBtn().setVisible(false);
+        repaint();
+        revalidate();
+        
         labelNCC.setText("Khách hàng");
         labelNV.setText("Nhân viên xuất");
         tblDSPN.setModel(new javax.swing.table.DefaultTableModel(
@@ -44,22 +44,10 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
             new String [] {
                 "STT", "Mã phiếu", "Khách hàng", "Nhân viên", "Thời gian", "Tổng tiền (VNĐ)"
             }));
-        
-//        DefaultTableCellRenderer centerRenderer = new DefaultTableCellRenderer();
-//        centerRenderer.setHorizontalAlignment(JLabel.CENTER);
-//        TableColumnModel columnModel = tblDSPN.getColumnModel();
-//        columnModel.getColumn(0).setPreferredWidth(50);
-//        columnModel.getColumn(0).setCellRenderer(centerRenderer);
-//        columnModel.getColumn(1).setPreferredWidth(100);
-//        columnModel.getColumn(1).setCellRenderer(centerRenderer);
-//        columnModel.getColumn(2).setPreferredWidth(400);
-//        columnModel.getColumn(3).setPreferredWidth(200);
-//        columnModel.getColumn(4).setPreferredWidth(200);
-//        columnModel.getColumn(5).setPreferredWidth(200);
+        loadDataPX(listPX);
     }
     
-    @Override
-    public void loadData(ArrayList<PhieuNhapDTO> listPN) {
+    public void loadDataPX(ArrayList<PhieuXuatDTO> listPX) {
         int i = 1;
         DefaultTableModel tblModel = (DefaultTableModel) tblDSPN.getModel();
         while (tblModel.getRowCount() > 0) {
@@ -67,7 +55,7 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         for (PhieuXuatDTO x : listPX) {
-            tblModel.addRow(new Object[] {i++,x.getMaPhieu(),KHBUS.getByIndex(KHBUS.getByID(x.getMKH())),NVBUS.getByIndex(NVBUS.getByID(x.getMNV())).getHoTen(),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
+            tblModel.addRow(new Object[] {i++,x.getMaPhieu(),KHBUS.getNameByID(x.getMKH()),NVBUS.getNameByID(x.getMNV()),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
         }
         tblDSPN.setModel(tblModel);
     }
@@ -110,11 +98,11 @@ public class PhieuXuatGUI extends PhieuNhapGUI {
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 963, Short.MAX_VALUE)
+            .addGap(0, 1200, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 724, Short.MAX_VALUE)
+            .addGap(0, 725, Short.MAX_VALUE)
         );
     }// </editor-fold>//GEN-END:initComponents
 

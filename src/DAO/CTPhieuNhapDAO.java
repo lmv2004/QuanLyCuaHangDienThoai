@@ -2,6 +2,7 @@
 package DAO;
 
 import DTO.ChiTietPhieuDTO;
+import DTO.PhienBanSanPhamDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -81,6 +82,28 @@ public class CTPhieuNhapDAO implements DAO_Interface<ChiTietPhieuDTO>{
         try {
             Connection con = JDBCConnection.getJDBCConnection();
             String sql = "SELECT * FROM ctphieunhap";
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery();
+            while (rs.next()) {
+                int MaPhieu = rs.getInt("maphieunhap");
+                int MPBSP = rs.getInt("maphienbansp");
+                int SoLuong = rs.getInt("soluong");
+                Long DonGia = rs.getLong("dongia");
+                int HT = rs.getInt("hinhthucnhap");
+                ketqua.add(new ChiTietPhieuDTO(MaPhieu, MPBSP, SoLuong, DonGia, HT));
+            }
+            JDBCConnection.closeConection(con);
+        } catch (SQLException ex) {
+            ex.printStackTrace();
+        }
+        return ketqua;
+    }
+    
+    public ArrayList<ChiTietPhieuDTO> selecAllByID(int ID) {
+        ArrayList<ChiTietPhieuDTO> ketqua = new ArrayList<ChiTietPhieuDTO>();
+        try {
+            Connection con = JDBCConnection.getJDBCConnection();
+            String sql = "SELECT * FROM phieunhap PN,ctphieunhap CT WHERE PN.maphieunhap=CT.maphieunhap AND PN.maphieunhap="+ID;
             PreparedStatement pst = con.prepareStatement(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {

@@ -1,7 +1,4 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package DAO;
 
 import DAO.JDBCConnection;
@@ -11,10 +8,7 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.Date;
 
-/**
- *
- * @author User
- */
+
 public class KhachHangDAO implements DAO_Interface<KhachHangDTO> {
 
     @Override
@@ -175,7 +169,30 @@ public class KhachHangDAO implements DAO_Interface<KhachHangDTO> {
         }
         return ketqua;
     }
-    
+    public KhachHangDTO SelectBySDT(String sdt){
+       KhachHangDTO ketqua = null;
+        try {
+            Connection conn = JDBCConnection.getJDBCConnection();
+            String sql = "SELECT * FROM khachhang WHERE sdt=?";
+            PreparedStatement psm = conn.prepareStatement(sql);
+            psm.setString(1, sdt);
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+
+                int MaKhachHang = rs.getInt("makh");
+                String TenKhachHang = rs.getString("tenkhachhang");
+                String DiaChi = rs.getString("diachi");
+                String SDT = rs.getString("sdt");
+                int TrangThai = rs.getInt("trangthai");
+                Date NgayThamGia = rs.getDate("ngaythamgia"); // Sử dụng getDate() để lấy giá trị ngày tham gia
+                ketqua = new KhachHangDTO(MaKhachHang, TenKhachHang, DiaChi, SDT, TrangThai, NgayThamGia);
+            }
+            JDBCConnection.closeConection(conn);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return ketqua; 
+    }
     @Override
     public ArrayList<KhachHangDTO> selectByCondition(String condition) {
         ArrayList<KhachHangDTO> ketqua = new ArrayList<>();

@@ -2,3 +2,4 @@
 /dist/
 /nbproject/private/
 .vscode/settings.json
+test/testGUI.java

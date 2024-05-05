@@ -252,20 +252,21 @@ public class ThongKeDAO {
         try {
             Connection con = JDBCConnection.getJDBCConnection();
             String sql = """
-                         WITH kh AS ( SELECT kh.makh, kh.tenkhachhang , COUNT(px.maphieuxuat ) AS tongsophieu, SUM(px.tongtien) AS tongsotien
+                         WITH kh AS ( SELECT kh.makh, kh.tenkhachhang , COUNT(px.maphieuxuat ) AS tongsophieu, SUM(px.tongtien) AS tongsotien , kh.trangthai
                                                   FROM khachhang kh, phieuxuat px
                                                   WHERE kh.makh = px.makh and px.thoigian BETWEEN ? AND ?
                                                   GROUP BY kh.makh, kh.tenkhachhang )
                          SELECT makh,tenkhachhang,COALESCE(kh.tongsophieu, 0) AS soluong ,COALESCE(kh.tongsotien, 0) AS total 
                          FROM kh
-                          WHERE tenkhachhang LIKE ? OR makh LIKE ?   
+                          WHERE tenkhachhang LIKE ? OR makh LIKE ?  and trangthai = 1
                          """;
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setTimestamp(1, new Timestamp(timeStart.getTime()));
             pst.setTimestamp(2, new Timestamp(calendar.getTimeInMillis()));
             pst.setString(3, "%" + text + "%");
             pst.setString(4, "%" + text + "%");
-
+            
+            System.out.println(sql);
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int makh = rs.getInt("makh");
@@ -296,13 +297,13 @@ public class ThongKeDAO {
             Connection con = JDBCConnection.getJDBCConnection();
             String sql = """
                          WITH ncc AS (
-                                                  SELECT nhacungcap.manhacungcap, nhacungcap.tennhacungcap , COUNT(phieunhap.maphieunhap ) AS tongsophieu, SUM(phieunhap.tongtien) AS tongsotien
+                                                  SELECT nhacungcap.manhacungcap, nhacungcap.tennhacungcap , COUNT(phieunhap.maphieunhap ) AS tongsophieu, SUM(phieunhap.tongtien) AS tongsotien , nhacungcap.trangthai
                                                   FROM nhacungcap , phieunhap
                                                   WHERE nhacungcap.manhacungcap = phieunhap.manhacungcap and phieunhap.thoigian BETWEEN ? AND ?
                                                   GROUP BY nhacungcap.manhacungcap, nhacungcap.tennhacungcap)
                                                   SELECT manhacungcap,tennhacungcap,COALESCE(ncc.tongsophieu, 0) AS soluong ,COALESCE(ncc.tongsotien, 0) AS total 
                                                   FROM ncc
-                                                  WHERE tennhacungcap LIKE ? OR manhacungcap LIKE ?
+                                                  WHERE tennhacungcap LIKE ? OR manhacungcap LIKE ? And trangthai = 1
                         """;
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setTimestamp(1, new Timestamp(timeStart.getTime()));

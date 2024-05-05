@@ -12,12 +12,18 @@ import java.util.Objects;
  * @author ACER
  */
 public class AccountDTO {
+    private int MaNV;
     private String TaiKhoan;
     private char[] MatKhau;
+    private int MaNQ;
+    private int TrangThai;
 
-    public AccountDTO(String TaiKhoan, char[] MatKhau) {
+    public AccountDTO(int MaNV, String TaiKhoan, char[] MatKhau, int MaNQ, int TrangThai) {
+        this.MaNV=MaNV;
         this.TaiKhoan = TaiKhoan;
         this.MatKhau = MatKhau;
+        this.MaNQ=MaNQ;
+        this.TrangThai=TrangThai;
     }
 
     public AccountDTO() {
@@ -37,6 +43,30 @@ public class AccountDTO {
 
     public void setMatKhau(char[] MatKhau) {
         this.MatKhau = MatKhau;
+    }
+
+    public int getMaNV() {
+        return MaNV;
+    }
+
+    public void setMaNV(int MaNV) {
+        this.MaNV = MaNV;
+    }
+
+    public int getMaNQ() {
+        return MaNQ;
+    }
+
+    public void setMaNQ(int MaNQ) {
+        this.MaNQ = MaNQ;
+    }
+    
+    public int getTrangThai() {
+        return TrangThai;
+    }
+
+    public void setTrangThai(int TrangThai) {
+        this.TrangThai = TrangThai;
     }
 
     @Override

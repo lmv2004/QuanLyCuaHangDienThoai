@@ -3,6 +3,7 @@ package DAO;
 import DTO.NhanVienDTO;
 import java.sql.*;
 import java.util.ArrayList;
+import java.sql.Date;
 
 public class NhanVienDAO implements DAO_Interface<NhanVienDTO> {
 
@@ -11,13 +12,14 @@ public class NhanVienDAO implements DAO_Interface<NhanVienDTO> {
         int ketqua = 0;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "INSERT INTO nhanvien(manv,hoten,gioitinh,ngaysinh,sdt,email,tinhtrang)"
+            String sql = "INSERT INTO nhanvien(manv,hoten,gioitinh,ngaysinh,sdt,email,trangthai)"
                     + " VALUES(?,?,?,?,?,?,1)";
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setInt(1, t.getManv());
             psm.setString(2, t.getHoTen());
             psm.setInt(3, t.getGioiTinh());
-            psm.setDate(4, t.getNgaySinh());
+            Timestamp timestamp = new Timestamp(t.getNgaySinh().getTime());
+            psm.setTimestamp(4, timestamp);
             psm.setString(5, t.getSDT());
             psm.setString(6, t.getEmail());
             ketqua = psm.executeUpdate();
@@ -40,7 +42,8 @@ public class NhanVienDAO implements DAO_Interface<NhanVienDTO> {
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setString(1, t.getHoTen());
             psm.setInt(2, t.getGioiTinh());
-            psm.setDate(3, t.getNgaySinh());
+            Timestamp timestamp = new Timestamp(t.getNgaySinh().getTime());
+            psm.setTimestamp(3, timestamp);
             psm.setString(4, t.getSDT());
             psm.setString(5, t.getEmail());
             psm.setInt(6, t.getManv());

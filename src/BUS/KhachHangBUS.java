@@ -34,6 +34,17 @@ public class KhachHangBUS {
         return this.DanhSachKH.get(index);
     }
     
+    public String getNameByID(int ID) {
+        for(KhachHangDTO x : DanhSachKH) {
+            if(x.getMaKhachHang()==ID) {
+                return x.getTenKhachHang();
+            }
+        }
+        return null;
+    }
+    public KhachHangDTO getBySDT(String sdt){
+        return KHDao.SelectBySDT(sdt);
+    }
     public int getByID(int maKH) {
         int vitri = -1;
         for (int i = 0; i < DanhSachKH.size(); i++) {

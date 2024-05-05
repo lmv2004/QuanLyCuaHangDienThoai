@@ -147,30 +147,41 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         XuatXuDTO xuatxu;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT Distinct sp.masp,sp.tensp ,sp.hinhanh ,sp.chipxuly,dlram.kichthuocram ,dlrom.kichthuocrom ,sp.dungluongpin,sp.kichthuocman,sp.camerasau,sp.cameratruoc,hdh.tenhedieuhanh ,sp.phienbanhdh,th.tenthuonghieu,xx.tenxuatxu,ms.tenmau,pbsp.giaxuat,sp.soluongton"
-                    + " FROM sanpham sp,phienbansanpham pbsp,dungluongram dlram,dungluongrom dlrom,hedieuhanh hdh,thuonghieu th,xuatxu xx,mausac ms"
-                    + " WHERE sp.hedieuhanh=hdh.mahedieuhanh && sp.thuonghieu=th.mathuonghieu && sp.masp=pbsp.masp && sp.xuatxu=xx.maxuatxu "
-                    + " && pbsp.rom=dlrom.madlrom && pbsp.ram=dlram.madlram && pbsp.mausac=ms.mamau";
-            PreparedStatement psm=conn.prepareStatement(sql);
-            ResultSet rs=psm.executeQuery();
-            while(rs.next()){
-               PBSP=new PhienBanSanPhamDTO(rs.getInt(16));
-               DLRam=new DungLuongRamDTO(rs.getInt(5));
-               DLRom=new DungLuongRomDTO(rs.getInt(6));
-               HDH=new HeDieuHanhDTO(rs.getString(11));
-               mausac=new MauSacDTO(rs.getString(15));
-               ThuongHieu=new ThuongHieuDTO(rs.getString(13));
-               xuatxu=new XuatXuDTO(rs.getString(14));
-               SanPhamDTO sanpham=new SanPhamDTO(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(7), rs.getFloat(8), rs.getInt(12), rs.getString(9), rs.getString(10),rs.getInt(17));
-               sanpham.setPBSPDTO(PBSP);
-               sanpham.setDLRamDTO(DLRam);
-               sanpham.setDLRomDTO(DLRom);
-               sanpham.setHDHDTO(HDH);
-               sanpham.setMSDTO(mausac);
-               sanpham.setTHDTO(ThuongHieu);
-               sanpham.setXXDTO(xuatxu);
-               ketqua.add(sanpham);
+            String SQL = "SELECT DISTINCT * "
+                    + "FROM sanpham sp "
+                    + "Right JOIN phienbansanpham pbsp ON sp.masp = pbsp.masp "
+                    + "JOIN dungluongram dlram ON pbsp.ram = dlram.madlram "
+                    + "JOIN dungluongrom dlrom ON pbsp.rom = dlrom.madlrom "
+                    + "JOIN hedieuhanh hdh ON sp.hedieuhanh = hdh.mahedieuhanh "
+                    + "JOIN thuonghieu th ON sp.thuonghieu = th.mathuonghieu "
+                    + "JOIN xuatxu xx ON sp.xuatxu = xx.maxuatxu "
+                    + "JOIN mausac ms ON pbsp.mausac = ms.mamau"
+                    + " Where pbsp.trangthai=1";
+            PreparedStatement psm = conn.prepareStatement(SQL);
+            ResultSet rs = psm.executeQuery();
+            while (rs.next()) {
+                PBSP = new PhienBanSanPhamDTO(rs.getInt("maphienbansp"), rs.getInt("masp"), rs.getInt("ram"), rs.getInt("rom"), rs.getInt("mausac"), rs.getInt("gianhap"), rs.getInt("giaxuat"), rs.getInt("pbsp.soluongton"));
+                DLRam = new DungLuongRamDTO(rs.getInt("madlram"), rs.getInt("kichthuocram"));
+                DLRom = new DungLuongRomDTO(rs.getInt("madlrom"), rs.getInt("kichthuocrom"));
+                HDH = new HeDieuHanhDTO(rs.getInt("mahedieuhanh"), rs.getString("tenhedieuhanh"));
+                mausac = new MauSacDTO(rs.getInt("mamau"), rs.getString("tenmau"));
+                ThuongHieu = new ThuongHieuDTO(rs.getInt("mathuonghieu"), rs.getString("tenthuonghieu"));
+                xuatxu = new XuatXuDTO(rs.getInt("maxuatxu"), rs.getString("tenxuatxu"));
+                SanPhamDTO sanpham = new SanPhamDTO(rs.getInt("masp"), rs.getString("tensp"),
+                        rs.getString("hinhanh"), rs.getInt("xuatxu"), rs.getString("chipxuly"),
+                        rs.getInt("dungluongpin"), rs.getDouble("kichthuocman"), rs.getInt("hedieuhanh"),
+                        rs.getInt("phienbanhdh"), rs.getString("camerasau"), rs.getString("cameratruoc"),
+                        rs.getInt("thoigianbaohanh"), rs.getInt("thuonghieu"), rs.getInt("khuvuckho"), rs.getInt("soluongton"));
+                sanpham.setPBSPDTO(PBSP);
+                sanpham.setDLRamDTO(DLRam);
+                sanpham.setDLRomDTO(DLRom);
+                sanpham.setHDHDTO(HDH);
+                sanpham.setMSDTO(mausac);
+                sanpham.setTHDTO(ThuongHieu);
+                sanpham.setXXDTO(xuatxu);
+                ketqua.add(sanpham);
             }
+
             JDBCConnection.closeConection(conn);
         } catch (Exception e) {
             e.printStackTrace();
@@ -182,7 +193,7 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         SanPhamDTO ketqua = null;
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM sampham WHERE masp=?";
+            String sql = "SELECT * FROM sanpham WHERE masp=?";
             PreparedStatement psm = conn.prepareStatement(sql);
             psm.setInt(1, t);
             ResultSet rs = psm.executeQuery();
@@ -216,7 +227,7 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
         ArrayList<SanPhamDTO> ketqua = new ArrayList<SanPhamDTO>();
         try {
             Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "SELECT * FROM sampham WHERE " + condition;
+            String sql = "SELECT * FROM sanpham WHERE " + condition;
             PreparedStatement psm = conn.prepareStatement(sql);
             ResultSet rs = psm.executeQuery();
             while (rs.next()) {

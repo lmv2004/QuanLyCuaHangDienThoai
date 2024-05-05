@@ -2,6 +2,7 @@ package BUS;
 
 import DAO.PhieuNhapDAO;
 import DTO.*;
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Vector;
@@ -29,11 +30,8 @@ public class PhieuNhapBUS {
         return PNDAO.selectById(ID);
     }
     
-    public boolean add(PhieuNhapDTO phieuNhap) {
-        if(PNDAO.insert(phieuNhap)!=0) {
-            return true;
-        }
-        return false;
+    public int add(PhieuNhapDTO phieuNhap) {
+        return PNDAO.insert(phieuNhap);
     }
     
     public boolean delete(PhieuNhapDTO phieuNhap) {
@@ -96,4 +94,10 @@ public class PhieuNhapBUS {
     public void filterByName(String name) {
         
     }
+    
+    public int getID() {
+        return PNDAO.getAutoIncrement();
+    }
+    
+    
 }

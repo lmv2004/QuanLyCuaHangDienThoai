@@ -16,10 +16,10 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieuxuat");
-                int MaKH = rs.getInt("makh");
-                int MNV = rs.getInt("manv");
                 Timestamp ThoiGian = rs.getTimestamp("thoigian");
                 long TongTien = rs.getLong("tongtien");
+                int MNV = rs.getInt("nguoitaophieuxuat");
+                int MaKH = rs.getInt("makh");
                 ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));
             }
             JDBCConnection.closeConection(con);
@@ -38,13 +38,10 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             String sql = "INSERT INTO phieuxuat VALUES(? , ? , ? , ? , ? , 1);";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, t.getMaPhieu());
-            pst.setInt(5, t.getMKH());
-            pst.setInt(4, t.getMNV());
-            java.util.Date utilDate=t.getThoiGian();
-            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
-            pst.setDate(2, sqlDate);
+            pst.setDate(2, (java.sql.Date) t.getThoiGian());
             pst.setLong(3, t.getTongTien());
-            System.out.println(pst.toString());
+            pst.setInt(4, t.getMNV());
+            pst.setInt(5, t.getMKH());
             ketqua = pst.executeUpdate();
 
             System.out.println("success! Affected rows: "+ketqua);
@@ -65,7 +62,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
 
             // bước 2 tạo đối tượng statement
             String sql = "Update phieuxuat"
-                    + " SET makh=?, manv=?, thoigian=?, tongtien=? ,trangthai=1"
+                    + " SET makh=?, nguoitaophieuxuat=?, thoigian=?, tongtien=?"
                     + " Where maphieuxuat =?";
             PreparedStatement pst = con.prepareStatement(sql);
             
@@ -109,10 +106,10 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieuxuat");
-                int MaKH = rs.getInt("makh");
-                int MNV = rs.getInt("manv");
                 Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
+                int MNV = rs.getInt("nguoitaophieuxuat");
+                int MaKH = rs.getInt("makh");
                 ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
             }
             JDBCConnection.closeConection(con);
@@ -132,10 +129,10 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieuxuat");
-                int MaKH = rs.getInt("makh");
-                int MNV = rs.getInt("nguoitaophieuxuat");
                 Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
+                int MNV = rs.getInt("nguoitaophieuxuat");
+                int MaKH = rs.getInt("makh");
                 ketqua.add(new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien));
             }
             JDBCConnection.closeConection(con);
@@ -146,7 +143,7 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
     }
 
     
-    public PhieuXuatDTO selectById(int ID) {
+    public PhieuXuatDTO selectByID(int ID) {
         PhieuXuatDTO ketqua = null;
         try {
             Connection con = JDBCConnection.getJDBCConnection();
@@ -155,10 +152,10 @@ public class PhieuXuatDAO implements DAO_Interface<PhieuXuatDTO> {
             ResultSet rs = pst.executeQuery();
             while (rs.next()) {
                 int MaPhieu = rs.getInt("maphieuxuat");
-                int MaKH = rs.getInt("makh");
-                int MNV = rs.getInt("manv");
                 Date ThoiGian = rs.getDate("thoigian");
                 long TongTien = rs.getLong("tongtien");
+                int MNV = rs.getInt("nguoitaophieuxuat");
+                int MaKH = rs.getInt("makh");
                 ketqua = new PhieuXuatDTO(MaKH, MaPhieu, MNV, ThoiGian, TongTien);
             }
             JDBCConnection.closeConection(con);

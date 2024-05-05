@@ -3,15 +3,23 @@ package GUI;
 import BUS.NhaCungCapBUS;
 import BUS.NhanVienBUS;
 import BUS.PhieuNhapBUS;
+import DTO.AccountDTO;
 import DTO.NhanVienDTO;
 import DTO.NhaCungCapDTO;
 import DTO.PhieuNhapDTO;
+import GUI.Dialog.ThemPhieuNhapDialog;
+import java.awt.Component;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -25,9 +33,11 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
     private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
     private ArrayList<PhieuNhapDTO> listPNFilter = new ArrayList<>();
+    AccountDTO myAcc;
 
-    public PhieuNhapGUI() {
+    public PhieuNhapGUI(AccountDTO myAcc) {
         initComponents();
+        this.myAcc = myAcc;
         loadData(listPN);
         loadCbbFilter();
         loadCbbNhanVien();
@@ -44,7 +54,7 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         }
         DecimalFormat decimalFormat = new DecimalFormat("#,###");
         for (PhieuNhapDTO x : listPN) {
-            tblModel.addRow(new Object[] {i++,x.getMaPhieu(),NCCBUS.getByIndex(NCCBUS.getByID(x.getNCC())).getTenNCC(),NVBUS.getByIndex(NVBUS.getByID(x.getMNV())).getHoTen(),x.getThoiGian(),decimalFormat.format(x.getTongTien())});
+            tblModel.addRow(new Object[]{i++, x.getMaPhieu(), NCCBUS.getNameByID(x.getNCC()), NVBUS.getNameByID(x.getMNV()), x.getThoiGian(), decimalFormat.format(x.getTongTien())});
         }
         tblDSPN.setModel(tblModel);
     }
@@ -94,6 +104,57 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 //                PNBUS.pouringData(tblDSPN, PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
 //            }
 //        });
+        toolBar.getAddBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                new GUI.Dialog.ThemPhieuNhapDialog(null, true, myAcc).setVisible(true);
+            }
+
+        });
+
+        toolBar.getEditBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = tblDSPN.getSelectedRow();
+                if (index < 0) {
+                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn phiếu nhập");
+                    return;
+                }
+                new GUI.Dialog.SuaPhieuNhapDialog(null, true, myAcc,listPN.get(index)).setVisible(true);
+                
+            }
+
+        });
+        toolBar.getDetailBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int index = tblDSPN.getSelectedRow();
+                if (index < 0) {
+                    JOptionPane.showMessageDialog(null, "Bạn chưa chọn phiếu nhập");
+                    return;
+                }
+                new GUI.Dialog.ChiTietPhieuNhapDialog(null, true, listPN.get(index)).setVisible(true);
+            }
+
+        });
+
+        toolBar.getRemoveBtn().addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (JOptionPane.showConfirmDialog(null, "Bạn có chắc muốn hủy phiếu?") == 0) {
+                    int index = tblDSPN.getSelectedRow();
+                    if (index < 0) {
+                        JOptionPane.showMessageDialog(null, "Bạn chưa chọn phiếu nhập");
+                        return;
+                    }
+                    PNBUS.delete(listPN.get(tblDSPN.getSelectedRow()));
+                    listPN.remove(tblDSPN.getSelectedRow());
+                    loadData(listPN);
+                    JOptionPane.showMessageDialog(null, "Hủy phiếu nhập thành công!");
+                }
+            }
+
+        });
     }
 
     /**
@@ -316,49 +377,49 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     }//GEN-LAST:event_jSlider2StateChanged
 
     private void cbbNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNCCActionPerformed
-        int index = cbbNCC.getSelectedIndex();
-        listPNFilter.clear();
-        listPNFilter.addAll(listPN);
-        if (index == 0) {
-            if (cbbNVN.getSelectedIndex() != 0) {
-                cbbNVNActionPerformed(null);
-            } else {
-                loadData(listPNFilter);
-            }
-            return;
-        }
-        int ID = listNCC.get(index - 1).getMaNCC();
-        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
-        while (iterator.hasNext()) {
-            PhieuNhapDTO x = iterator.next();
-            if (x.getNCC() != ID) {
-                iterator.remove(); // Sử dụng Iterator.remove() để loại bỏ phần tử
-            }
-        }
-        loadData(listPNFilter);
+//        int index = cbbNCC.getSelectedIndex();
+//        listPNFilter.clear();
+//        listPNFilter.addAll(listPN);
+//        if (index == 0) {
+//            if (cbbNVN.getSelectedIndex() != 0) {
+//                cbbNVNActionPerformed(null);
+//            } else {
+//                loadData(listPNFilter);
+//            }
+//            return;
+//        }
+//        int ID = listNCC.get(index - 1).getMaNCC();
+//        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
+//        while (iterator.hasNext()) {
+//            PhieuNhapDTO x = iterator.next();
+//            if (x.getNCC() != ID) {
+//                iterator.remove(); // Sử dụng Iterator.remove() để loại bỏ phần tử
+//            }
+//        }
+//        loadData(listPNFilter);
     }//GEN-LAST:event_cbbNCCActionPerformed
 
     private void cbbNVNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNVNActionPerformed
-        int index = cbbNVN.getSelectedIndex();
-        listPNFilter.clear();
-        listPNFilter.addAll(listPN);
-        if (index == 0) {
-            if (cbbNVN.getSelectedIndex() != 0) {
-                cbbNCCActionPerformed(null);
-            } else {
-                loadData(listPNFilter);
-            }
-            return;
-        }
-        int ID = listNV.get(index - 1).getManv();
-        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
-        while (iterator.hasNext()) {
-            PhieuNhapDTO x = iterator.next();
-            if (x.getMNV() != ID) {
-                iterator.remove();
-            }
-        }
-        loadData(listPNFilter);
+//        int index = cbbNVN.getSelectedIndex();
+//        listPNFilter.clear();
+//        listPNFilter.addAll(listPN);
+//        if (index == 0) {
+//            if (cbbNVN.getSelectedIndex() != 0) {
+//                cbbNCCActionPerformed(null);
+//            } else {
+//                loadData(listPNFilter);
+//            }
+//            return;
+//        }
+//        int ID = listNV.get(index - 1).getManv();
+//        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
+//        while (iterator.hasNext()) {
+//            PhieuNhapDTO x = iterator.next();
+//            if (x.getMNV() != ID) {
+//                iterator.remove();
+//            }
+//        }
+//        loadData(listPNFilter);
     }//GEN-LAST:event_cbbNVNActionPerformed
 
 

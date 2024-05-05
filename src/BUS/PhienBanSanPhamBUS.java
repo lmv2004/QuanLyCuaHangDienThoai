@@ -4,6 +4,7 @@ package BUS;
 import DAO.PhienBanSanPhamDAO;
 import DTO.ChiTietSanPhamDTO;
 import DTO.PhienBanSanPhamDTO;
+import DTO.SanPhamDTO;
 import java.util.ArrayList;
 
 public class PhienBanSanPhamBUS {
@@ -40,5 +41,19 @@ public class PhienBanSanPhamBUS {
     }
     public boolean checkImeiExist(ArrayList<ChiTietSanPhamDTO> arr){
         return pbspDAO.checkImeiExist(arr);
+    }
+    public int updateSLTon(ArrayList<SanPhamDTO> sp){
+        return pbspDAO.updateSLTonAfterThanhToan(sp);
+    }
+    
+    public PhienBanSanPhamDTO getSanPham(int MPBSP) {
+        return pbspDAO.selectById(MPBSP);
+    }
+    
+    public boolean nhapHang(int MPB, int SL) {
+        if(pbspDAO.updateSoLuongTon(MPB, SL)>0) {
+            return true;
+        }
+        return false;
     }
 }

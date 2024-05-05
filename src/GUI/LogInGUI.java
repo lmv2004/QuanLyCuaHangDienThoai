@@ -6,7 +6,6 @@ package GUI;
 
 import com.formdev.flatlaf.extras.FlatSVGIcon;
 import java.awt.Color;
-import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 
 /**
@@ -188,7 +187,12 @@ public class LogInGUI extends javax.swing.JFrame {
 
     private void lbForgetPasswordMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseClicked
         // TODO add your handling code here:
-        JOptionPane.showMessageDialog(null, "Mật khẩu đã được gửi đến email");
+        if(tk.getText().trim()!="") {
+            JOptionPane.showMessageDialog(null, "Mật khẩu mới đã được gửi đến email");
+            return;
+        }
+        JOptionPane.showMessageDialog(null, "Bạn chưa nhập tài khoản");
+        tk.requestFocus();
     }//GEN-LAST:event_lbForgetPasswordMouseClicked
 
     private void lbForgetPasswordMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbForgetPasswordMouseEntered
@@ -214,7 +218,7 @@ public class LogInGUI extends javax.swing.JFrame {
         if(function.TextFieldIsEmpty(mk, "mật khẩu")) {
             return;
         }
-        BUS.LogInBUS.LogIn(this,cbRemember.isSelected(),tk.getText(), mk.getPassword());
+        new BUS.LogInBUS().LogIn(this,cbRemember.isSelected(),tk.getText(), mk.getPassword());
     }//GEN-LAST:event_btnLogInActionPerformed
 
     private void cbRememberMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_cbRememberMouseEntered

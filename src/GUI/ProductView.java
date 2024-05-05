@@ -1,19 +1,9 @@
 package GUI;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.table.DefaultTableCellRenderer;
+import javax.swing.*;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
-import java.awt.Font;
+import java.awt.*;
 
 public class ProductView extends JPanel {
     private JButton add;
@@ -66,7 +56,8 @@ public class ProductView extends JPanel {
         refresh.setIcon(new ImageIcon(getClass().getResource("/img/refresh.png")));
 
         this.setLayout(new BorderLayout());
-        this.add(jpanel, BorderLayout.NORTH);
+        this.add(new toolBar(), BorderLayout.NORTH);
+        this.add(jpanel, BorderLayout.CENTER);
     }
 
     public void table() {
@@ -80,9 +71,10 @@ public class ProductView extends JPanel {
         DefaultTableModel model = new DefaultTableModel(data, column);
         JTable table = new JTable(model);
 
-        // Đặt font in đậm cho tiêu đề cột
+        // Đặt font cho tiêu đề cột với kích thước nhỏ hơn
         JTableHeader header = table.getTableHeader();
-        header.setFont(new Font("Arial", Font.BOLD, 12));
+        Font headerFont = header.getFont();
+        header.setFont(headerFont.deriveFont(Font.PLAIN, 13)); // Đặt kích thước font là 10
 
         // Đặt chiều cao của hàng trong bảng
         table.setRowHeight(25);
@@ -91,4 +83,7 @@ public class ProductView extends JPanel {
 
         this.add(sp, BorderLayout.CENTER);
     }
+    
+   
 }
+
