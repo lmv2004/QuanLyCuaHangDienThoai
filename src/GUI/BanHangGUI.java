@@ -747,7 +747,7 @@ public class BanHangGUI extends javax.swing.JPanel {
             loaddata(ListSP);
         } else {
             String txt = searchTenSP_TF.getText();
-            listSPSearch = SPBUS.search(txt);
+            listSPSearch = SPBUS.search(txt, ""); 
             loaddata(listSPSearch);
         }
     }//GEN-LAST:event_searchTenSP_TFKeyPressed
