@@ -13,13 +13,17 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.Vector;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JSlider;
 import javax.swing.SwingUtilities;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
@@ -32,8 +36,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
     private ArrayList<PhieuNhapDTO> listPN = PNBUS.getAllPhieuNhap();
     private ArrayList<NhaCungCapDTO> listNCC = NCCBUS.getAllNhaCungCap();
     private ArrayList<NhanVienDTO> listNV = NVBUS.getAllNhanVien();
-    private ArrayList<PhieuNhapDTO> listPNFilter = new ArrayList<>();
     AccountDTO myAcc;
+    int priceB, priceE;
 
     public PhieuNhapGUI(AccountDTO myAcc) {
         initComponents();
@@ -95,15 +99,15 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
     public void setEvent() {
         //set event for search buttton 
-//        toolBar.getFindBtn().addActionListener(new java.awt.event.ActionListener() {
-//            @Override
-//            public void actionPerformed(java.awt.event.ActionEvent evt) {
-//                if(function.TextFieldIsEmpty(toolBar.getTfSearch(), "nội dung tìm kiếm","Nhập nội dung tìm kiếm...")) {
-//                    return;
-//                }
-//                PNBUS.pouringData(tblDSPN, PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText().strip()));
-//            }
-//        });
+        toolBar.getFindBtn().addActionListener(new java.awt.event.ActionListener() {
+            @Override
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                if(function.TextFieldIsEmpty(toolBar.getTfSearch(), "nội dung tìm kiếm","Nhập nội dung tìm kiếm...")) {
+                    return;
+                }
+                loadData(PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText()));
+            }
+        });
         toolBar.getAddBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -120,8 +124,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Bạn chưa chọn phiếu nhập");
                     return;
                 }
-                new GUI.Dialog.SuaPhieuNhapDialog(null, true, myAcc,listPN.get(index)).setVisible(true);
-                
+                new GUI.Dialog.SuaPhieuNhapDialog(null, true, myAcc, listPN.get(index)).setVisible(true);
+
             }
 
         });
@@ -160,13 +164,41 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
             public void actionPerformed(ActionEvent e) {
                 eventRefresh();
             }
+
+        });
+        toolBar.getTfSearch().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(function.TextFieldIsEmpty(toolBar.getTfSearch(), "nội dung tìm kiếm","Nhập nội dung tìm kiếm...")) {
+                    return;
+                }
+                loadData(PNBUS.search(toolBar.getCbbFilter().getSelectedIndex(), toolBar.getTfSearch().getText()));
+            }
             
         });
+        
+        jSlider1.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                JSlider source = (JSlider) e.getSource();
+                if (!source.getValueIsAdjusting()) {
+                    eventFilter();
+                }
+            }
+        });
+        jSlider2.addChangeListener(new ChangeListener() {
+            public void stateChanged(ChangeEvent e) {
+                JSlider source = (JSlider) e.getSource();
+                if (!source.getValueIsAdjusting()) {
+                    eventFilter();
+                }
+            }
+        });
     }
-    
+
     public void eventRefresh() {
         removeAll();
         add(new PhieuNhapGUI(myAcc));
+        loadData(listPN);
         repaint();
         revalidate();
     }
@@ -312,10 +344,22 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
 
         jLabel3.setText("Từ ngày");
         jPanel2.add(jLabel3);
+
+        jDateChooser1.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser1PropertyChange(evt);
+            }
+        });
         jPanel2.add(jDateChooser1);
 
         jLabel4.setText("Đến ngày");
         jPanel2.add(jLabel4);
+
+        jDateChooser2.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                jDateChooser2PropertyChange(evt);
+            }
+        });
         jPanel2.add(jDateChooser2);
 
         jLabel5.setText("Từ số tiền (VNĐ)");
@@ -346,6 +390,11 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         detroyFilterBtn.setForeground(new java.awt.Color(5, 7, 15));
         detroyFilterBtn.setText("Hủy Bộ Lọc");
         detroyFilterBtn.setPreferredSize(new java.awt.Dimension(95, 40));
+        detroyFilterBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                detroyFilterBtnActionPerformed(evt);
+            }
+        });
         jPanel2.add(detroyFilterBtn);
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
@@ -376,7 +425,8 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             DecimalFormat decimalFormat = new DecimalFormat("#,###");
-            jTextField4.setText(decimalFormat.format(1000000000 * ((double) jSlider1.getValue() / 100)));
+            priceB = (int) (1000000000 * ((double) jSlider1.getValue() / 100));
+            jTextField4.setText(decimalFormat.format(priceB));
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jSlider1StateChanged
@@ -385,58 +435,111 @@ public class PhieuNhapGUI extends javax.swing.JPanel {
         // TODO add your handling code here:
         try {
             DecimalFormat decimalFormat = new DecimalFormat("#,###");
-            jTextField5.setText(decimalFormat.format(1000000000 * ((double) jSlider2.getValue() / 100)));
+            priceE = (int) (1000000000 * ((double) jSlider2.getValue() / 100));
+            jTextField5.setText(decimalFormat.format(priceE));
         } catch (Exception e) {
         }
     }//GEN-LAST:event_jSlider2StateChanged
 
     private void cbbNCCActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNCCActionPerformed
-//        int index = cbbNCC.getSelectedIndex();
-//        listPNFilter.clear();
-//        listPNFilter.addAll(listPN);
-//        if (index == 0) {
-//            if (cbbNVN.getSelectedIndex() != 0) {
-//                cbbNVNActionPerformed(null);
-//            } else {
-//                loadData(listPNFilter);
-//            }
-//            return;
-//        }
-//        int ID = listNCC.get(index - 1).getMaNCC();
-//        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
-//        while (iterator.hasNext()) {
-//            PhieuNhapDTO x = iterator.next();
-//            if (x.getNCC() != ID) {
-//                iterator.remove(); // Sử dụng Iterator.remove() để loại bỏ phần tử
-//            }
-//        }
-//        loadData(listPNFilter);
+        eventFilter();
     }//GEN-LAST:event_cbbNCCActionPerformed
 
     private void cbbNVNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbbNVNActionPerformed
-//        int index = cbbNVN.getSelectedIndex();
-//        listPNFilter.clear();
-//        listPNFilter.addAll(listPN);
-//        if (index == 0) {
-//            if (cbbNVN.getSelectedIndex() != 0) {
-//                cbbNCCActionPerformed(null);
-//            } else {
-//                loadData(listPNFilter);
-//            }
-//            return;
-//        }
-//        int ID = listNV.get(index - 1).getManv();
-//        Iterator<PhieuNhapDTO> iterator = listPNFilter.iterator();
-//        while (iterator.hasNext()) {
-//            PhieuNhapDTO x = iterator.next();
-//            if (x.getMNV() != ID) {
-//                iterator.remove();
-//            }
-//        }
-//        loadData(listPNFilter);
+        eventFilter();
     }//GEN-LAST:event_cbbNVNActionPerformed
 
+    private void detroyFilterBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_detroyFilterBtnActionPerformed
+        // TODO add your handling code here:
+        cbbNCC.setSelectedIndex(0);
+        cbbNVN.setSelectedIndex(0);
+        jDateChooser1.setDate(null);
+        jDateChooser2.setDate(null);
+        jSlider1.setValue(0);
+        jSlider2.setValue(0);
+        jTextField4.setText("");
+        jTextField5.setText("");
+        loadData(listPN);
+    }//GEN-LAST:event_detroyFilterBtnActionPerformed
 
+    private void jDateChooser2PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser2PropertyChange
+        // TODO add your handling code here:
+        eventFilter();
+    }//GEN-LAST:event_jDateChooser2PropertyChange
+
+    private void jDateChooser1PropertyChange(java.beans.PropertyChangeEvent evt) {//GEN-FIRST:event_jDateChooser1PropertyChange
+        // TODO add your handling code here:
+        eventFilter();
+    }//GEN-LAST:event_jDateChooser1PropertyChange
+
+    ArrayList<PhieuNhapDTO> listPNFilter;
+    Iterator<PhieuNhapDTO> iterator;
+
+    public void eventFilter() {
+        listPNFilter = new ArrayList<>(listPN);
+        iterator = listPNFilter.iterator();
+        int NCC = cbbNCC.getSelectedIndex();
+        int MNV = cbbNVN.getSelectedIndex();
+
+        if (NCC != 0) {
+            while (iterator.hasNext()) {
+                PhieuNhapDTO PN = iterator.next();
+                if (listNCC.get(NCC - 1).getMaNCC() != PN.getNCC()) {
+                    iterator.remove();
+                }
+            }
+        }
+        if (MNV != 0) {
+            Iterator<PhieuNhapDTO> iterator2 = listPNFilter.iterator();
+            while (iterator2.hasNext()) {
+                PhieuNhapDTO PN = iterator2.next();
+                if (listNV.get(MNV - 1).getManv() != PN.getMNV()) {
+                    iterator2.remove();
+                }
+            }
+        }
+        if (filterByDate() == false) {
+            return;
+        }
+        filterByPrice();
+        //final
+        loadData(listPNFilter);
+    }
+
+    public boolean filterByDate() {
+        Iterator<PhieuNhapDTO> iterator3 = listPNFilter.iterator();
+        Date begin = jDateChooser1.getDate();
+        Date end = jDateChooser2.getDate();
+        if (begin != null && end != null) {
+            if (begin.compareTo(end) >= 0) {
+                JOptionPane.showMessageDialog(null, "Ngày bắt đầu phải trước ngày kết thúc");
+                jDateChooser1.setDate(null);
+                jDateChooser2.setDate(null);
+                return false;
+            }
+            while (iterator3.hasNext()) {
+                PhieuNhapDTO PN = iterator3.next();
+                //date1.compareto(date2) > 0   ->   date1 > date2
+                if (PN.getThoiGian().compareTo(begin) < 0 || PN.getThoiGian().compareTo(end) > 0) {
+                    iterator3.remove();
+                }
+            }
+        }
+        return true;
+    }
+
+    public void filterByPrice() {
+        Iterator<PhieuNhapDTO> iterator4 = listPNFilter.iterator();
+        if (jTextField4.getText().isEmpty() || jTextField5.getText().isEmpty()) {
+            return;
+        }
+        while (iterator4.hasNext()) {
+            PhieuNhapDTO PN = iterator4.next();
+            if (PN.getTongTien() < priceB || PN.getTongTien() > priceE) {
+                iterator4.remove();
+            }
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     protected javax.swing.JComboBox<String> cbbNCC;
     protected javax.swing.JComboBox<String> cbbNVN;
