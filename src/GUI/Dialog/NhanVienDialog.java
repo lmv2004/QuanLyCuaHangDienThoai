@@ -14,10 +14,12 @@ import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.Date;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JDialog;
 import javax.swing.JTextField;
+import java.time.LocalDateTime; 
 
 public class NhanVienDialog extends javax.swing.JPanel {
 
@@ -255,6 +257,13 @@ public class NhanVienDialog extends javax.swing.JPanel {
             Email_Tf.requestFocus();
             return false;
         }
+        java.util.Date NgaySinh = jDateChooser1.getDate();
+        LocalDateTime localDateTime = LocalDateTime.now();
+       java.sql.Date ngayHienTai= java.sql.Date.valueOf(localDateTime.toLocalDate());
+       if(ngayHienTai.getTime()<NgaySinh.getTime()){
+           JOptionPane.showMessageDialog(null, "Ngày sinh không được lớn hơn hiện tại");
+           return false;
+       }
         return true;
     }
 

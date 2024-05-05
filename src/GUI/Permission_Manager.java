@@ -4,17 +4,51 @@
  */
 package GUI;
 
+import java.awt.List;
+import java.util.ArrayList;
+
+import javax.swing.table.DefaultTableModel;
+
+import com.formdev.flatlaf.ui.FlatListCellBorder.Default;
+
+import BUS.PermissionManagerBUS;
+import DTO.PermissionManagerDTO;
+
 /**
  *
  * @author Danny
  */
 public class Permission_Manager extends javax.swing.JPanel {
+    public PermissionManagerBUS perBUS = new PermissionManagerBUS();
+    public ArrayList<PermissionManagerDTO> list = perBUS.getAll();
+    public PermissionManagerDTO perDTO;
 
     /**
      * Creates new form Permission_Manager
      */
     public Permission_Manager() {
         initComponents();
+
+        loadData(list);
+    }
+
+    public void loadData(ArrayList<PermissionManagerDTO> list) {
+        DefaultTableModel tblModel = (DefaultTableModel) List_Permission.getModel();
+        while (tblModel.getRowCount() > 0) {
+            tblModel.removeRow(0);
+            
+        }
+
+        for (PermissionManagerDTO per : list) {
+            tblModel.addRow(new Object[] {
+                per.getMaNhomQuyen(),
+                per.getTenNhomQuyen()
+            });
+        }
+
+        List_Permission.setModel(tblModel);
+        List_Permission.repaint();
+        List_Permission.validate();
     }
 
     /**

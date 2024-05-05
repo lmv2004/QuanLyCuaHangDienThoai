@@ -75,11 +75,13 @@ public class WarrantyBUS {
         return false;
     }
 
-    public boolean delete(WarrantyDTO warranty) {
-        if (warrantyDAO.delete(warranty) != 0) {
-            return true;
+    public boolean delete(WarrantyDTO warranty, int index) {
+        boolean check = warrantyDAO.delete(warranty) != 0;
+        if (check) {
+            this.ListWarrantyDAO.remove(index);
         }
-        return false;
+
+        return check;
     }
 
     public boolean edit(WarrantyDTO warrantyEdited) {

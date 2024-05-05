@@ -142,6 +142,34 @@ public class PermissionManagerDAO implements DAO_Interface<PermissionManagerDTO>
         return result; // return the result to the caller
     }
 
+    public static PermissionManagerDAO getInstance() {
+        return new PermissionManagerDAO();
+    }
+
+    // public int getAutoIncrement() {
+    //     int result = -1; // initialize the result variable to -1
+    //     try { // try to execute the following block of code
+    //         Connection con = JDBCConnection.getJDBCConnection(); // get a connection to the database
+    //         String sql = "SELECT `AUTO_INCREMENT` FROM  INFORMATION_SCHEMA.TABLES WHERE TABLE_SCHEMA = 'qlchdienthoai' AND   TABLE_NAME   = 'nhomquyen'"; // the SQL query to execute
+    //         PreparedStatement pst = con.prepareStatement(sql); // create a prepared statement from the SQL query
+
+    //         System.out.println("Get Auto Increment Successfully!"); // print a message to the console
+
+    //         ResultSet rs = pst.executeQuery(); // execute the prepared statement and store the result in a ResultSet
+
+    //         if (rs.next()) { // if there is a record in the ResultSet (i.e., if the query returned a row)
+    //             result = rs.getInt("AUTO_INCREMENT"); // get the value of the AUTO_INCREMENT column from the current row and store it in the result variable
+    //         }
+
+    //         JDBCConnection.closeConection(con); // close the connection to the database
+        
+    //     } catch (SQLException ex) {
+    //         ex.printStackTrace(); // print the stack trace to the console if an exception occurs
+    //     }
+        
+    //     return result; // return the result to the caller
+    // }
+
     // TODO?Is there any condition to be added?
     @Override
     public ArrayList<PermissionManagerDTO> selectByCondition(String condition) {

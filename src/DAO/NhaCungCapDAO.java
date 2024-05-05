@@ -23,6 +23,8 @@ import java.sql.ResultSet;
  */
 public class NhaCungCapDAO implements DAO_Interface<NhaCungCapDTO> {
 
+     
+
     @Override
     public int insert(NhaCungCapDTO t) {
         int ketqua = 0;
@@ -49,34 +51,43 @@ public class NhaCungCapDAO implements DAO_Interface<NhaCungCapDTO> {
         return ketqua;
     }
 
-    @Override
-    public int update(NhaCungCapDTO t) {
-        int ketqua = 0;
-        try {
-            Connection con = JDBCConnection.getJDBCConnection();
-            String sql = "UPDATE nhacungcap"
-                    + " SET tennhacungcap=? ,  diachi=? , email=? , sdt=? ,  trangthai=?"
-                    + " WHERE manhacungcap=?";
-            PreparedStatement psm = con.prepareStatement(sql);
+@Override
+public int update(NhaCungCapDTO t) {
+    int ketqua = 0;
+    Connection con = null;
+    try {
+        con = JDBCConnection.getJDBCConnection();
+        String sql = "UPDATE nhacungcap SET tennhacungcap=?, diachi=?, email=?, sdt=?, trangthai=? WHERE manhacungcap=?";
+        PreparedStatement psm = con.prepareStatement(sql);
 
-            psm.setString(1, t.getTenNCC());
-            psm.setString(2, t.getDiaChi());
-            psm.setString(3, t.getEmail());
-            psm.setString(4, t.getSDT());
-            psm.setInt(5, t.getTrangThai());
-            psm.setInt(6, t.getMaNCC());
+        psm.setString(1, t.getTenNCC());
+        psm.setString(2, t.getDiaChi());
+        psm.setString(3, t.getEmail());
+        psm.setString(4, t.getSDT());
+        psm.setInt(5, t.getTrangThai());
+        psm.setInt(6, t.getMaNCC());
 
-            ketqua = psm.executeUpdate();
+        ketqua = psm.executeUpdate();
 
-            System.out.println("bạn đã thực thi");
-            System.out.println("có " + ketqua + " dòng được cập nhật");
-
-            JDBCConnection.closeConection(con);
-        } catch (Exception e) {
-            e.printStackTrace();
+        if (ketqua > 0) {
+            System.out.println("Dữ liệu đã được cập nhật thành công!");
+        } else {
+            System.out.println("Không có dữ liệu nào được cập nhật.");
         }
-        return ketqua;
+    } catch (SQLException e) {
+        e.printStackTrace();
+    } finally {
+        if (con != null) {
+            try {
+                con.close(); // Đóng kết nối sau khi thực hiện xong
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
     }
+    return ketqua;
+}
+
 
     @Override
     public int delete(NhaCungCapDTO t) {
@@ -198,5 +209,29 @@ public class NhaCungCapDAO implements DAO_Interface<NhaCungCapDTO> {
         }
         return ketqua;
     }
+    
+//      public static void main(String[] args) {
+//        // Tạo một đối tượng NhaCungCapDTO mới với thông tin cập nhật
+//        NhaCungCapDTO nhaCungCapToUpdate = new NhaCungCapDTO();
+//        nhaCungCapToUpdate.setMaNCC(749); // Đặt mã nhà cung cấp cần cập nhật
+//        nhaCungCapToUpdate.setTenNCC("Công ty X"); // Đặt tên mới cho nhà cung cấp
+//        nhaCungCapToUpdate.setDiaChi("123 Đường A"); // Đặt địa chỉ mới cho nhà cung cấp
+//        nhaCungCapToUpdate.setEmail("example@company.com"); // Đặt email mới cho nhà cung cấp
+//        nhaCungCapToUpdate.setSDT("0123456789"); // Đặt số điện thoại mới cho nhà cung cấp
+//        nhaCungCapToUpdate.setTrangThai(1); // Đặt trạng thái mới cho nhà cung cấp
+//
+//        // Tạo một đối tượng NhaCungCapDAO để thực hiện cập nhật
+//        NhaCungCapDAO nhaCungCapDAO = new NhaCungCapDAO();
+//
+//        // Thực hiện cập nhật thông tin nhà cung cấp và nhận kết quả
+//        int updateResult = nhaCungCapDAO.update(nhaCungCapToUpdate);
+//
+//        // Kiểm tra kết quả cập nhật
+//        if (updateResult > 0) {
+//            System.out.println("Dữ liệu đã được cập nhật thành công!");
+//        } else {
+//            System.out.println("Không có dữ liệu nào được cập nhật.");
+//        }
+//    }
 
 }

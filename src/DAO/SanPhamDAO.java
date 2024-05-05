@@ -18,37 +18,33 @@ public class SanPhamDAO implements DAO_Interface<SanPhamDTO> {
     }
 
     @Override
-    public int insert(SanPhamDTO t) {
-        int ketqua = 0;
-        try {
-
-            Connection conn = JDBCConnection.getJDBCConnection();
-            String sql = "INSERT TO sanpham(tensp,hinhanh,xuatxu,chipxuly,dungluongpin,kichthuocman,hedieuhanh"
-                    + ",phienbanhdh,camerasau,cameratruoc,thoigianbaohanh,thuonghieu,khuvuckho,soluongton,trangthai)"
-                    + " VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,1)";
-            PreparedStatement psm = conn.prepareStatement(sql);
-            psm.setString(1, t.getTensp());
-            psm.setString(2, t.getHinhanh());
-            psm.setInt(3, t.getXuatxu());
-            psm.setString(4, t.getChipxuly());
-            psm.setInt(5, t.getDungluongpin());
-            psm.setDouble(6, t.getKichthuocman());
-            psm.setInt(7, t.getHedieuhanh());
-            psm.setInt(8, t.getPhienbanhdh());
-            psm.setString(9, t.getCamerasau());
-            psm.setString(10, t.getCameratruoc());
-            psm.setInt(11, t.getThoigianbaohanh());
-            psm.setInt(12, t.getThuonghieu());
-            psm.setInt(13, t.getKhuvuckho());
-            psm.setInt(14, t.getSoluongton());
-            ketqua = psm.executeUpdate();
-            JDBCConnection.closeConection(conn);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return ketqua;
+public int insert(SanPhamDTO t) {
+    int ketqua = 0;
+    try {
+        Connection conn = JDBCConnection.getJDBCConnection();
+        String sql = "INSERT INTO sanpham(tensp, hinhanh, xuatxu, chipxuly, dungluongpin, kichthuocman, hedieuhanh, phienbanhdh, camerasau, cameratruoc, thoigianbaohanh, thuonghieu, khuvuckho, soluongton, trangthai) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)";
+        PreparedStatement psm = conn.prepareStatement(sql);
+        psm.setString(1, t.getTensp());
+        psm.setString(2, t.getHinhanh());
+        psm.setInt(3, t.getXuatxu());
+        psm.setString(4, t.getChipxuly());
+        psm.setInt(5, t.getDungluongpin());
+        psm.setDouble(6, t.getKichthuocman());
+        psm.setInt(7, t.getHedieuhanh());
+        psm.setInt(8, t.getPhienbanhdh());
+        psm.setString(9, t.getCamerasau());
+        psm.setString(10, t.getCameratruoc());
+        psm.setInt(11, t.getThoigianbaohanh());
+        psm.setInt(12, t.getThuonghieu());
+        psm.setInt(13, t.getKhuvuckho());
+        psm.setInt(14, t.getSoluongton());
+        ketqua = psm.executeUpdate();
+        JDBCConnection.closeConection(conn);
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+    return ketqua;
+}
 
     @Override
     public int update(SanPhamDTO t) {

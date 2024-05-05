@@ -72,17 +72,19 @@ public class KhachHangBUS {
         return false;
     }
     
-    public boolean edit(KhachHangDTO khachhang) {
-        if (KHDao.update(khachhang) != 0) {
-            for (int i = 0; i < DanhSachKH.size(); i++) {
-                if (DanhSachKH.get(i).getMaKhachHang() == khachhang.getMaKhachHang()) {
-                    DanhSachKH.set(i, khachhang);
-                    return true;
-                }
+   public boolean edit(KhachHangDTO khachhang) {
+    if (KHDao.update(khachhang) != 0) {
+        // Nếu update thành công, cập nhật lại đối tượng trong danh sách DanhSachKH
+        for (int i = 0; i < DanhSachKH.size(); i++) {
+            if (DanhSachKH.get(i).getMaKhachHang() == khachhang.getMaKhachHang()) {
+                DanhSachKH.set(i, khachhang);
+                return true;
             }
         }
-        return false;
     }
+    return false;
+}
+
     
     public ArrayList<KhachHangDTO> search(String type, String txt) {
         ArrayList<KhachHangDTO> result = new ArrayList<>();
@@ -116,3 +118,4 @@ public class KhachHangBUS {
         return result;
     }
 }
+
