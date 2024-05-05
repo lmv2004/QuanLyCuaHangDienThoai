@@ -13,6 +13,10 @@ import com.formdev.flatlaf.ui.FlatListCellBorder.Default;
 
 import BUS.PermissionManagerBUS;
 import DTO.PermissionManagerDTO;
+import GUI.Dialog.Permission_ManagerDialog;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -23,15 +27,14 @@ public class Permission_Manager extends javax.swing.JPanel {
     public ArrayList<PermissionManagerDTO> list = perBUS.getAll();
     public PermissionManagerDTO perDTO;
 
-    /**
-     * Creates new form Permission_Manager
-     */
+    
     public Permission_Manager() {
         initComponents();
-
+        eventPermission();
         loadData(list);
     }
-
+  
+   
     public void loadData(ArrayList<PermissionManagerDTO> list) {
         DefaultTableModel tblModel = (DefaultTableModel) List_Permission.getModel();
         while (tblModel.getRowCount() > 0) {
@@ -45,12 +48,36 @@ public class Permission_Manager extends javax.swing.JPanel {
                 per.getTenNhomQuyen()
             });
         }
-
+        
         List_Permission.setModel(tblModel);
         List_Permission.repaint();
         List_Permission.validate();
     }
-
+    public void eventPermission(){
+        toolBar.getAddBtn().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+               Permission_ManagerDialog a= new Permission_ManagerDialog("Thêm nhân viên","add"); 
+             }
+        });
+        toolBar.getEditBtn().addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(getRowIndex()>=0){
+                Permission_ManagerDialog a= new Permission_ManagerDialog("Update nhân viên","update",list.get(getRowIndex())); 
+                }
+                else{
+                           JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng có trong bảng!");
+               
+                }
+             }
+            
+        });
+    }
+    public int getRowIndex(){
+        int row=List_Permission.getSelectedRow();
+        return row;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

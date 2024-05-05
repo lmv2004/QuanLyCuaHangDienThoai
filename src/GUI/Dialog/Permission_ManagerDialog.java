@@ -7,6 +7,7 @@ package GUI.Dialog;
 import Component.InputForm;
 import DAO.PermissionManagerDAO;
 import DTO.PermissionManagerDTO;
+import DTO.WarrantyDTO;
 import GUI.Permission_Manager;
 import GUI.Permission_Manager;
 import com.formdev.flatlaf.fonts.roboto.FlatRobotoFont;
@@ -22,6 +23,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -38,12 +40,13 @@ import javax.swing.SwingUtilities;
 public class Permission_ManagerDialog extends javax.swing.JPanel {
 
     private JLabel titlePage;
-    private PermissionManagerDTO per;
     private Permission_Manager jpper;
     private InputForm maNhomQuyen;
     private InputForm tenDangNhap;
     private JButton btnadd;
     private JButton btnupdate;
+
+    private PermissionManagerDTO PMD;
 
 
     /**
@@ -52,10 +55,21 @@ public class Permission_ManagerDialog extends javax.swing.JPanel {
     public Permission_ManagerDialog() {
         initComponents();
     }
-
+     public Permission_ManagerDialog(String title,String text) {
+        initComponents(title,text);
+        
+    }
+     public Permission_ManagerDialog(String title,String text,PermissionManagerDTO PM) {
+        initComponents(title,text);
+         //System.out.println(PM);
+        this.PMD = PM;
+         System.out.println(PMD);
+        initInfo();
+    }
     public void initInfo() {
-        maNhomQuyen.setText(String.valueOf(per.getMaNhomQuyen()));
-        tenDangNhap.setText(per.getTenNhomQuyen());
+        maNhomQuyen.setText(this.PMD.getMaNhomQuyen()+"");
+        tenDangNhap.setText(this.PMD.getTenNhomQuyen());
+        
     }
 
     public void disabledText() {
@@ -64,9 +78,8 @@ public class Permission_ManagerDialog extends javax.swing.JPanel {
     }
 
     public void initComponents(String title, String type) {
-        this.setSize(500,350);
-        this.setLayout(new BorderLayout(0,0));
-
+        JPanel PanelPhanQUyen=new JPanel(new BorderLayout());
+        PanelPhanQUyen.setPreferredSize(new Dimension(500,350));
         // title
         JPanel titlePanel = new JPanel();
         titlePage = new JLabel(title.toUpperCase());
@@ -86,15 +99,16 @@ public class Permission_ManagerDialog extends javax.swing.JPanel {
 
         // button
         JPanel JPanelBottom = new JPanel();
-        JPanelBottom.setLayout(new FlowLayout(FlowLayout.RIGHT, 20, 10));
+        JPanelBottom.setLayout(new FlowLayout(FlowLayout.CENTER, 20, 10));
         btnadd = new JButton("Thêm");
+        designBtn(btnadd);
         btnupdate = new JButton("Cập nhật");
-        JPanelBottom.add(btnadd);
-        JPanelBottom.add(btnupdate);
-
+        designBtn(btnupdate);
         switch (type) {
             case "add" -> JPanelBottom.add(btnadd);
             case "update" -> JPanelBottom.add(btnupdate);
+                     
+                    
             case "detail" -> {
                 initInfo();
                 disabledText();
@@ -103,12 +117,23 @@ public class Permission_ManagerDialog extends javax.swing.JPanel {
             default -> throw new AssertionError();
         }
 
-        this.add(titlePanel, BorderLayout.NORTH);
-        this.add(JPanelCenter, BorderLayout.CENTER);
-        this.add(JPanelBottom, BorderLayout.SOUTH);
-        this.setVisible(true);
+        PanelPhanQUyen.add(titlePanel, BorderLayout.NORTH);
+        PanelPhanQUyen.add(JPanelCenter, BorderLayout.CENTER);
+        PanelPhanQUyen.add(JPanelBottom, BorderLayout.SOUTH);
+        PanelPhanQUyen.setVisible(true);
+        JDialog popupDialog=new JDialog();
+        popupDialog.setModal(true);
+        popupDialog.setContentPane(PanelPhanQUyen);
+        popupDialog.pack();
+        popupDialog.setLocationRelativeTo(null);
+        popupDialog.setVisible(true);
     }
-
+    public void designBtn(JButton button) {
+        button.setPreferredSize(new Dimension(100, 40));
+        button.setBackground(new Color(0, 153, 153));
+        button.setFont(new Font("Segoe UI", Font.BOLD, 14));
+        button.setForeground(new Color(255, 255, 255));
+    }
     public void Validation() {
         if (maNhomQuyen.txtForm.getText().equals("")) {
             JOptionPane.showMessageDialog(null, "Mã nhóm quyền không được để trống");
