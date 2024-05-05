@@ -32,6 +32,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.JTableHeader;
 import java.awt.*;
 import java.awt.Font;
+import javax.swing.DefaultComboBoxModel;
 
 public class SupplierView extends JPanel {
     private JButton add;
@@ -45,6 +46,7 @@ public class SupplierView extends JPanel {
     private JButton btnsearch;
     private JTextField search;
     private JTable table;
+    GUI.toolBar toolBar = new toolBar();
 
     public SupplierView() {
         setPreferredSize(new java.awt.Dimension(1200, 724));
@@ -72,6 +74,9 @@ public class SupplierView extends JPanel {
          option = new JComboBox<>(new String[]{"Tất cả","Mã nhà cung cấp","Tên nhà cung cấp"});
          option.setFont(comboBoxFont); 
         btnsearch = new JButton("");
+        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String[]{
+            "Tất cả","Mã nhà cung cấp","Tên nhà cung cấp"
+        }));
 
         JPanel jpanel = new JPanel();
         FlowLayout flowLayout = new FlowLayout(FlowLayout.CENTER, 15, 25);
@@ -93,10 +98,10 @@ public class SupplierView extends JPanel {
         refresh.setIcon(new ImageIcon(getClass().getResource("/img/refresh.png")));
         //btnsearch.setIcon(new ImageIcon(getClass().getResource("/img/search-icon")));
         this.setLayout(new BorderLayout());
-        this.add(jpanel, BorderLayout.NORTH);
+        add(toolBar, BorderLayout.NORTH);
         
         
-         search.addFocusListener(new FocusListener() {
+         toolBar.getTfSearch().addFocusListener(new FocusListener() {
     @Override
     public void focusGained(FocusEvent e) {
         // Xóa nội dung của ô tìm kiếm khi người dùng bắt đầu nhập liệu
@@ -110,7 +115,7 @@ public class SupplierView extends JPanel {
     }
 });
         
-        add.addActionListener(new ActionListener() {
+        toolBar.getAddBtn().addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         JFrame addNCCFrame = new addNCC();
@@ -127,7 +132,7 @@ public class SupplierView extends JPanel {
     }
 });
 
-        delete.addActionListener(new ActionListener() {
+        toolBar.getRemoveBtn().addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         int selectedRow = table.getSelectedRow();
@@ -154,7 +159,7 @@ public class SupplierView extends JPanel {
         }
     }
 });
-         detail.addActionListener(new ActionListener() {
+         toolBar.getDetailBtn().addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         int selectedRow = table.getSelectedRow();
@@ -179,7 +184,7 @@ public class SupplierView extends JPanel {
     }
 });
      
-          update.addActionListener(new ActionListener() {
+          toolBar.getEditBtn().addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         int selectedRow = table.getSelectedRow();
@@ -215,13 +220,13 @@ public class SupplierView extends JPanel {
     }
 });
 
-      refresh.addActionListener(new ActionListener() {
+      toolBar.getRefreshBtn().addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         updateTableData(); // Cập nhật lại dữ liệu từ BUS
     }
 });
-      btnsearch.addActionListener(new ActionListener() {
+      toolBar.getFindBtn().addActionListener(new ActionListener() {
     @Override
     public void actionPerformed(ActionEvent e) {
         String searchText = search.getText().trim(); // Lấy nội dung từ ô tìm kiếm

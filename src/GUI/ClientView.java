@@ -32,6 +32,7 @@ public class ClientView extends JPanel {
     private JButton btnsearch;
     private JTextField search;
     private JTable table;
+    GUI.toolBar toolBar = new toolBar();
 
     public ClientView() {
 
@@ -57,6 +58,9 @@ public class ClientView extends JPanel {
         option = new JComboBox<>(new String[]{"Tất cả", "Mã khách hàng", "Tên khách hàng"});
         option.setFont(comboBoxFont);
         btnsearch = new JButton("");
+        toolBar.getCbbFilter().setModel(new DefaultComboBoxModel(new String[]{
+            "Tất cả", "Mã khách hàng", "Tên khách hàng"
+        }));
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 25));
         buttonPanel.add(add);
@@ -77,11 +81,10 @@ public class ClientView extends JPanel {
         //btnsearch.setIcon(new ImageIcon(getClass().getResource("/img/search-icon")));
         refresh.setIcon(new ImageIcon(getClass().getResource("/img/refresh.png")));
         setLayout(new BorderLayout());
-        add(buttonPanel, BorderLayout.NORTH);
-        //this.add(new toolBar(), BorderLayout.NORTH);
-       // this.add(buttonPanel, BorderLayout.CENTER);
+        add(toolBar,BorderLayout.NORTH);
+        //add(buttonPanel, BorderLayout.NORTH);
 
-        search.addFocusListener(new FocusListener() {
+        toolBar.getTfSearch().addFocusListener(new FocusListener() {
             @Override
             public void focusGained(FocusEvent e) {
                 // Xóa nội dung của ô tìm kiếm khi người dùng bắt đầu nhập liệu
@@ -96,7 +99,7 @@ public class ClientView extends JPanel {
         });
 
         // Trong phương thức actionPerformed của nút Add
-        add.addActionListener(new ActionListener() {
+        toolBar.getAddBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 addKH addKhachHangFrame = new addKH();
@@ -113,7 +116,7 @@ public class ClientView extends JPanel {
             }
         });
 
-        update.addActionListener(new ActionListener() {
+        toolBar.getEditBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
@@ -148,7 +151,7 @@ public class ClientView extends JPanel {
         });
 // Dòng này là dấu đóng ngoặc cuối cho addActionListener
 
-        delete.addActionListener(new ActionListener() {
+        toolBar.getRemoveBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
@@ -175,13 +178,13 @@ public class ClientView extends JPanel {
                 }
             }
         });
-        refresh.addActionListener(new ActionListener() {
+        toolBar.getRefreshBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 updateTableData(); // Cập nhật lại dữ liệu từ BUS
             }
         });
-        detail.addActionListener(new ActionListener() {
+        toolBar.getDetailBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 int selectedRow = table.getSelectedRow();
@@ -206,7 +209,7 @@ public class ClientView extends JPanel {
             }
         });
 
-        btnsearch.addActionListener(new ActionListener() {
+        toolBar.getFindBtn().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 String searchText = search.getText().trim(); // Lấy nội dung từ ô tìm kiếm
