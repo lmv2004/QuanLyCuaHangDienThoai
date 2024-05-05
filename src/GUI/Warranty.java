@@ -6,6 +6,7 @@ package GUI;
 
 import DTO.WarrantyDTO;
 import GUI.Dialog.WarrantyDialog;
+import BUS.PermissionManagerBUS;
 import BUS.SanPhamBUS;
 import BUS.WarrantyBUS;
 
@@ -36,6 +37,7 @@ public class Warranty extends javax.swing.JPanel {
     public ArrayList<WarrantyDTO> WarrantyList = warrantyBUS.getAll();
     public WarrantyDTO warranty;
     JFrame owner = (JFrame) SwingUtilities.getWindowAncestor(this);
+
     /**
      * Creates new form Warranty
      */
@@ -75,6 +77,7 @@ public class Warranty extends javax.swing.JPanel {
 
         List_Warranty.setModel(tblModel);
     }
+
     public void loadCbbFilter() {
         toolBar.getCbbFilter().setModel(new DefaultComboBoxModel<>(new String[] {
                 "Tất cả", "Mã sản phẩm", "Mã bảo hành", "Tên khách hàng", "Yêu cầu bảo hành", "Trạng thái bảo hành"
@@ -94,21 +97,23 @@ public class Warranty extends javax.swing.JPanel {
 
                     WarrantyList = warrantyBUS.search(type, toolBar.getTfSearch().getText());
                     loadData(WarrantyList);
-                } else {    
+                } else {
                     WarrantyList = warrantyBUS.getAll();
                     loadData(WarrantyList);
                 }
             }
         });
     }
+
     // Load add function
     public void loadAdd() {
         toolBar.getAddBtn().addActionListener(new java.awt.event.ActionListener() {
-            
+
             @Override
             public void actionPerformed(ActionEvent e) {
-               // WarrantyDialog(Warranty JPWarranty, java.awt.Frame parent, boolean modal, String title, String type)
-                WarrantyDialog dialog = new WarrantyDialog(Warranty.this,owner,true,"Thêm bảo hành","add");
+                // WarrantyDialog(Warranty JPWarranty, java.awt.Frame parent, boolean modal,
+                // String title, String type)
+                WarrantyDialog dialog = new WarrantyDialog(Warranty.this, owner, true, "Thêm bảo hành", "add");
                 System.out.println("Hello");
             }
         });
@@ -119,13 +124,14 @@ public class Warranty extends javax.swing.JPanel {
         toolBar.getEditBtn().addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              
-              if(getIndexRow() != -1){
-               WarrantyDialog dialog = new WarrantyDialog(Warranty.this,owner,true,"Thêm bảo hành","update",WarrantyList.get(getIndexRow()));
-              } else {
-                  JOptionPane.showMessageDialog(Warranty.this, "VUi lòng chọn dỏng trong bảng");
-              }
-             
+
+                if (getIndexRow() != -1) {
+                    WarrantyDialog dialog = new WarrantyDialog(Warranty.this, owner, true, "Thêm bảo hành", "update",
+                            WarrantyList.get(getIndexRow()));
+                } else {
+                    JOptionPane.showMessageDialog(Warranty.this, "VUi lòng chọn dỏng trong bảng");
+                }
+
             }
         });
     }
@@ -135,10 +141,37 @@ public class Warranty extends javax.swing.JPanel {
         toolBar.getRemoveBtn().addActionListener(new java.awt.event.ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e) {
-               
+                int selectedIndex = getIndexRow();
+                if (selectedIndex != -1) {
+                    int input = JOptionPane.showConfirmDialog(
+                        null, 
+                        "Bạn có chắc chắn muốn xóa không?", 
+                        "Xác nhận",
+                        JOptionPane.YES_NO_OPTION);
+                    if (input == 0) {
+                        WarrantyDTO selectedWarranty = WarrantyList.get(selectedIndex);
+                        boolean canDelete = true;
+                        for (WarrantyDTO warranty : WarrantyList) {
+                            if (warranty.getMaSanPham() == selectedWarranty.getMaBaoHanh()) {
+                                canDelete = false;
+                                break;
+                            }
+                        }
+                        if (canDelete) {
+                            warrantyBUS.delete(WarrantyList.get(selectedIndex), selectedIndex);
+                            loadData(WarrantyList);
+                            JOptionPane.showMessageDialog(null, "Xóa bảo hành thành công");
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Không thể xóa bảo hành này");
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "Vui lòng chọn dòng cần xóa");
+                }
             }
-        
         });
+
+        loadData(WarrantyList);
     }
 
     // Load detail function
@@ -146,14 +179,15 @@ public class Warranty extends javax.swing.JPanel {
         toolBar.getDetailBtn().addActionListener(new java.awt.event.ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-              
-              if(getIndexRow() != -1){
-               WarrantyDialog dialog = new WarrantyDialog(Warranty.this,owner,true,"Thêm bảo hành","detail",WarrantyList.get(getIndexRow()));
-               
-              } else {
-                  JOptionPane.showMessageDialog(Warranty.this, "VUi lòng chọn dỏng trong bảng");
-              }
-             
+
+                if (getIndexRow() != -1) {
+                    WarrantyDialog dialog = new WarrantyDialog(Warranty.this, owner, true, "Thêm bảo hành", "detail",
+                            WarrantyList.get(getIndexRow()));
+
+                } else {
+                    JOptionPane.showMessageDialog(Warranty.this, "VUi lòng chọn dỏng trong bảng");
+                }
+
             }
         });
     }
@@ -167,12 +201,11 @@ public class Warranty extends javax.swing.JPanel {
             }
         });
     }
-    
-     public int getIndexRow(){
-         int i = List_Warranty.getSelectedRow();
-         return i;
-     }
 
+    public int getIndexRow() {
+        int i = List_Warranty.getSelectedRow();
+        return i;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
